@@ -565,6 +565,50 @@ body[data-ui="dark"]{--bg:#0B0A0E;--card:#16141B;--tile:#201D27;--lav:#2A2533;--
 .fcno{background:#E5484D}.fcno svg{transform:rotate(135deg)}
 .fcyes{background:#30A46C}
 
+/* Venner og chat */
+.av[style*="--h"]{background:hsl(var(--h) 55% 88%);color:hsl(var(--h) 40% 30%)}
+.av.sm{width:38px;height:38px;font-size:15px}
+.mecard{display:flex;gap:12px;align-items:center;padding:14px;margin:6px 18px 0}
+.mecard .body{flex:1;min-width:0}
+.frow{display:flex;gap:12px;align-items:center;padding:10px 12px;width:100%;text-align:left}
+.frow .body{flex:1;min-width:0}
+.frow .kw{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ubadge{min-width:22px;height:22px;border-radius:11px;background:var(--accent);color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center;padding:0 6px}
+.chattop{position:sticky;top:0;z-index:5;background:var(--bg);grid-template-columns:46px minmax(0,1fr) auto}
+.chathead{display:flex;align-items:center;gap:10px;min-width:0}
+.chathead b{display:block;font-size:16px}
+.chathead small{color:var(--ink-2);font-size:12px}
+.chatcalls{display:flex;gap:6px}
+.chatlog2{display:grid;gap:8px;padding:10px 18px 110px;align-content:start}
+.chatlog2 .msg{max-width:80%}
+.msg.rec{background:transparent;padding:0;display:grid;gap:6px;color:var(--ink)}
+.msg.rec .rect{background:var(--tile);border-radius:18px 18px 18px 6px;padding:10px 14px}
+.msg.rec.me{justify-self:end}
+.reccard{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:8px;text-align:left;width:250px;max-width:100%}
+.reccard .body{flex:1;min-width:0}
+.msg.sys{justify-self:center;background:transparent;color:var(--ink-2);font-size:12px;display:flex;gap:6px;align-items:center}
+.msg.sys svg{width:14px;height:14px}
+.chatbar{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(480px,100%);display:flex;gap:8px;align-items:center;padding:10px 14px calc(12px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--line);z-index:6}
+.chatbar .txtin{flex:1}
+.circ.dark{background:var(--btn);color:var(--btn-ink);border-color:var(--btn)}
+.optp{display:flex;align-items:center;gap:10px}
+.callov .fcav{background:hsl(var(--h) 55% 88%);color:hsl(var(--h) 40% 30%)}
+.vidbox{margin-top:24px;width:70%;aspect-ratio:3/4;border-radius:20px;background:rgba(255,255,255,.08);border:1px dashed rgba(255,255,255,.3);display:grid;place-items:center;font-size:13px;opacity:.8}
+.callbtns{margin-top:auto;display:flex;gap:28px}
+.cb{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.15);display:grid;place-items:center;color:#fff}
+.cb.on{background:#fff;color:#2A2140}
+.cb.end{background:#E5484D}.cb.end svg{transform:rotate(135deg)}
+.calldemo{margin-top:18px;font-size:12px;opacity:.6}
+/* Anmeldelser rangeret */
+.chip.sm{padding:8px 14px;display:inline-flex;align-items:center;gap:4px}
+.chip.sm svg{width:13px;height:13px;color:#F5A524}
+.rankrow{display:flex;gap:12px;align-items:center;padding:10px 12px;width:100%;text-align:left}
+.rankrow .body{flex:1;min-width:0}
+.rnum{width:28px;font-weight:800;font-size:16px;color:var(--ink-2);text-align:center;flex:none}
+.rscore{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none}
+.rscore b{font-size:18px}
+.rscore small{font-size:11px;color:var(--ink-2)}
+
 /* Skrabekalender */
 .scbanner{display:flex;align-items:center;gap:12px;width:100%;padding:14px;text-align:left;background:linear-gradient(135deg,#4B3B6B,#A23E72);color:#fff;border:0}
 .scbanner .t{flex:1;min-width:0}
@@ -1012,10 +1056,15 @@ const IC={
   train:sv('<rect x="6" y="3.5" width="12" height="13" rx="3"/><path d="M6 10.5h12M9.5 13.8h.01M14.5 13.8h.01M8.5 20l1.5-3.5M15.5 20 14 16.5"/>',20,1.9),
   walk:sv('<circle cx="13" cy="4.5" r="1.8"/><path d="m9.5 21 2.2-6.5L14 17v4M10 11l2-3.5 3 2.5 2.5 1M11.7 14.5 10 11l-2.5 2"/>',20,1.9),
   bike2:sv('<circle cx="6" cy="16.5" r="3.5"/><circle cx="18" cy="16.5" r="3.5"/><path d="M6 16.5 9.5 9h5l3.5 7.5M12 16.5 9.5 9M14 6h2.5"/>',20,1.9),
+  video:sv('<rect x="3" y="6.5" width="12.5" height="11" rx="2.5"/><path d="m15.5 10.5 5-3v9l-5-3z"/>',20,1.9),
+  mic:sv('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/>',22,1.9),
+  speaker:sv('<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>',22,1.9),
   stamp:sv('<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5" stroke-dasharray="2 2.2"/><path d="m10.2 12 1.3 1.3 2.4-2.6"/>',20,1.8),
   starL:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>'
 };
-const DS=()=>S.lang==="en"?".":",";
+const LOCALES={da:"da-DK",en:"en-GB",fr:"fr-FR",ru:"ru-RU",es:"es-ES",de:"de-DE",sv:"sv-SE",zh:"zh-CN"};
+const LOC=()=>LOCALES[S.lang]||"da-DK";
+const DS=()=>S.lang==="en"||S.lang==="zh"?".":",";
 // Logo: en gaffel i en tallerken
 const LOGO=`<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.6" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="20" cy="20" r="14.4" fill="none" stroke="currentColor" stroke-width=".8" opacity=".55"/><path d="M15.5 9.5v6.7a3.2 3.2 0 0 0 2.6 3.1V30a1.9 1.9 0 0 0 3.8 0V19.3a3.2 3.2 0 0 0 2.6-3.1V9.5M18.7 9.5v6.2M21.3 9.5v6.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
@@ -1296,10 +1345,10 @@ const S={view:"home",stack:[],rid:null,itemId:null,qty:1,search:"",cat:"Alle",al
   currency:"DKK",convFrom:"DKK",convAmount:"100",
   loc:null,gps:{status:"off",err:"",at:null},watchId:null,
   cart:{rid:null,items:{}},promo:null,order:null,lastOrder:null,quiz:{i:0,a:{}},meet:null,lang:null,
-  wallet:{cards:[],apple:true,def:"apple"},orders:[],reviews:{},user:null,prefs:{offers:true,status:true,meet:true,firstOnly:true},form:{},authTab:"in",rv:null,rvSort:"new",tables:{},safety:{name:"",phone:"",delay:20},safe:null,passport:{},badges:{},meetMode:"tables",tableTheme:-1,talkIdx:0,visits:{},mapCat:"Alle",mapSel:null,dir:null,points:0,pointsLog:[],scratch:{},vouchers:[],scratchSalt:0,cartVoucher:null};
+  wallet:{cards:[],apple:true,def:"apple"},orders:[],reviews:{},user:null,prefs:{offers:true,status:true,meet:true,firstOnly:true},form:{},authTab:"in",rv:null,rvSort:"new",tables:{},safety:{name:"",phone:"",delay:20},safe:null,passport:{},badges:{},meetMode:"tables",tableTheme:-1,talkIdx:0,visits:{},mapCat:"Alle",mapSel:null,dir:null,points:0,pointsLog:[],scratch:{},vouchers:[],scratchSalt:0,cartVoucher:null,social:null,chatWith:null,fq:"",arTab:"reviews",rvStar:0};
 function load(){
   try{const d=JSON.parse(localStorage.getItem("gaffel2")||"null");
-    if(d){for(const k of ["currency","convFrom","convAmount","cart","promo","lastOrder","order","meet","lang","wallet","orders","reviews","user","prefs","tables","safety","safe","passport","badges","visits","points","pointsLog","scratch","vouchers","scratchSalt","cartVoucher"]) if(d[k]!==undefined) S[k]=d[k];
+    if(d){for(const k of ["currency","convFrom","convAmount","cart","promo","lastOrder","order","meet","lang","wallet","orders","reviews","user","prefs","tables","safety","safe","passport","badges","visits","points","pointsLog","scratch","vouchers","scratchSalt","cartVoucher","social"]) if(d[k]!==undefined) S[k]=d[k];
       if(d.manualLoc) S.loc=d.manualLoc;}
   }catch(e){}
   if(!CURRENCIES[S.currency]) S.currency="DKK";
@@ -1310,7 +1359,7 @@ function load(){
   if(S.meet && (S.meet.status==="found"||S.meet.status==="booked"||S.meet.status==="checked") && !(S.meet.match&&RESTAURANTS.some(r=>r.id===S.meet.match.rid))) S.meet=null;
 }
 function save(){
-  try{localStorage.setItem("gaffel2",JSON.stringify({currency:S.currency,convFrom:S.convFrom,convAmount:S.convAmount,cart:S.cart,promo:S.promo,lastOrder:S.lastOrder,order:S.order,meet:S.meet,lang:S.lang,wallet:S.wallet,orders:S.orders,reviews:S.reviews,user:S.user,prefs:S.prefs,tables:S.tables,safety:S.safety,safe:S.safe,passport:S.passport,badges:S.badges,visits:S.visits,points:S.points,pointsLog:S.pointsLog,scratch:S.scratch,vouchers:S.vouchers,scratchSalt:S.scratchSalt,cartVoucher:S.cartVoucher,
+  try{localStorage.setItem("gaffel2",JSON.stringify({currency:S.currency,convFrom:S.convFrom,convAmount:S.convAmount,cart:S.cart,promo:S.promo,lastOrder:S.lastOrder,order:S.order,meet:S.meet,lang:S.lang,wallet:S.wallet,orders:S.orders,reviews:S.reviews,user:S.user,prefs:S.prefs,tables:S.tables,safety:S.safety,safe:S.safe,passport:S.passport,badges:S.badges,visits:S.visits,points:S.points,pointsLog:S.pointsLog,scratch:S.scratch,vouchers:S.vouchers,scratchSalt:S.scratchSalt,cartVoucher:S.cartVoucher,social:S.social,
     manualLoc:S.loc&&S.loc.manual?S.loc:null}));}catch(e){}
 }
 
@@ -1318,7 +1367,7 @@ function save(){
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const conv=(a,f,t)=>a/CURRENCIES[f].rate*CURRENCIES[t].rate;
-function fmt(a,code){const c=CURRENCIES[code];try{return new Intl.NumberFormat(S.lang==="en"?"en-GB":"da-DK",{style:"currency",currency:code,minimumFractionDigits:c.dec,maximumFractionDigits:c.dec}).format(a);}catch(e){return a.toFixed(c.dec)+" "+code;}}
+function fmt(a,code){const c=CURRENCIES[code];try{return new Intl.NumberFormat(LOC(),{style:"currency",currency:code,minimumFractionDigits:c.dec,maximumFractionDigits:c.dec}).format(a);}catch(e){return a.toFixed(c.dec)+" "+code;}}
 const price=dkk=>fmt(conv(dkk,"DKK",S.currency),S.currency);
 function dist(a,b){const R=6371,r=x=>x*Math.PI/180,dl=r(b.lat-a.lat),dn=r(b.lng-a.lng);
   const h=Math.sin(dl/2)**2+Math.cos(r(a.lat))*Math.cos(r(b.lat))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h));}
@@ -1483,7 +1532,7 @@ function floatBtn(){const {count,sub}=cartData();if(!count)return "";
 /* ---------- Forside ---------- */
 function vHome(){
   const st=S.gps.status, live=st==="live"&&S.loc&&!S.loc.manual;
-  return `<header class="hhead"><h1 class="logo" aria-label="Gaffel" translate="no">${LOGO}<span>Gaffel</span></h1><button class="langbtn" data-act="lang-sheet" aria-label="Skift sprog">${IC.globe}<span translate="no">${S.lang.toUpperCase()}</span></button>${cartCirc()}</header>
+  return `<header class="hhead"><h1 class="logo" aria-label="Gaffel" translate="no">${LOGO}<span>Gaffel</span></h1><button class="langbtn" data-act="lang-sheet" aria-label="Skift sprog">${IC.globe}<span translate="no">${S.lang.toUpperCase()}</span></button>${friendsCirc()}${cartCirc()}</header>
    <p class="hello">${greet()} · Restauranter i København</p>
    <div class="locrow">
      <button class="loc-btn" data-act="gps-sheet"><i class="dot ${live?"live":st==="seeking"?"seek":""}"></i><span>${esc(gpsLabel())}${live?` · ±${S.loc.acc} m`:""}</span></button>
@@ -1507,8 +1556,8 @@ function matchR(r){
 function homeResults(){
   const q=S.search.trim().toLowerCase();
   if(q){
-    const hits=ALL.filter(it=>(it.n+" "+it.d+" "+it.r.name+" "+it.r.cat+" "+it.r.kw+(S.lang==="en"?" "+[it.n,it.d,it.r.cat,it.r.kw].map(trCore).join(" "):"")).toLowerCase().includes(q));
-    const rh=RESTAURANTS.filter(r=>(r.name+" "+r.cat+" "+r.tag+" "+r.kw+(S.lang==="en"?" "+[r.cat,r.kw,r.desc].map(trCore).join(" "):"")).toLowerCase().includes(q));
+    const hits=ALL.filter(it=>(it.n+" "+it.d+" "+it.r.name+" "+it.r.cat+" "+it.r.kw+(S.lang!=="da"?" "+[it.n,it.d,it.r.cat,it.r.kw].map(trCore).join(" "):"")).toLowerCase().includes(q));
+    const rh=RESTAURANTS.filter(r=>(r.name+" "+r.cat+" "+r.tag+" "+r.kw+(S.lang!=="da"?" "+[r.cat,r.kw,r.desc].map(trCore).join(" "):"")).toLowerCase().includes(q));
     return `<div class="sec-h"><div><span class="eyebrow">Søgning</span><h2>Resultater for “${esc(S.search.trim())}”</h2></div></div>
       ${rh.length?`<div class="list">${rh.map(nCard).join("")}</div>`:""}
       ${hits.length?`<div class="sec-h"><div><span class="eyebrow">${hits.length} retter</span><h2>Retter</h2></div></div><div class="list">${hits.map(it=>mCard(it,true)).join("")}</div>`
@@ -1530,6 +1579,7 @@ function homeResults(){
    ${S.lastOrder&&!S.order?`<div class="again"><button class="see" data-act="repeat">${IC.repeat} Gentag sidste ordre</button></div>`:""}
    ${passBanner()}
    ${reviewPrompt()}
+   ${reviewsBanner()}
    ${offers.length?`<div class="sec-h"><div><span class="eyebrow">Kun i dag</span><h2>Dagens tilbud</h2></div></div>
      <div class="row">${offers.map(oCard).join("")}</div>`:""}
    <div class="sec-h"><div><span class="eyebrow">${rs.length} restauranter</span><h2>${S.loc?"Tæt på dig":"Restauranter"}</h2></div>
@@ -1556,6 +1606,7 @@ function vRest(){
    ${r.open?`<div style="padding:14px 18px 0"><button class="meet-inline" data-act="meet-here" data-r="${r.id}"><span class="ic">${IC.people}</span><span class="t">Spis her med en makker i aften<small>Bliv matchet med andre solospisere</small></span>${IC.arrow}</button></div>`:""}
    ${restTable(r)}
    <div style="padding:12px 18px 0"><button class="meet-inline" data-act="dir-open" data-r="${r.id}"><span class="ic">${IC.map}</span><span class="t">Rutevejledning<small>Se vejen derhen med metro, til fods eller på cykel</small></span>${IC.arrow}</button></div>
+   <div style="padding:12px 18px 0"><button class="meet-inline" data-act="rec-friend" data-r="${r.id}"><span class="ic">${IC.send}</span><span class="t">Anbefal til en ven<small>Send stedet i en chat</small></span>${IC.arrow}</button></div>
    ${cur==="Alle"
      ?secs.map(s=>`<div class="sec-h small"><h2>${esc(s)}</h2><span class="kw">${items.filter(it=>it.sec===s).length} retter</span></div><div class="list">${items.filter(it=>it.sec===s).map(it=>mCard(it)).join("")}</div>`).join("")
      :`<div class="list" style="padding-top:14px">${items.map(it=>mCard(it)).join("")}</div>`}
@@ -2034,8 +2085,8 @@ document.addEventListener("click",e=>{
       S.convFrom=to;save();render();break;}
     case "use-cur":S.currency=S.convFrom;save();toast(`Priser vises nu i ${S.currency}`);back();break;
     /* Spis sammen */
-    case "meet":if(!S.meet||S.meet.status==="done")S.meet=newMeet();go("meet");break;
-    case "meet-here":{const w={type:"r",id:b.dataset.r};if(!S.meet||["setup","none","done"].includes(S.meet.status))S.meet=newMeet(w);go("meet");break;}
+    case "meet":if(!S.meet||S.meet.status==="done")S.meet=newMeet();S.meetMode="match";go("meet");break;
+    case "meet-here":{const w={type:"r",id:b.dataset.r};S.meetMode="match";if(!S.meet||["setup","none","done"].includes(S.meet.status))S.meet=newMeet(w);go("meet");break;}
     case "meet-wmode":S.meet.wmode=b.dataset.v;keepScroll();break;
     case "meet-r":S.meet.where={type:"r",id:b.dataset.id};save();keepScroll();break;
     case "meet-a":S.meet.where={type:"a",i:+b.dataset.i};save();keepScroll();break;
@@ -2058,7 +2109,7 @@ document.addEventListener("click",e=>{
     case "meet-block":closeSheet();S.meet.status="done";save();render();window.scrollTo(0,0);toast("Demo: personen er blokeret og anmeldt");break;
     case "sheet-close":closeSheet();break;
     case "lang-sheet":openSheet("lang",`<h3 translate="no">Sprog · Language</h3>${Object.entries(LANGS).map(([k,v])=>`<button class="opt" data-act="setlang" data-l="${k}" aria-pressed="${k===S.lang}"><span translate="no">${v}</span><span>${k===S.lang?IC.tick:""}</span></button>`).join("")}`);break;
-    case "setlang":setLang(b.dataset.l);closeSheet();toast(S.lang==="en"?"Language: English":"Sprog: dansk");break;
+    case "setlang":setLang(b.dataset.l);closeSheet();toast(LANGS[S.lang]);break;
     /* Faner og profil */
     case "tab-home":goTab("home");break;
     case "tab-meet":goTab("meet");break;
@@ -2097,7 +2148,7 @@ document.addEventListener("click",e=>{
     case "review-edit":{const x=(S.reviews[b.dataset.r]||[]).find(y=>y.id===b.dataset.id);if(!x)break;
       S.rv={stars:x.stars,tags:[...(x.tags||[])],text:x.text,dish:x.dish||"",showName:x.name!=="Anonym",edit:x.id,order:x.order||null};go("review",{rid:x.rid});break;}
     case "review-del":if(confirm(tr("Vil du slette din anmeldelse?"))){S.reviews[b.dataset.r]=(S.reviews[b.dataset.r]||[]).filter(y=>y.id!==b.dataset.id);save();keepScroll();toast("Anmeldelsen er slettet");}break;
-    case "reviews-all":S.rvSort="new";go("reviews",{rid:b.dataset.r});break;
+    case "reviews-all":S.rvSort="high";S.rvStar=0;go("reviews",{rid:b.dataset.r});break;
     case "rv-sort":S.rvSort=b.dataset.v;keepScroll();break;
     case "rv-star":S.rv.stars=+b.dataset.v;keepScroll();break;
     case "rv-tag":{const t=b.dataset.v,a=S.rv.tags;S.rv.tags=a.includes(t)?a.filter(x=>x!==t):[...a,t];keepScroll();break;}
@@ -2150,6 +2201,30 @@ document.addEventListener("click",e=>{
     case "dir-mode":S.dir.mode=b.dataset.v;updateMapSheet();drawRoute();break;
     case "dir-close":S.dir=null;updateMapSheet();drawMarkers();drawRoute();break;
     case "tab-map":goTab("map");break;
+    /* Anmeldelser rangeret */
+    case "go-allreviews":S.rvSort="high";S.rvStar=0;S.arTab="reviews";go("allreviews");break;
+    case "ar-tab":S.arTab=b.dataset.v;render();break;
+    case "rv-star-f":S.rvStar=+b.dataset.v;keepScroll();break;
+    /* Venner og chat */
+    case "go-friends":S.fq="";go("friends");break;
+    case "go-friends-sheet":closeSheet();S.fq="";go("friends");break;
+    case "share-handle":{const txt=tr(`Find mig på Gaffel: @${myHandle()}`);if(navigator.share)navigator.share({text:txt}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>toast("Kopieret – send det til en ven"),()=>toast(txt));break;}
+    case "fr-add":{const id=b.dataset.u,so=social();if(so.sent.includes(id))break;so.sent.push(id);save();
+      const fr=$("#fresults");if(fr){b.textContent=tr("Sendt");b.disabled=true;b.classList.remove("on");}toast("Venneanmodning sendt");
+      setTimeout(()=>{const s2=social();if(!s2.sent.includes(id))return;s2.sent=s2.sent.filter(x=>x!==id);if(!s2.friends.includes(id))s2.friends.push(id);save();
+        toast(tr(`${person(id).name} accepterede din venneanmodning`));pushMsg(id,{from:id,type:"text",t:"Hej! Tak fordi du tilføjede mig."});if(S.view==="friends")keepScroll();},2500);break;}
+    case "fr-accept":{const id=b.dataset.u,so=social();so.req=so.req.filter(r=>r.id!==id);if(!so.friends.includes(id))so.friends.push(id);save();keepScroll();
+      toast(tr(`Du og ${person(id).name} er nu venner`));setTimeout(()=>pushMsg(id,{from:id,type:"text",t:"Hej! Tak fordi du accepterede."}),1200);break;}
+    case "fr-decline":{const so=social();so.req=so.req.filter(r=>r.id!==b.dataset.u);save();keepScroll();break;}
+    case "open-chat":go("chat",{chatWith:b.dataset.u});setTimeout(()=>{const l=$("#chatlog2");if(l)l.scrollTop=l.scrollHeight;},30);break;
+    case "chat-send":sendChat();break;
+    case "rec-sheet":recSheet(null);break;
+    case "rec-friend":recSheet(b.dataset.r);break;
+    case "rec-send":{const id=b.dataset.u,rid=b.dataset.r;closeSheet();sendRec(id,rid);toast(tr(`Anbefaling sendt til ${person(id).name}`));break;}
+    case "fcall":startCall(b.dataset.u,b.dataset.v==="video");break;
+    case "call-end":endCall();break;
+    case "call-mute":b.classList.toggle("on");break;
+    case "call-speaker":b.classList.toggle("on");break;
     /* Skrabekalender og kuponer */
     case "go-scratch":go("scratch");break;
     case "scratch-all":finishScratch();break;
@@ -2174,10 +2249,11 @@ document.addEventListener("click",e=>{
   }
 });
 function keepScroll(){const y=window.scrollY;render();window.scrollTo(0,y);}
-document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="chatin"){e.preventDefault();meetSend();}});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="chatin"){e.preventDefault();meetSend();}if(e.key==="Enter"&&e.target.id==="chatin2"){e.preventDefault();sendChat();}});
 document.addEventListener("input",e=>{
   if(e.target.id==="q"){S.search=e.target.value;$("#results").innerHTML=homeResults();addOrderBanner();}
   if(e.target.id==="meetname"&&S.meet){S.meet.name=e.target.value.trim();save();}
+  if(e.target.id==="fq"){S.fq=e.target.value;const so=social(),q=S.fq.trim().toLowerCase(),others=PEOPLE.filter(p=>!so.friends.includes(p.id)&&!so.req.some(r=>r.id===p.id));$("#fresults").innerHTML=friendResults(q?others.filter(p=>(p.name+" "+p.handle).toLowerCase().includes(q)):others.slice(0,4),q);}
   const el=e.target;
   if(el.dataset.f){S.form[el.dataset.f]=el.type==="checkbox"?el.checked:el.value;
     if(el.dataset.f==="pw"||el.dataset.f==="newpw"){const bar=$("#pwbar"),txt=$("#pwtxt");if(bar){const s=pwStrength(el.value);bar.dataset.s=s;bar.firstElementChild.style.width=(el.value?(s+1)*20:0)+"%";txt.textContent=tr(el.value?PW_TXT[s]:"Mindst 8 tegn med både bogstaver og tal");}}}
@@ -2207,7 +2283,7 @@ function addOrderBanner(){
 }
 function render(){
   const v=$("#view");
-  const map={home:vHome,rest:vRest,item:vItem,cart:vCart,track:vTrack,quiz:vQuiz,quizres:vQuizRes,currency:vCurrency,meet:vMeet,table:vTable,passport:vPassport,map:vMap,scratch:vScratch,visited:vVisited,wallet:vWallet,addcard:vAddCard,profile:vProfile,orders:vOrders,editprofile:vEditProfile,myreviews:vMyReviews,review:vReview,reviews:vReviews};
+  const map={home:vHome,rest:vRest,item:vItem,cart:vCart,track:vTrack,quiz:vQuiz,quizres:vQuizRes,currency:vCurrency,meet:vMeet,table:vTable,passport:vPassport,map:vMap,scratch:vScratch,friends:vFriends,chat:vChat,allreviews:vAllReviews,visited:vVisited,wallet:vWallet,addcard:vAddCard,profile:vProfile,orders:vOrders,editprofile:vEditProfile,myreviews:vMyReviews,review:vReview,reviews:vReviews};
   if(S.view==="track"&&!S.order)S.view="home";
   if(S.view==="item"&&!byId(S.itemId))S.view="home";
   if(S.view==="rest"&&!RESTAURANTS.find(r=>r.id===S.rid))S.view="home";
@@ -2250,7 +2326,7 @@ function when(t){
   if(t>=s0.getTime()-day)return "I går";
   const n=Math.floor((s0.getTime()-t)/day)+1;
   if(n<7)return `For ${n} dage siden`;
-  return d.toLocaleDateString(S.lang==="en"?"en-GB":"da-DK",{day:"numeric",month:"short",year:"numeric"});
+  return d.toLocaleDateString(LOC(),{day:"numeric",month:"short",year:"numeric"});
 }
 
 /* ---------- Konto: opret profil, log ind, log ud ----------
@@ -2344,9 +2420,10 @@ function vProfile(){
   if(!a)return authView();
   const nRev=Object.values(S.reviews).flat().length,m=payMethod();
   return `<header class="phead"><h1 class="ptitle">Profil</h1></header>
-   <section class="card pcard"><span class="av big" aria-hidden="true">${esc(initialsOf(a))}</span><div class="body"><span class="pname">${esc(a.fname+" "+a.lname)}</span><span class="kw">${esc(a.email)}</span><span class="kw">Medlem siden ${new Date(a.created).toLocaleDateString(S.lang==="en"?"en-GB":"da-DK",{month:"long",year:"numeric"})}</span></div></section>
+   <section class="card pcard"><span class="av big" aria-hidden="true">${esc(initialsOf(a))}</span><div class="body"><span class="pname">${esc(a.fname+" "+a.lname)}</span><span class="kw">${esc(a.email)}</span><span class="kw">Medlem siden ${new Date(a.created).toLocaleDateString(LOC(),{month:"long",year:"numeric"})}</span></div></section>
    <div class="stats"><div class="stat"><b>${S.orders.length}</b><small>Ordrer</small></div><div class="stat"><b>${nRev}</b><small>Anmeldelser</small></div><div class="stat"><b>${S.wallet.cards.length}</b><small>Gemte kort</small></div></div>
    <section class="card mlist"><h3>Konto</h3>
+     ${prow(IC.people,"Venner",`${social().friends.length} venner`,"go-friends")}
      ${prow(IC.gift,"Point og kuponer",`${S.points} point · ${S.vouchers.filter(v=>!v.used).length} kuponer`,"go-scratch")}
      ${prow(IC.stamp,"Madpas",`${stampCount()}/${CUISINES.length} køkkener`,"go-passport")}
      ${prow(IC.edit,"Personlige oplysninger",esc(a.email),"go-editprofile")}
@@ -2355,7 +2432,7 @@ function vProfile(){
      ${prow(IC.pin,"Steder du har spist",`${placesEaten().length} steder`,"go-visited")}
      ${prow(IC.card,"Betaling",m?esc(payLabel(m)):"Ingen betalingsmetode","tab-wallet")}
      ${prow(IC.pin,"Standardområde",S.loc?esc(S.loc.label):"Ikke valgt","gps-sheet")}
-     ${prow(IC.globe,"Sprog",S.lang==="en"?"English":"Dansk","lang-sheet")}
+     ${prow(IC.globe,"Sprog",`<span translate="no">${LANGS[S.lang]}</span>`,"lang-sheet")}
    </section>
    <section class="card mlist"><h3>Notifikationer</h3>${tgl("offers","Tilbud og rabatter")}${tgl("status","Status på mine ordrer")}${tgl("meet","Nye match i Spis sammen")}</section>
    <section class="card mlist"><h3>Tryghed</h3>${prow(IC.shield,"Tryghedskontakt",S.safety.name?esc(S.safety.name+" · "+S.safety.phone):"Ikke valgt","safety-sheet")}${prow(IC.bell,"Test tryghedstjek","Se hvordan det virker","safe-test")}</section>
@@ -2540,14 +2617,46 @@ function placeOrder(payLbl){
 /* ---------- Anmeldelser ----------
    Man kan anmelde et sted, når man har bestilt derfra eller spist der via Spis sammen. Egne anmeldelser gemmes på enheden.
    Eksempelanmeldelserne er tydeligt mærket, fordi restauranterne er opdigtede. */
-const RV_NAMES=["Maria","Jonas","Sara","Ahmed","Line","Peter","Nina","Kasper","Ida","Omar"];
+const RV_NAMES=["Maria","Jonas","Sara","Ahmed","Line","Peter","Nina","Kasper","Ida","Omar","Emil","Freja","Lucas","Sofie","Ali","Clara"];
 const RV_TEXTS=["Rigtig god mad, og den kom stadig varm frem. Kommer igen!","Store portioner og venlig service. Lidt lang leveringstid i fredags.","Smagte præcis som på restauranten og var pænt pakket ind.","Vi delte flere retter, og alle var gode – især desserten.","Fin mad til prisen, men lidt for salt for min smag.","Min nye favorit i byen. Frisk og velsmagende."];
 const RV_TAGS=["Lækker mad","Hurtig levering","God portion","Varm ved levering","Pæn emballage","Fair pris"];
 const RV_LBL=["","Dårlig","Under middel","Okay","Rigtig god","Fremragende"];
-function sampleReviews(r){const k=RESTAURANTS.indexOf(r);
-  const RV_STARS=[5,4,5,5,4,5];
-  return [0,1].map(j=>{const t=(k+j*2)%RV_TEXTS.length;return {id:`s${k}${j}`,rid:r.id,name:RV_NAMES[(k*3+j*5)%RV_NAMES.length],stars:Math.max(3,Math.min(RV_STARS[t],Math.round(r.rating))),
-    text:RV_TEXTS[t],tags:[RV_TAGS[(k+j)%RV_TAGS.length]],at:Date.now()-((j+1)*3+k%4)*86400e3,sample:true};});}
+// Eksempelanmeldelser: 8 pr. sted med 1–5 stjerner fordelt efter stedets bedømmelse. Teksten passer til antallet af stjerner.
+const RV_BY={5:["Rigtig god mad, og den kom stadig varm frem. Kommer igen!","Min nye favorit i byen. Frisk og velsmagende.","Vi delte flere retter, og alle var gode – især desserten.","Fantastisk oplevelse fra start til slut. Søde folk og perfekt mad."],
+ 4:["Store portioner og venlig service. Lidt lang leveringstid i fredags.","Smagte præcis som på restauranten og var pænt pakket ind.","Rigtig god mad, men lidt dyrt for størrelsen."],
+ 3:["Fin mad til prisen, men lidt for salt for min smag.","Okay oplevelse. Maden var god, men ventetiden var lang.","Helt fin, men ikke noget, jeg ville gå langt for."],
+ 2:["Maden var lunken, da den kom, og der manglede en sauce.","Skuffende i forhold til billederne. Små portioner."],
+ 1:["Bestillingen var forkert, og ingen svarede, da jeg ringede.","Kold mad og over en time forsinket. Desværre ikke godt nok."]};
+function sampleReviews(r){
+  const k=RESTAURANTS.indexOf(r),w=[1,2,3,4,5].map(s=>Math.exp(-((s-r.rating)**2)/2.2)),tot=w.reduce((a,b)=>a+b,0);
+  const cnt=w.map(x=>x/tot*8),fl=cnt.map(Math.floor);let rem=8-fl.reduce((a,b)=>a+b,0);
+  cnt.map((x,i)=>[x-fl[i],i]).sort((a,b)=>b[0]-a[0]).slice(0,rem).forEach(([,i])=>fl[i]++);
+  const stars=[];fl.forEach((n,i)=>{for(let j=0;j<n;j++)stars.push(i+1);});
+  if(k%3===0)stars[0]=k%2?1:2;
+  return stars.map((s,j)=>{const arr=RV_BY[s];return {id:`s${k}-${j}`,rid:r.id,name:RV_NAMES[(k*3+j*7)%RV_NAMES.length],stars:s,text:arr[(k+j)%arr.length],
+    tags:s>=4?[RV_TAGS[(k+j)%RV_TAGS.length]]:[],at:Date.now()-((j*2+1)+k%5)*86400e3-k*3600e3,sample:true};});
+}
+const RV_SORTS=[["high","5 → 1 stjerne"],["low","1 → 5 stjerner"],["new","Nyeste"]];
+const rvSorter=()=>({new:(a,b)=>b.at-a.at,high:(a,b)=>b.stars-a.stars||b.at-a.at,low:(a,b)=>a.stars-b.stars||b.at-a.at}[S.rvSort]||((a,b)=>b.stars-a.stars));
+const sortChips=()=>`<div class="row chips" role="group" aria-label="Sortér">${RV_SORTS.map(([k,l])=>`<button class="chip" data-act="rv-sort" data-v="${k}" aria-pressed="${S.rvSort===k}">${l}</button>`).join("")}</div>`;
+const starChips=()=>`<div class="row chips" style="padding-top:8px" role="group" aria-label="Antal stjerner">${[0,5,4,3,2,1].map(n=>`<button class="chip sm" data-act="rv-star-f" data-v="${n}" aria-pressed="${(S.rvStar||0)===n}">${n?`${n} ${IC.star}`:"Alle"}</button>`).join("")}</div>`;
+function vAllReviews(){
+  const tab=S.arTab||"reviews";
+  if(tab==="rank"){
+    const list=RESTAURANTS.map(r=>({r,...ratingOf(r)})).sort((a,b)=>S.rvSort==="low"?a.avg-b.avg:b.avg-a.avg);
+    return `${topbar({title:"Anmeldelser"})}
+     <div class="seg mx2" role="group" aria-label="Visning"><button data-act="ar-tab" data-v="reviews" aria-pressed="false">Alle anmeldelser</button><button data-act="ar-tab" data-v="rank" aria-pressed="true">Restauranter rangeret</button></div>
+     <div class="row chips" style="padding-top:14px" role="group" aria-label="Sortér"><button class="chip" data-act="rv-sort" data-v="high" aria-pressed="${S.rvSort!=="low"}">Bedste først</button><button class="chip" data-act="rv-sort" data-v="low" aria-pressed="${S.rvSort==="low"}">Dårligste først</button></div>
+     <div class="list" style="padding-top:12px">${list.map((x,i)=>`<button class="card rankrow" data-act="rest" data-r="${x.r.id}"><span class="rnum">${i+1}</span>${tileR(x.r,"xs")}<span class="body"><span class="nm" style="padding-right:0">${esc(x.r.name)}</span><span class="kw">${esc(x.r.tag)}</span></span><span class="rscore"><b>${x.avg.toFixed(1).replace(".",DS())}</b>${starsHtml(x.avg)}<small>${revTxt(x.n)}</small></span></button>`).join("")}</div>`;
+  }
+  const all=RESTAURANTS.flatMap(r=>reviewsFor(r)).filter(x=>!S.rvStar||x.stars===S.rvStar).sort(rvSorter());
+  return `${topbar({title:"Anmeldelser"})}
+   <div class="seg mx2" role="group" aria-label="Visning"><button data-act="ar-tab" data-v="reviews" aria-pressed="true">Alle anmeldelser</button><button data-act="ar-tab" data-v="rank" aria-pressed="false">Restauranter rangeret</button></div>
+   <div style="height:10px"></div>${sortChips()}${starChips()}
+   <p class="note" style="padding:10px 18px 0;margin:0">${all.length} anmeldelser</p>
+   <div class="list" style="padding-top:10px">${all.slice(0,60).map(x=>rvCard(x,true)).join("")||`<p class="empty">Ingen anmeldelser med dette antal stjerner.</p>`}</div>`;
+}
+function reviewsBanner(){return `<div style="padding:12px 18px 0"><button class="card passbanner" data-act="go-allreviews"><span class="ic">${IC.star}</span><span class="t"><b>Anmeldelser</b><small class="kw">Se de bedste og dårligste steder – rangeret efter stjerner</small></span>${IC.arrow}</button></div>`;}
 const reviewsFor=r=>[...(S.reviews[r.id]||[]),...sampleReviews(r)];
 function ratingOf(r){const mine=S.reviews[r.id]||[],n=r.rev+mine.length;return {avg:(r.rating*r.rev+mine.reduce((a,x)=>a+x.stars,0))/n,n};}
 function rDist(r){const w=[1,2,3,4,5].map(k=>Math.exp(-((k-r.rating)**2)/0.9)),s=w.reduce((a,b)=>a+b,0),mine=S.reviews[r.id]||[];
@@ -2570,10 +2679,10 @@ function reviewBlock(r){const {n}=ratingOf(r),list=reviewsFor(r).sort((a,b)=>b.a
   return `<div class="sec-h"><div><span class="eyebrow">${revTxt(n)} bedømmelser</span><h2>Anmeldelser</h2></div><button class="see" data-act="reviews-all" data-r="${r.id}">Se alle ${IC.arrow}</button></div>
    ${rvSummary(r)}<div class="list" style="padding-top:12px">${list.map(x=>rvCard(x)).join("")}${rvCta(r)}</div>`;}
 function vReviews(){const r=RESTAURANTS.find(x=>x.id===S.rid);
-  const srt={new:(a,b)=>b.at-a.at,high:(a,b)=>b.stars-a.stars||b.at-a.at,low:(a,b)=>a.stars-b.stars||b.at-a.at}[S.rvSort]||((a,b)=>b.at-a.at);
+  const srt=rvSorter();
   return `${topbar({title:"Anmeldelser"})}<p class="intro">${esc(r.name)}</p><div style="height:12px"></div>${rvSummary(r)}
-   <div class="row chips" role="group" aria-label="Sortér">${[["new","Nyeste"],["high","Højeste"],["low","Laveste"]].map(([k,l])=>`<button class="chip" data-act="rv-sort" data-v="${k}" aria-pressed="${S.rvSort===k}">${l}</button>`).join("")}</div>
-   <div class="list" style="padding-top:14px">${reviewsFor(r).sort(srt).map(x=>rvCard(x)).join("")}${rvCta(r)}</div>`;}
+   ${sortChips()}${starChips()}
+   <div class="list" style="padding-top:14px">${reviewsFor(r).filter(x=>!S.rvStar||x.stars===S.rvStar).sort(srt).map(x=>rvCard(x)).join("")}${rvCta(r)}</div>`;}
 function vMyReviews(){const all=Object.values(S.reviews).flat().sort((a,b)=>b.at-a.at);
   return `${topbar({title:"Mine anmeldelser",cart:false})}
    ${all.length?`<div class="list" style="padding-top:8px">${all.map(x=>rvCard(x,true)).join("")}</div>`
@@ -2740,7 +2849,7 @@ function vPassport(){
    <section class="passcover"><span class="eyebrow" translate="no">Gaffel</span><h2>Madpas</h2><span class="pown">${a?esc(a.fname+" "+a.lname):"Gæst"}</span>
      <div class="passprog"><b>${n}</b><span>/${tot} køkkener</span></div><i class="bar"><b style="width:${n/tot*100}%"></b></i>
      <small>${next?`${next.n-n} stempler til: ${next.t}`:"Du har prøvet alle køkkener!"}</small></section>
-   <div class="stampgrid">${CUISINES.map((c,i)=>{const s=S.passport[c];return `<div class="stamp ${s?"on":""}" style="--rot:${(i*37%22)-11}deg"><span>${esc(c)}</span><small>${s?new Date(s.at).toLocaleDateString(S.lang==="en"?"en-GB":"da-DK",{day:"numeric",month:"short"}):"?"}</small></div>`;}).join("")}</div>
+   <div class="stampgrid">${CUISINES.map((c,i)=>{const s=S.passport[c];return `<div class="stamp ${s?"on":""}" style="--rot:${(i*37%22)-11}deg"><span>${esc(c)}</span><small>${s?new Date(s.at).toLocaleDateString(LOC(),{day:"numeric",month:"short"}):"?"}</small></div>`;}).join("")}</div>
    <p class="note" style="padding:0 18px">Du får et stempel, første gang du bestiller fra et køkken eller spiser der via Spis sammen eller et fællesbord.</p>
    <div class="sec-h small"><h2>Belønninger</h2></div>
    <div class="list">${REWARDS.map(rw=>{const ok=n>=rw.n;return `<div class="card rwcard ${ok?"on":""}"><span class="ic">${ok?IC.tick:IC.lock}</span><div class="body"><span class="nm" style="padding-right:0">${esc(rw.t)}</span><span class="kw">${ok?esc(rw.d):`Låses op ved ${rw.n} stempler`}</span>
@@ -2991,7 +3100,7 @@ function voucherRow(r){
 function nextTier(){return TIERS.find(t=>t[0]>S.points)||null;}
 function scratchBanner(){
   const done=S.scratch[dayKey()];
-  return `<div style="padding:14px 18px 0"><button class="card scbanner" data-act="go-scratch"><span class="scic">${IC.gift}</span>
+  return `<div style="padding:14px 18px 0"><button class="card scbanner" data-act="go-scratch">
     <span class="t"><span class="eyebrow">Skrabekalender</span><b>${done?"Du har skrabet i dag":"Dit skrabelod er klar"}</b><small>${S.points} point · ${done?"nyt lod i morgen":"3 på stribe = 10 point"}</small></span>${IC.arrow}</button></div>`;
 }
 const cellHtml=(rid,i,win)=>{const r=RESTAURANTS.find(x=>x.id===rid);return `<div class="scell ${win?"win":""}" data-i="${i}"><img src="${IMG["r-"+rid]||""}" alt=""><span>${esc(r.name)}</span></div>`;};
@@ -3010,7 +3119,7 @@ function scratchCal(){
     else if(day===today){cls="today";sub="Skrab";}
     else {cls="miss";sub="";}
     cells+=`<span class="calc ${cls}" ${day===today&&!s?'data-act="scratch-scroll" role="button"':""}><b>${day}</b><small>${sub}</small></span>`;}
-  return `<section class="card calcard"><div class="calt"><b>${d.toLocaleDateString(S.lang==="en"?"en-GB":"da-DK",{month:"long",year:"numeric"})}</b><span class="kw">${Object.values(S.scratch).filter(x=>x.pts).length} gevinster i alt</span></div><div class="calg">${head}${cells}</div></section>`;
+  return `<section class="card calcard"><div class="calt"><b>${d.toLocaleDateString(LOC(),{month:"long",year:"numeric"})}</b><span class="kw">${Object.values(S.scratch).filter(x=>x.pts).length} gevinster i alt</span></div><div class="calg">${head}${cells}</div></section>`;
 }
 const ADS=[{rid:"sushi",cta:"Bestil nu"},{rid:"pizza",cta:"Se menuen"},{house:"tables"},{rid:"gelato",cta:"Se menuen"},{rid:"bistro",cta:"Se menuen"}];
 function adsHtml(){
@@ -3028,7 +3137,7 @@ function vScratch(){
   return `${topbar({title:"Skrabekalender",cart:false})}
    <section class="card ptsbar"><div class="ptsl"><small>Dine point</small><b>${S.points}</b></div>
      <div class="ptsr"><small>${nt?`${nt[0]-S.points} point til ${pct(nt[1])} % rabat`:"Du kan indløse den største rabat"}</small><i class="bar"><b style="width:${nt?Math.min(100,(S.points-(prev?prev[0]:0))/(nt[0]-(prev?prev[0]:0))*100):100}%"></b></i></div></section>
-   <div class="sec-h small" id="scratchtop"><div><span class="eyebrow">${new Date().toLocaleDateString(S.lang==="en"?"en-GB":"da-DK",{weekday:"long",day:"numeric",month:"long"})}</span><h2>Dagens skrabelod</h2></div></div>
+   <div class="sec-h small" id="scratchtop"><div><span class="eyebrow">${new Date().toLocaleDateString(LOC(),{weekday:"long",day:"numeric",month:"long"})}</span><h2>Dagens skrabelod</h2></div></div>
    <p class="note" style="padding:0 18px;margin:0 0 12px">Skrab alle 9 felter. Får du 3 ens restauranter på en række – vandret, lodret eller på skrå – vinder du 10 point.</p>
    <div class="scardwrap"><div class="scard ${done?"done":""}" id="scard">${g.cells.map((rid,i)=>cellHtml(rid,i,winCells.includes(i))).join("")}
      ${done&&lines.length?winSvg(lines):""}${done?"":`<canvas id="scratchcv" aria-label="Skrabefelt – træk fingeren hen over felterne"></canvas>`}</div></div>
@@ -3040,7 +3149,7 @@ function vScratch(){
    <div class="list">${TIERS.map(([c,p])=>`<div class="card tiercard ${S.points>=c?"on":""}"><span class="tierp"><b>${pct(p)} %</b><small>rabat</small></span><div class="body"><span class="nm" style="padding-right:0">${c} point</span><span class="kw">Valgfrit sted · gælder 30 dage</span></div>
      <button class="pillsm ${S.points>=c?"on":""}" data-act="tier-redeem" data-c="${c}" ${S.points>=c?"":"disabled"}>${S.points>=c?"Indløs":`${c-S.points} mangler`}</button></div>`).join("")}</div>
    ${avail.length?`<div class="sec-h small"><div><span class="eyebrow">Klar til brug</span><h2>Dine kuponer</h2></div></div>
-     <div class="list">${avail.map(v=>{const r=RESTAURANTS.find(x=>x.id===v.rid);return `<div class="card coupon"><div class="cpl"><b>${pct(v.pct)} %</b><small>rabat</small></div><div class="body"><span class="nm" style="padding-right:0">${esc(r.name)}</span><span class="kw">Kode ${v.code} · udløber ${new Date(v.exp).toLocaleDateString(S.lang==="en"?"en-GB":"da-DK",{day:"numeric",month:"short"})}</span></div><button class="pillsm on" data-act="voucher-go" data-v="${v.id}">Brug</button></div>`;}).join("")}</div>`:""}
+     <div class="list">${avail.map(v=>{const r=RESTAURANTS.find(x=>x.id===v.rid);return `<div class="card coupon"><div class="cpl"><b>${pct(v.pct)} %</b><small>rabat</small></div><div class="body"><span class="nm" style="padding-right:0">${esc(r.name)}</span><span class="kw">Kode ${v.code} · udløber ${new Date(v.exp).toLocaleDateString(LOC(),{day:"numeric",month:"short"})}</span></div><button class="pillsm on" data-act="voucher-go" data-v="${v.id}">Brug</button></div>`;}).join("")}</div>`:""}
    ${S.pointsLog.length?`<div class="sec-h small"><h2>Pointhistorik</h2></div><div class="card plog">${S.pointsLog.slice(0,6).map(x=>`<div><span>${esc(x.txt)}</span><b class="${x.pts>0?"plus":"minus"}">${x.pts>0?"+":""}${x.pts}</b></div>`).join("")}</div>`:""}
    ${adsHtml()}`;
 }
@@ -3074,7 +3183,7 @@ function finishScratch(){
   const key=dayKey();if(S.scratch[key])return;
   const g=scratchGrid(key),lines=linesOf(g.cells),pts=lines.length*10;
   S.scratch[key]={pts,at:Date.now()};
-  if(pts){S.points+=pts;S.pointsLog.unshift({at:Date.now(),pts,txt:tr("Skrabelod")+" "+new Date().toLocaleDateString(S.lang==="en"?"en-GB":"da-DK",{day:"numeric",month:"short"})});}
+  if(pts){S.points+=pts;S.pointsLog.unshift({at:Date.now(),pts,txt:tr("Skrabelod")+" "+new Date().toLocaleDateString(LOC(),{day:"numeric",month:"short"})});}
   save();const cv=$("#scratchcv");if(cv){cv.style.transition="opacity .4s";cv.style.opacity="0";}
   setTimeout(()=>{keepScroll();toast(pts?`Tre på stribe! +${pts} point`:"Ingen tre på stribe i dag – prøv igen i morgen");},420);
 }
@@ -3085,10 +3194,94 @@ function redeemSheet(cost){
 }
 setInterval(()=>{const t=countdown();document.querySelectorAll(".cd2").forEach(e=>e.textContent=t);},1000);
 
+/* ---------- Venner: tilføj, chat, ring og send anbefalinger ----------
+   Demo: de andre brugere er opdigtede og svarer automatisk. Rigtig chat og opkald mellem brugere kræver en server (fx med WebSockets og WebRTC). */
+const PEOPLE=[
+ {id:"u1",name:"Sofie Holm",handle:"sofieholm",bio:"Elsker ramen og lange middage"},{id:"u2",name:"Mads Krogh",handle:"madsk",bio:"Burgerjæger på Vesterbro"},
+ {id:"u3",name:"Aisha Rahman",handle:"aisha.r",bio:"Ny i København · sprogcafé-fan"},{id:"u4",name:"Jonas Berg",handle:"jonasb",bio:"Pizza om fredagen, altid"},
+ {id:"u5",name:"Freja Lund",handle:"frejalund",bio:"Vegetar og brunch-nørd"},{id:"u6",name:"Ali Hassan",handle:"alih",bio:"Kok i fritiden"},
+ {id:"u7",name:"Clara Nielsen",handle:"claran",bio:"Sushi slår alt"},{id:"u8",name:"Oliver Dahl",handle:"oliverd",bio:"Altid på jagt efter nye steder"}];
+const person=id=>PEOPLE.find(p=>p.id===id);
+const REPLIES=["Haha, helt enig!","Det lyder godt – hvornår?","Jeg er klar i aften, hvis du er?","Fedt! Sig til, når du har bestilt.","Det må vi prøve snart."];
+function social(){
+  if(!S.social)S.social={friends:["u1"],req:[{id:"u2",at:Date.now()-3600e3},{id:"u5",at:Date.now()-7200e3}],sent:[],
+    chats:{u1:[{from:"u1",type:"text",t:"Hej! Godt at se dig på Gaffel.",at:Date.now()-5400e3},{from:"u1",type:"rec",rid:"ramen",t:"Har du prøvet Ramen Kō? Deres tonkotsu er vildt god!",at:Date.now()-5300e3}]},unread:{u1:2}};
+  return S.social;
+}
+const myHandle=()=>{const a=me();return a?a.email.split("@")[0].replace(/[^a-z0-9._]/gi,"").toLowerCase():"gaest";};
+const unreadTotal=()=>Object.values(social().unread||{}).reduce((a,b)=>a+b,0);
+const avatar=(p,cls="")=>`<span class="av ${cls}" style="--h:${(p.id.charCodeAt(1)*47)%360}" aria-hidden="true">${esc(p.name[0])}</span>`;
+function friendsCirc(){const n=unreadTotal()+social().req.length;return `<button class="circ" data-act="go-friends" aria-label="Venner">${IC.chat}${n?`<span class="badge">${n}</span>`:""}</button>`;}
+function lastMsg(id){const c=(social().chats[id]||[]);const m=c[c.length-1];if(!m)return "Sig hej";return m.type==="rec"?`Anbefalede ${RESTAURANTS.find(r=>r.id===m.rid).name}`:m.t;}
+function vFriends(){
+  const so=social(),q=(S.fq||"").trim().toLowerCase();
+  const others=PEOPLE.filter(p=>!so.friends.includes(p.id)&&!so.req.some(r=>r.id===p.id));
+  const found=q?others.filter(p=>(p.name+" "+p.handle).toLowerCase().includes(q)):others.slice(0,4);
+  const recs=so.friends.flatMap(id=>(so.chats[id]||[]).filter(m=>m.type==="rec"&&m.from===id).map(m=>({...m,id}))).sort((a,b)=>b.at-a.at);
+  return `${topbar({title:"Venner",cart:false})}
+   <section class="card mecard"><span class="av big">${esc((me()?me().fname:"G")[0])}</span><div class="body"><span class="nm" style="padding-right:0">@${esc(myHandle())}</span><span class="kw">Dit brugernavn – del det, så andre kan finde dig</span></div><button class="pillsm" data-act="share-handle">Del</button></section>
+   <div style="padding:14px 18px 0"><label class="search">${IC.search}<input id="fq" type="search" placeholder="Find venner via navn eller brugernavn" value="${esc(S.fq||"")}" aria-label="Find venner"></label></div>
+   <div id="fresults">${friendResults(found,q)}</div>
+   ${so.req.length?`<div class="sec-h small"><h2>Venneanmodninger</h2></div><div class="list">${so.req.map(r=>{const p=person(r.id);return `<div class="card frow">${avatar(p)}<div class="body"><span class="nm" style="padding-right:0">${esc(p.name)}</span><span class="kw">@${p.handle} · ${esc(p.bio)}</span></div><button class="pillsm on" data-act="fr-accept" data-u="${p.id}">Accepter</button><button class="pillsm" data-act="fr-decline" data-u="${p.id}" aria-label="Afvis">${IC.x}</button></div>`;}).join("")}</div>`:""}
+   <div class="sec-h small"><h2>Dine venner</h2><span class="kw">${so.friends.length}</span></div>
+   <div class="list">${so.friends.map(id=>{const p=person(id),u=so.unread[id]||0;return `<button class="card frow" data-act="open-chat" data-u="${id}">${avatar(p)}<span class="body"><span class="nm" style="padding-right:0">${esc(p.name)}</span><span class="kw">${esc(lastMsg(id))}</span></span>${u?`<span class="ubadge">${u}</span>`:IC.chev}</button>`;}).join("")||`<p class="empty">Du har ingen venner endnu. Find nogen ovenfor.</p>`}</div>
+   ${recs.length?`<div class="sec-h small"><h2>Anbefalet af venner</h2></div><div class="row">${recs.map(m=>{const r=RESTAURANTS.find(x=>x.id===m.rid);return `<button class="card mlcard" data-act="rest" data-r="${r.id}">${tileR(r,"xs")}<span class="nm">${esc(r.name)}</span><span class="kw">Fra ${esc(person(m.id).name.split(" ")[0])}</span></button>`;}).join("")}</div>`:""}
+   <p class="demo" style="margin-top:16px">Demo: de andre brugere er opdigtede og svarer automatisk. Rigtig chat og opkald kræver en server.</p>`;
+}
+function friendResults(list,q){
+  const so=social();
+  return `<div class="sec-h small"><h2>${q?"Søgeresultater":"Personer du måske kender"}</h2></div><div class="list">${list.map(p=>{const sent=so.sent.includes(p.id);
+    return `<div class="card frow">${avatar(p)}<div class="body"><span class="nm" style="padding-right:0">${esc(p.name)}</span><span class="kw">@${p.handle} · ${esc(p.bio)}</span></div>
+      <button class="pillsm ${sent?"":"on"}" data-act="fr-add" data-u="${p.id}" ${sent?"disabled":""}>${sent?"Sendt":"Tilføj"}</button></div>`;}).join("")||`<p class="empty">Ingen brugere matcher.</p>`}</div>`;
+}
+function msgHtml(m,p){
+  const mine=m.from==="me";
+  if(m.type==="rec"){const r=RESTAURANTS.find(x=>x.id===m.rid);
+    return `<div class="msg rec ${mine?"me":""}">${m.t?`<span class="rect">${esc(m.t)}</span>`:""}<button class="reccard" data-act="rest" data-r="${r.id}">${tileR(r,"xs")}<span class="body"><span class="nm" style="padding-right:0">${esc(r.name)}</span><span class="kw">${esc(r.kw)}</span>${starsHtml(r.rating)}</span></button></div>`;}
+  if(m.type==="call")return `<div class="msg sys">${IC.phone}<span>${m.t}</span></div>`;
+  return `<div class="msg ${mine?"me":""}">${esc(m.t)}</div>`;
+}
+function vChat(){
+  const id=S.chatWith,p=person(id),so=social();so.unread[id]=0;save();
+  const msgs=so.chats[id]||[];
+  return `<div class="top chattop"><button class="circ" data-act="back" aria-label="Tilbage">${IC.back}</button>
+     <div class="chathead">${avatar(p,"sm")}<span><b>${esc(p.name)}</b><small>@${p.handle}</small></span></div>
+     <span class="chatcalls"><button class="circ sm" data-act="fcall" data-u="${id}" data-v="voice" aria-label="Ring op">${IC.phone}</button><button class="circ sm" data-act="fcall" data-u="${id}" data-v="video" aria-label="Videoopkald">${IC.video}</button></span></div>
+   <div class="chatlog2" id="chatlog2">${msgs.map(m=>msgHtml(m,p)).join("")||`<p class="empty">Sig hej til ${esc(p.name.split(" ")[0])}!</p>`}</div>
+   <div class="chatbar"><button class="circ" data-act="rec-sheet" data-u="${id}" aria-label="Anbefal et sted">${IC.pin}</button>
+     <input class="txtin" id="chatin2" placeholder="Skriv en besked …" maxlength="300" aria-label="Besked"><button class="circ dark" data-act="chat-send" aria-label="Send">${IC.send}</button></div>`;
+}
+function pushMsg(id,m){const so=social();(so.chats[id]=so.chats[id]||[]).push({at:Date.now(),...m});save();
+  if(S.view==="chat"&&S.chatWith===id){const log=$("#chatlog2");if(log){log.innerHTML=(so.chats[id]).map(x=>msgHtml(x,person(id))).join("");log.scrollTop=log.scrollHeight;}so.unread[id]=0;}
+  else if(m.from!=="me"){so.unread[id]=(so.unread[id]||0)+1;save();if(S.view==="home"||S.view==="friends")softRender();}}
+function autoReply(id,text){setTimeout(()=>pushMsg(id,{from:id,type:"text",t:text}),1500);}
+function sendChat(){const inp=$("#chatin2");if(!inp)return;const t=inp.value.trim();if(!t)return;inp.value="";const id=S.chatWith;
+  pushMsg(id,{from:"me",type:"text",t});const so=social();autoReply(id,t.includes("?")?"Godt spørgsmål – lad os tage det over aftensmaden.":REPLIES[(so.chats[id]||[]).length%REPLIES.length]);}
+function sendRec(id,rid){const r=RESTAURANTS.find(x=>x.id===rid);pushMsg(id,{from:"me",type:"rec",rid,t:""});
+  autoReply(id,tr(`Uh, ${r.name} ser lækkert ud! Skal vi tage derhen sammen?`));}
+function recSheet(rid){const so=social();
+  openSheet("rec",`<h3>${rid?"Anbefal til en ven":"Anbefal et sted"}</h3>
+   ${rid?(so.friends.map(id=>{const p=person(id);return `<button class="opt" data-act="rec-send" data-u="${id}" data-r="${rid}"><span class="optp">${avatar(p,"sm")}<span>${esc(p.name)}</span></span>${IC.send}</button>`;}).join("")||`<p class="mutedp">Tilføj venner først.</p><button class="primary center" data-act="go-friends-sheet">Find venner</button>`)
+     :RESTAURANTS.filter(r=>r.open).map(r=>`<button class="opt" data-act="rec-send" data-u="${S.chatWith}" data-r="${r.id}"><span>${esc(r.name)}<span class="muted">${esc(r.tag)}</span></span>${IC.send}</button>`).join("")}`);}
+function startCall(id,video){
+  const p=person(id);$("#callov")&&$("#callov").remove();
+  const el=document.createElement("div");el.className="fakecall callov";el.id="callov";el.setAttribute("role","dialog");
+  el.innerHTML=`<div class="fcav" style="--h:${(p.id.charCodeAt(1)*47)%360}">${esc(p.name[0])}</div><h2>${esc(p.name)}</h2><p id="callst">${tr(video?"Videoopkald – ringer op …":"Ringer op …")}</p>
+    ${video?`<div class="vidbox" id="vidbox">${tr("Kamera slået til")}</div>`:""}
+    <div class="callbtns"><button data-act="call-mute" class="cb" aria-label="${tr("Slå lyden fra")}">${IC.mic}</button><button data-act="call-end" class="cb end" aria-label="${tr("Læg på")}">${IC.phone}</button><button data-act="call-speaker" class="cb" aria-label="${tr("Højttaler")}">${IC.speaker}</button></div>
+    <p class="calldemo">${tr("Demo: opkaldet er simuleret – der er ingen lyd")}</p>`;
+  document.body.appendChild(el);
+  const t0={v:0};startCall.t=setTimeout(()=>{t0.v=Date.now();startCall.i=setInterval(()=>{const st=$("#callst");if(!st){clearInterval(startCall.i);return;}const s=Math.floor((Date.now()-t0.v)/1000);st.textContent=`${tr("Forbundet")} · ${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;},500);},2200);
+  startCall.info={id,video,t0};
+}
+function endCall(){clearTimeout(startCall.t);clearInterval(startCall.i);$("#callov")&&$("#callov").remove();
+  const c=startCall.info;if(!c)return;const s=c.t0.v?Math.floor((Date.now()-c.t0.v)/1000):0;
+  pushMsg(c.id,{from:"me",type:"call",t:s?`${c.video?"Videoopkald":"Opkald"} · ${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`:`${c.video?"Videoopkald":"Opkald"} · ikke besvaret`});startCall.info=null;}
+
 /* ---------- Sprog ----------
    Appen er skrevet på dansk. På engelsk oversættes den viste tekst (og menuerne) efter hver visning
    via ordbogen EN og mønstrene EN_RX. Tekst i elementer med translate="no" bliver ikke rørt. */
-const LANGS={da:"Dansk",en:"English"};
+const LANGS={da:"Dansk",en:"English",fr:"Français",ru:"Русский",es:"Español",de:"Deutsch",sv:"Svenska",zh:"中文"};
 const EN={
  // Forside og navigation
  "Slå GPS til for at finde dig":"Turn on GPS to find you","Finder din GPS-position …":"Finding your GPS position …","GPS virker ikke i denne visning – tryk for hjælp":"GPS doesn't work in this view – tap for help",
@@ -3520,6 +3713,212 @@ EN_RX.push(
  [/^Kupon (\d+) % bruges$/,"Coupon $1% applied"],[/^Kupon \((\d+) %\)$/,"Coupon ($1%)"],[/^Kupon på (\d+) % er klar$/,"Your $1% coupon is ready"],
  [/^Tre på stribe! \+(\d+) point$/,"Three in a row! +$1 points"],[/^(.+) · (\d+) % i dag$/,"$1 · $2% off today"]
 );
+// Anmeldelser rangeret og venner
+Object.assign(EN,{
+ "Gaffel – mad leveret":"Gaffel – food delivered","5 → 1 stjerne":"5 → 1 stars","1 → 5 stjerner":"1 → 5 stars","Alle anmeldelser":"All reviews","Restauranter rangeret":"Restaurants ranked",
+ "Bedste først":"Best first","Dårligste først":"Worst first","Visning":"View","Ingen anmeldelser med dette antal stjerner.":"No reviews with this many stars.",
+ "Se de bedste og dårligste steder – rangeret efter stjerner":"See the best and worst places – ranked by stars",
+ "Fantastisk oplevelse fra start til slut. Søde folk og perfekt mad.":"A fantastic experience from start to finish. Lovely people and perfect food.",
+ "Rigtig god mad, men lidt dyrt for størrelsen.":"Really good food, but a bit pricey for the size.","Okay oplevelse. Maden var god, men ventetiden var lang.":"An okay experience. The food was good, but the wait was long.",
+ "Helt fin, men ikke noget, jeg ville gå langt for.":"Perfectly fine, but not something I'd go out of my way for.","Maden var lunken, da den kom, og der manglede en sauce.":"The food was lukewarm when it arrived, and a sauce was missing.",
+ "Skuffende i forhold til billederne. Små portioner.":"Disappointing compared to the photos. Small portions.","Bestillingen var forkert, og ingen svarede, da jeg ringede.":"The order was wrong, and nobody answered when I called.",
+ "Kold mad og over en time forsinket. Desværre ikke godt nok.":"Cold food and over an hour late. Sadly not good enough.",
+ "Venner":"Friends","Dit brugernavn – del det, så andre kan finde dig":"Your username – share it so others can find you","Del":"Share","Find venner via navn eller brugernavn":"Find friends by name or username",
+ "Find venner":"Find friends","Venneanmodninger":"Friend requests","Accepter":"Accept","Dine venner":"Your friends","Du har ingen venner endnu. Find nogen ovenfor.":"You don't have any friends yet. Find someone above.",
+ "Anbefalet af venner":"Recommended by friends","Demo: de andre brugere er opdigtede og svarer automatisk. Rigtig chat og opkald kræver en server.":"Demo: the other users are fictional and reply automatically. Real chat and calls require a server.",
+ "Søgeresultater":"Search results","Personer du måske kender":"People you may know","Sendt":"Sent","Tilføj":"Add","Ingen brugere matcher.":"No users match.","Ring op":"Call","Videoopkald":"Video call",
+ "Anbefal et sted":"Recommend a place","Anbefal til en ven":"Recommend to a friend","Send stedet i en chat":"Send the place in a chat","Tilføj venner først.":"Add friends first.","Venneanmodning sendt":"Friend request sent",
+ "Sig hej":"Say hi","Hej! Godt at se dig på Gaffel.":"Hi! Good to see you on Gaffel.","Har du prøvet Ramen Kō? Deres tonkotsu er vildt god!":"Have you tried Ramen Kō? Their tonkotsu is amazing!",
+ "Hej! Tak fordi du tilføjede mig.":"Hi! Thanks for adding me.","Hej! Tak fordi du accepterede.":"Hi! Thanks for accepting.","Haha, helt enig!":"Haha, totally agree!","Det lyder godt – hvornår?":"Sounds good – when?",
+ "Jeg er klar i aften, hvis du er?":"I'm up for tonight if you are?","Fedt! Sig til, når du har bestilt.":"Great! Let me know when you've ordered.","Det må vi prøve snart.":"We have to try that soon.",
+ "Godt spørgsmål – lad os tage det over aftensmaden.":"Good question – let's discuss it over dinner.",
+ "Elsker ramen og lange middage":"Loves ramen and long dinners","Burgerjæger på Vesterbro":"Burger hunter in Vesterbro","Ny i København · sprogcafé-fan":"New in Copenhagen · language café fan",
+ "Pizza om fredagen, altid":"Pizza on Fridays, always","Vegetar og brunch-nørd":"Vegetarian and brunch nerd","Kok i fritiden":"Cook in my spare time","Sushi slår alt":"Sushi beats everything","Altid på jagt efter nye steder":"Always looking for new places",
+ "Videoopkald – ringer op …":"Video call – calling …","Ringer op …":"Calling …","Kamera slået til":"Camera on","Slå lyden fra":"Mute","Højttaler":"Speaker","Demo: opkaldet er simuleret – der er ingen lyd":"Demo: the call is simulated – there's no sound","Forbundet":"Connected"
+});
+EN_RX.push(
+ [/^Anbefalede (.+)$/,"Recommended $1"],[/^Fra (\S+)$/,"From $1"],[/^(\d+) venner$/,"$1 friends"],[/^Sig hej til (.+)!$/,"Say hi to $1!"],
+ [/^Find mig på Gaffel: @(.+)$/,"Find me on Gaffel: @$1"],[/^(.+) accepterede din venneanmodning$/,"$1 accepted your friend request"],[/^Du og (.+) er nu venner$/,"You and $1 are now friends"],
+ [/^Anbefaling sendt til (.+)$/,"Recommendation sent to $1"],[/^Uh, (.+) ser lækkert ud! Skal vi tage derhen sammen\?$/,"Ooh, $1 looks delicious! Shall we go together?"],
+ [/^(Videoopkald|Opkald) · (\d+:\d\d)$/,(m,a,b)=>`${a==="Videoopkald"?"Video call":"Call"} · ${b}`],[/^(Videoopkald|Opkald) · ikke besvaret$/,(m,a)=>`${a==="Videoopkald"?"Video call":"Call"} · not answered`]
+);
+/* Flere sprog: oversættelser fra engelsk til fransk, russisk, spansk, tysk, svensk og kinesisk.
+   Dækker menuer, knapper og overskrifter. Længere tekster (fx ingredienser) vises på engelsk, hvis de ikke står her. */
+const LX_ROWS=`Home|Accueil|Главная|Inicio|Start|Hem|首页
+Eat together|Manger ensemble|Едим вместе|Comer juntos|Zusammen essen|Ät tillsammans|一起吃饭
+Map|Carte|Карта|Mapa|Karte|Karta|地图
+Payment|Paiement|Оплата|Pago|Zahlung|Betalning|支付
+Profile|Profil|Профиль|Perfil|Profil|Profil|个人资料
+Main menu|Menu principal|Главное меню|Menú principal|Hauptmenü|Huvudmeny|主菜单
+Back|Retour|Назад|Atrás|Zurück|Tillbaka|返回
+Close|Fermer|Закрыть|Cerrar|Schließen|Stäng|关闭
+Change language|Changer de langue|Сменить язык|Cambiar idioma|Sprache ändern|Byt språk|更改语言
+Search restaurants, dishes or cuisines|Rechercher restaurants, plats ou cuisines|Поиск ресторанов, блюд или кухонь|Buscar restaurantes, platos o cocinas|Restaurants, Gerichte oder Küchen suchen|Sök restauranger, rätter eller kök|搜索餐厅、菜品或菜系
+Search|Rechercher|Поиск|Buscar|Suchen|Sök|搜索
+Turn on GPS to find you|Activez le GPS pour vous localiser|Включите GPS, чтобы найти вас|Activa el GPS para encontrarte|GPS einschalten, um dich zu finden|Slå på GPS för att hitta dig|打开 GPS 以定位您
+Eating alone tonight?|Vous dînez seul ce soir ?|Ужинаете один сегодня?|¿Cenas solo esta noche?|Heute Abend allein essen?|Äter du ensam i kväll?|今晚一个人吃饭？
+Get matched with other solo diners who want to eat at the same place and time as you.|Trouvez d'autres personnes seules qui veulent manger au même endroit et à la même heure que vous.|Найдите других гостей без компании, которые хотят поесть там же и в то же время.|Conecta con otras personas que comen solas en el mismo sitio y a la misma hora que tú.|Triff andere Alleinessende, die zur selben Zeit am selben Ort essen wollen.|Bli matchad med andra som äter ensamma på samma ställe och samma tid som du.|与想在同一时间、同一地点用餐的其他人配对。
+Find a dining buddy|Trouver un compagnon de table|Найти компанию для ужина|Encontrar compañía para comer|Essenspartner finden|Hitta en matkompis|寻找饭搭子
+See tonight's shared tables|Voir les tables partagées de ce soir|Общие столы сегодня вечером|Ver las mesas compartidas de esta noche|Gemeinschaftstische heute Abend|Se kvällens gemensamma bord|查看今晚的拼桌
+All|Tout|Все|Todo|Alle|Alla|全部
+Popular|Populaire|Популярное|Popular|Beliebt|Populärt|热门
+Offers|Offres|Акции|Ofertas|Angebote|Erbjudanden|优惠
+New|Nouveau|Новое|Nuevo|Neu|Nytt|新店
+Vegan|Végan|Веганское|Vegano|Vegan|Vegansk|纯素
+Help me choose|Aidez-moi à choisir|Помогите выбрать|Ayúdame a elegir|Hilf mir bei der Wahl|Hjälp mig välja|帮我选择
+Surprise me|Surprenez-moi|Удиви меня|Sorpréndeme|Überrasch mich|Överraska mig|给我惊喜
+Today only|Aujourd'hui seulement|Только сегодня|Solo hoy|Nur heute|Endast idag|仅限今天
+Today's offers|Offres du jour|Предложения дня|Ofertas de hoy|Angebote des Tages|Dagens erbjudanden|今日优惠
+Restaurants|Restaurants|Рестораны|Restaurantes|Restaurants|Restauranger|餐厅
+Near you|Près de vous|Рядом с вами|Cerca de ti|In deiner Nähe|Nära dig|您附近
+See all|Tout voir|Смотреть все|Ver todo|Alle ansehen|Visa alla|查看全部
+Show less|Voir moins|Свернуть|Ver menos|Weniger anzeigen|Visa färre|收起
+From the menus|Des menus|Из меню|De los menús|Aus den Speisekarten|Från menyerna|来自菜单
+Featured dishes|Plats à la une|Избранные блюда|Platos destacados|Ausgewählte Gerichte|Utvalda rätter|精选菜品
+Order now|Commander|Заказать|Pedir ahora|Jetzt bestellen|Beställ nu|立即订购
+OFF|DE RÉDUC.|СКИДКА|DTO.|RABATT|RABATT|折扣
+Healthy choice|Choix sain|Полезный выбор|Opción saludable|Gesunde Wahl|Hälsosamt val|健康之选
+Top rated|Mieux noté|Высокий рейтинг|Mejor valorado|Top bewertet|Topprankad|好评如潮
+Closed|Fermé|Закрыто|Cerrado|Geschlossen|Stängt|已打烊
+Scratch calendar|Calendrier à gratter|Календарь-скретч|Calendario de rasca|Rubbelkalender|Skraplottskalender|刮刮乐日历
+Your scratch card is ready|Votre carte à gratter est prête|Ваша скретч-карта готова|Tu rasca está listo|Dein Rubbellos ist bereit|Ditt skraplott är klart|您的刮刮卡已就绪
+You've scratched today|Vous avez gratté aujourd'hui|Вы уже стёрли сегодня|Ya has rascado hoy|Du hast heute gerubbelt|Du har skrapat idag|今天已刮过
+Reviews|Avis|Отзывы|Reseñas|Bewertungen|Recensioner|评价
+Food passport|Passeport gourmand|Гастропаспорт|Pasaporte gastronómico|Food-Pass|Matpass|美食护照
+Cuisines|Cuisines|Кухни|Cocinas|Küchen|Kök|菜系
+Asian|Asiatique|Азиатская|Asiática|Asiatisch|Asiatiskt|亚洲菜
+Danish|Danoise|Датская|Danesa|Dänisch|Danskt|丹麦菜
+Middle Eastern|Moyen-orientale|Ближневосточная|Oriente Medio|Nahöstlich|Mellanöstern|中东菜
+Indian|Indienne|Индийская|India|Indisch|Indiskt|印度菜
+Mexican|Mexicaine|Мексиканская|Mexicana|Mexikanisch|Mexikanskt|墨西哥菜
+French|Française|Французская|Francesa|Französisch|Franskt|法国菜
+Korean|Coréenne|Корейская|Coreana|Koreanisch|Koreanskt|韩国菜
+Greek|Grecque|Греческая|Griega|Griechisch|Grekiskt|希腊菜
+Spanish|Espagnole|Испанская|Española|Spanisch|Spanskt|西班牙菜
+Starters|Entrées|Закуски|Entrantes|Vorspeisen|Förrätter|前菜
+Mains|Plats|Основные блюда|Principales|Hauptgerichte|Huvudrätter|主菜
+Sides|Accompagnements|Гарниры|Acompañamientos|Beilagen|Tillbehör|配菜
+Drinks|Boissons|Напитки|Bebidas|Getränke|Drycker|饮品
+Soups|Soupes|Супы|Sopas|Suppen|Soppor|汤品
+Soup|Soupe|Суп|Sopa|Suppe|Soppa|汤
+Small plates|Petites assiettes|Небольшие блюда|Platos pequeños|Kleine Gerichte|Smårätter|小食
+Add to cart|Ajouter au panier|В корзину|Añadir al carrito|In den Warenkorb|Lägg i varukorgen|加入购物车
+Ingredients|Ingrédients|Ингредиенты|Ingredientes|Zutaten|Ingredienser|配料
+Nutrition per 100 g|Valeurs nutritionnelles pour 100 g|Пищевая ценность на 100 г|Nutrición por 100 g|Nährwerte pro 100 g|Näringsvärde per 100 g|每 100 克营养成分
+Storage|Conservation|Хранение|Conservación|Aufbewahrung|Förvaring|储存
+Light|Léger|Лёгкое|Ligero|Leicht|Lätt|清淡
+Spicy|Épicé|Острое|Picante|Scharf|Starkt|辣
+Fish|Poisson|Рыба|Pescado|Fisch|Fisk|鱼
+Meat|Viande|Мясо|Carne|Fleisch|Kött|肉
+Sweet|Sucré|Сладкое|Dulce|Süß|Sött|甜
+Filling|Copieux|Сытное|Contundente|Sättigend|Mättande|饱腹
+Write a review|Écrire un avis|Написать отзыв|Escribir una reseña|Bewertung schreiben|Skriv en recension|写评价
+Directions|Itinéraire|Маршрут|Cómo llegar|Route|Vägbeskrivning|路线
+Recommend to a friend|Recommander à un ami|Порекомендовать другу|Recomendar a un amigo|Einem Freund empfehlen|Tipsa en vän|推荐给朋友
+Send the place in a chat|Envoyer le lieu dans un chat|Отправить место в чат|Enviar el sitio por chat|Ort im Chat senden|Skicka stället i en chatt|在聊天中发送此地点
+See menu|Voir le menu|Меню|Ver menú|Speisekarte|Se meny|查看菜单
+Order again|Commander à nouveau|Заказать снова|Volver a pedir|Erneut bestellen|Beställ igen|再次订购
+Cart|Panier|Корзина|Carrito|Warenkorb|Varukorg|购物车
+Items|Articles|Товары|Artículos|Artikel|Varor|商品
+Delivery|Livraison|Доставка|Envío|Lieferung|Leverans|配送
+Service fee|Frais de service|Сервисный сбор|Tarifa de servicio|Servicegebühr|Serviceavgift|服务费
+Total|Total|Итого|Total|Gesamt|Totalt|合计
+Promo code|Code promo|Промокод|Código promocional|Gutscheincode|Rabattkod|优惠码
+Apply|Appliquer|Применить|Aplicar|Anwenden|Använd|使用
+Choose payment method|Choisir le mode de paiement|Выберите способ оплаты|Elige el método de pago|Zahlungsmethode wählen|Välj betalningssätt|选择支付方式
+Choose an address to order|Choisissez une adresse pour commander|Выберите адрес для заказа|Elige una dirección para pedir|Adresse zum Bestellen wählen|Välj en adress för att beställa|选择地址以下单
+Pay with|Payer avec|Оплатить через|Pagar con|Bezahlen mit|Betala med|支付方式
+Your cart is empty. Find something you fancy.|Votre panier est vide. Trouvez quelque chose qui vous tente.|Корзина пуста. Найдите что-нибудь по вкусу.|Tu carrito está vacío. Encuentra algo que te apetezca.|Dein Warenkorb ist leer. Finde etwas Leckeres.|Varukorgen är tom. Hitta något du gillar.|购物车是空的，去找点想吃的吧。
+See restaurants|Voir les restaurants|Смотреть рестораны|Ver restaurantes|Restaurants ansehen|Se restauranger|查看餐厅
+Account|Compte|Аккаунт|Cuenta|Konto|Konto|账户
+Personal details|Informations personnelles|Личные данные|Datos personales|Persönliche Daten|Personuppgifter|个人信息
+Order history|Historique des commandes|История заказов|Historial de pedidos|Bestellverlauf|Orderhistorik|订单记录
+My reviews|Mes avis|Мои отзывы|Mis reseñas|Meine Bewertungen|Mina recensioner|我的评价
+Places you've eaten|Lieux où vous avez mangé|Где вы ели|Lugares donde has comido|Orte, an denen du gegessen hast|Ställen du ätit på|去过的餐厅
+Points and coupons|Points et coupons|Баллы и купоны|Puntos y cupones|Punkte und Gutscheine|Poäng och kuponger|积分和优惠券
+Friends|Amis|Друзья|Amigos|Freunde|Vänner|好友
+Default area|Zone par défaut|Район по умолчанию|Zona predeterminada|Standardgebiet|Standardområde|默认区域
+Language|Langue|Язык|Idioma|Sprache|Språk|语言
+Notifications|Notifications|Уведомления|Notificaciones|Benachrichtigungen|Aviseringar|通知
+Privacy|Confidentialité|Конфиденциальность|Privacidad|Datenschutz|Integritet|隐私
+Safety|Sécurité|Безопасность|Seguridad|Sicherheit|Trygghet|安全
+Safety contact|Contact de sécurité|Контакт безопасности|Contacto de seguridad|Sicherheitskontakt|Trygghetskontakt|安全联系人
+Sign out|Se déconnecter|Выйти|Cerrar sesión|Abmelden|Logga ut|退出登录
+Delete profile|Supprimer le profil|Удалить профиль|Eliminar perfil|Profil löschen|Radera profil|删除个人资料
+Sign in|Se connecter|Войти|Iniciar sesión|Anmelden|Logga in|登录
+Create profile|Créer un profil|Создать профиль|Crear perfil|Profil erstellen|Skapa profil|创建个人资料
+First name|Prénom|Имя|Nombre|Vorname|Förnamn|名字
+Last name|Nom|Фамилия|Apellido|Nachname|Efternamn|姓氏
+Email|E-mail|Эл. почта|Correo electrónico|E-Mail|E-post|电子邮箱
+Password|Mot de passe|Пароль|Contraseña|Passwort|Lösenord|密码
+Continue as guest|Continuer en tant qu'invité|Продолжить как гость|Continuar como invitado|Als Gast fortfahren|Fortsätt som gäst|以访客身份继续
+Welcome to Gaffel|Bienvenue sur Gaffel|Добро пожаловать в Gaffel|Bienvenido a Gaffel|Willkommen bei Gaffel|Välkommen till Gaffel|欢迎来到 Gaffel
+Orders|Commandes|Заказы|Pedidos|Bestellungen|Beställningar|订单
+Saved cards|Cartes enregistrées|Сохранённые карты|Tarjetas guardadas|Gespeicherte Karten|Sparade kort|已存卡片
+My cards|Mes cartes|Мои карты|Mis tarjetas|Meine Karten|Mina kort|我的卡片
+Add card|Ajouter une carte|Добавить карту|Añadir tarjeta|Karte hinzufügen|Lägg till kort|添加卡片
+Freeze|Geler|Заморозить|Congelar|Sperren|Frys|冻结
+Unfreeze|Dégeler|Разморозить|Descongelar|Entsperren|Lås upp|解冻
+Default|Par défaut|Основная|Predeterminada|Standard|Standard|默认
+Remove|Supprimer|Удалить|Eliminar|Entfernen|Ta bort|移除
+Spent this week|Dépensé cette semaine|Потрачено за неделю|Gastado esta semana|Diese Woche ausgegeben|Spenderat denna vecka|本周消费
+Recent activity|Activité récente|Последние операции|Actividad reciente|Letzte Aktivitäten|Senaste aktivitet|最近活动
+Card number|Numéro de carte|Номер карты|Número de tarjeta|Kartennummer|Kortnummer|卡号
+Save card|Enregistrer la carte|Сохранить карту|Guardar tarjeta|Karte speichern|Spara kort|保存卡片
+Shared tables|Tables partagées|Общие столы|Mesas compartidas|Gemeinschaftstische|Gemensamma bord|拼桌
+Find a buddy|Trouver un compagnon|Найти компанию|Buscar compañía|Partner finden|Hitta en kompis|找搭子
+Shared table|Table partagée|Общий стол|Mesa compartida|Gemeinschaftstisch|Gemensamt bord|拼桌
+Take a seat|Prendre une place|Занять место|Reservar plaza|Platz nehmen|Ta en plats|占个座
+At the table|À table|За столом|En la mesa|Am Tisch|Vid bordet|同桌
+Transit|Transports|Транспорт|Transporte|ÖPNV|Kollektivt|公共交通
+Walk|À pied|Пешком|A pie|Zu Fuß|Gå|步行
+Bike|Vélo|Велосипед|Bici|Fahrrad|Cykel|骑行
+Open in Google Maps|Ouvrir dans Google Maps|Открыть в Google Maps|Abrir en Google Maps|In Google Maps öffnen|Öppna i Google Maps|在 Google 地图中打开
+Open in Apple Maps|Ouvrir dans Plans|Открыть в Apple Картах|Abrir en Mapas de Apple|In Apple Karten öffnen|Öppna i Apple Kartor|在 Apple 地图中打开
+Change start|Changer le départ|Изменить старт|Cambiar inicio|Start ändern|Ändra start|更改起点
+From:|De :|Откуда:|Desde:|Von:|Från:|出发：
+To:|À :|Куда:|Hasta:|Nach:|Till:|到达：
+Today's scratch card|Carte à gratter du jour|Скретч-карта дня|Rasca de hoy|Rubbellos des Tages|Dagens skraplott|今日刮刮卡
+Reveal all squares|Révéler toutes les cases|Открыть все клетки|Descubrir todas las casillas|Alle Felder aufdecken|Visa alla rutor|揭开全部格子
+SCRATCH|GRATTEZ|СОТРИ|RASCA|RUBBELN|SKRAPA|刮开
+Your points|Vos points|Ваши баллы|Tus puntos|Deine Punkte|Dina poäng|您的积分
+Redeem|Échanger|Обменять|Canjear|Einlösen|Lös in|兑换
+Your coupons|Vos coupons|Ваши купоны|Tus cupones|Deine Gutscheine|Dina kuponger|您的优惠券
+Ads|Annonces|Реклама|Anuncios|Anzeigen|Annonser|广告
+Ad|Annonce|Реклама|Anuncio|Anzeige|Annons|广告
+Calendar|Calendrier|Календарь|Calendario|Kalender|Kalender|日历
+Friend requests|Demandes d'ami|Заявки в друзья|Solicitudes de amistad|Freundschaftsanfragen|Vänförfrågningar|好友请求
+Your friends|Vos amis|Ваши друзья|Tus amigos|Deine Freunde|Dina vänner|您的好友
+People you may know|Personnes que vous connaissez peut-être|Возможно, вы знакомы|Personas que quizá conozcas|Personen, die du kennen könntest|Personer du kanske känner|可能认识的人
+Search results|Résultats|Результаты поиска|Resultados|Suchergebnisse|Sökresultat|搜索结果
+Find friends by name or username|Trouver des amis par nom ou pseudo|Найти друзей по имени или нику|Buscar amigos por nombre o usuario|Freunde nach Name oder Benutzername finden|Hitta vänner via namn eller användarnamn|按姓名或用户名查找好友
+Add|Ajouter|Добавить|Añadir|Hinzufügen|Lägg till|添加
+Sent|Envoyé|Отправлено|Enviada|Gesendet|Skickad|已发送
+Accept|Accepter|Принять|Aceptar|Annehmen|Acceptera|接受
+Decline|Refuser|Отклонить|Rechazar|Ablehnen|Avböj|拒绝
+Share|Partager|Поделиться|Compartir|Teilen|Dela|分享
+Recommended by friends|Recommandé par des amis|Рекомендации друзей|Recomendado por amigos|Von Freunden empfohlen|Tipsat av vänner|好友推荐
+Write a message …|Écrire un message …|Напишите сообщение …|Escribe un mensaje …|Nachricht schreiben …|Skriv ett meddelande …|输入消息…
+Recommend a place|Recommander un lieu|Порекомендовать место|Recomendar un sitio|Ort empfehlen|Tipsa om ett ställe|推荐地点
+Call|Appeler|Позвонить|Llamar|Anrufen|Ring|拨打
+Video call|Appel vidéo|Видеозвонок|Videollamada|Videoanruf|Videosamtal|视频通话
+Send|Envoyer|Отправить|Enviar|Senden|Skicka|发送
+Say hi|Dites bonjour|Поздоровайтесь|Saluda|Sag Hallo|Säg hej|打个招呼
+Calling …|Appel en cours …|Вызов …|Llamando …|Anruf …|Ringer …|正在呼叫…
+Connected|Connecté|Соединено|Conectado|Verbunden|Ansluten|已接通
+Hang up|Raccrocher|Завершить|Colgar|Auflegen|Lägg på|挂断
+5 → 1 stars|5 → 1 étoile|5 → 1 звезда|5 → 1 estrella|5 → 1 Stern|5 → 1 stjärna|5 → 1 星
+1 → 5 stars|1 → 5 étoiles|1 → 5 звёзд|1 → 5 estrellas|1 → 5 Sterne|1 → 5 stjärnor|1 → 5 星
+Newest|Plus récents|Новые|Más recientes|Neueste|Nyaste|最新
+All reviews|Tous les avis|Все отзывы|Todas las reseñas|Alle Bewertungen|Alla recensioner|全部评价
+Restaurants ranked|Classement des restaurants|Рейтинг ресторанов|Ranking de restaurantes|Restaurant-Ranking|Restauranger rankade|餐厅排名
+Best first|Meilleurs d'abord|Сначала лучшие|Mejores primero|Beste zuerst|Bäst först|最好优先
+Worst first|Moins bons d'abord|Сначала худшие|Peores primero|Schlechteste zuerst|Sämst först|最差优先
+Example|Exemple|Пример|Ejemplo|Beispiel|Exempel|示例
+Directions|Itinéraire|Маршрут|Cómo llegar|Route|Vägbeskrivning|路线
+Gaffel – food delivered|Gaffel – livraison de repas|Gaffel – доставка еды|Gaffel – comida a domicilio|Gaffel – Essen geliefert|Gaffel – mat levererad|Gaffel – 美食外送`;
+const LX={fr:{},ru:{},es:{},de:{},sv:{},zh:{}};
+for(const row of LX_ROWS.split("\n")){const p=row.split("|");if(p.length!==7)continue;["fr","ru","es","de","sv","zh"].forEach((l,i)=>LX[l][p[0]]=p[i+1]);}
 function trCore(c){
   if(EN[c]!==undefined)return EN[c];
   if(MENU_EN[c]!==undefined)return MENU_EN[c];
@@ -3528,13 +3927,16 @@ function trCore(c){
   return c;
 }
 function tr(s){
-  if(S.lang!=="en"||typeof s!=="string")return s;
+  if(S.lang==="da"||typeof s!=="string")return s;
   const m=s.match(/^(\s*)([\s\S]*?)(\s*)$/);
-  return m[2]?m[1]+trCore(m[2])+m[3]:s;
+  if(!m[2])return s;
+  let en=trCore(m[2]);
+  if(S.lang!=="en"){const L=LX[S.lang];if(L&&L[en]!==undefined)en=L[en];}
+  return m[1]+en+m[3];
 }
 const skipTr=el=>el&&el.closest&&el.closest('[translate="no"],script,style,input,textarea');
 function trNode(root){
-  if(S.lang!=="en"||!root)return;
+  if(S.lang==="da"||!root)return;
   if(root.nodeType===3){if(!skipTr(root.parentElement)){const v=tr(root.data);if(v!==root.data)root.data=v;}return;}
   if(root.nodeType!==1||skipTr(root))return;
   const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),list=[];let n;while((n=w.nextNode()))list.push(n);
@@ -3542,11 +3944,11 @@ function trNode(root){
   [root,...root.querySelectorAll("[placeholder],[aria-label],[title]")].forEach(el=>{
     for(const a of ["placeholder","aria-label","title"]){const v=el.getAttribute&&el.getAttribute(a);if(v){const x=tr(v);if(x!==v)el.setAttribute(a,x);}}});
 }
-const trObserver=new MutationObserver(ms=>{if(S.lang!=="en")return;for(const m of ms)m.addedNodes.forEach(trNode);});
+const trObserver=new MutationObserver(ms=>{if(S.lang==="da")return;for(const m of ms)m.addedNodes.forEach(trNode);});
 function setLang(l){
   S.lang=LANGS[l]?l:"da";save();
   document.documentElement.lang=S.lang;
-  document.title=S.lang==="en"?"Gaffel – food delivered":"Gaffel – mad leveret";
+  document.title=S.lang==="da"?"Gaffel – mad leveret":tr("Gaffel – mad leveret");
   render();
 }
 
@@ -3558,7 +3960,7 @@ S.orders.forEach(o=>stamp(o.rid,true));
 {const d=new Date(),key=`-${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;for(const k of Object.keys(S.tables))if(!k.endsWith(key))delete S.tables[k];}
 ["view","sheet","toast","tabbar"].forEach(id=>trObserver.observe(document.getElementById(id),{childList:true,subtree:true}));
 document.documentElement.lang=S.lang;
-if(S.lang==="en")document.title="Gaffel – food delivered";
+if(S.lang!=="da")document.title=tr("Gaffel – mad leveret");
 if(gpsPolicy()===false) S.gps={status:"off",err:"",blocked:true};
 render();
 // Start GPS automatisk, hvis brugeren allerede har givet tilladelse

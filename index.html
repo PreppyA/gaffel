@@ -66,6 +66,8 @@ svg{display:block}
 .dot.seek{background:var(--ink);animation:blink 1s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,158,68,.5)}70%{box-shadow:0 0 0 8px rgba(46,158,68,0)}100%{box-shadow:0 0 0 0 rgba(46,158,68,0)}}
 @keyframes blink{50%{opacity:.3}}
+.langbtn{height:46px;border-radius:999px;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;gap:6px;padding:0 14px;font-weight:700;font-size:13px;color:var(--ink);flex:none}
+.langbtn svg{color:var(--btn)}
 .cur-btn{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-weight:700;font-size:13px;flex:none}
 .searchrow{display:flex;gap:10px;padding:14px 18px 0;align-items:center}
 .search{flex:1;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:0 18px;min-width:0;color:var(--ink-2)}
@@ -484,8 +486,10 @@ const IC={
   share:sv('<path d="M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/>',20,1.9),
   send:sv('<path d="M4 12 20 4l-6 16-2.5-6.5z"/>',18,2),
   door:sv('<path d="M5 21h14M7 21V4h10v17"/><circle cx="14" cy="12.5" r=".8" fill="currentColor"/>',20,1.9),
-  xc:sv('<circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/>',20,1.9)
+  xc:sv('<circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/>',20,1.9),
+  globe:sv('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>',18,1.8)
 };
+const DS=()=>S.lang==="en"?".":",";
 // Logo: en gaffel i en tallerken
 const LOGO=`<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.6" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="20" cy="20" r="14.4" fill="none" stroke="currentColor" stroke-width=".8" opacity=".55"/><path d="M15.5 9.5v6.7a3.2 3.2 0 0 0 2.6 3.1V30a1.9 1.9 0 0 0 3.8 0V19.3a3.2 3.2 0 0 0 2.6-3.1V9.5M18.7 9.5v6.2M21.3 9.5v6.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
@@ -624,10 +628,10 @@ const FILTERS=["Alle","Populære","Tilbud","Nye","Vegansk"];
 const S={view:"home",stack:[],rid:null,itemId:null,qty:1,search:"",cat:"Alle",allRest:false,allItems:false,msec:"Alle",
   currency:"DKK",convFrom:"DKK",convAmount:"100",
   loc:null,gps:{status:"off",err:"",at:null},watchId:null,
-  cart:{rid:null,items:{}},promo:null,order:null,lastOrder:null,quiz:{i:0,a:{}},meet:null};
+  cart:{rid:null,items:{}},promo:null,order:null,lastOrder:null,quiz:{i:0,a:{}},meet:null,lang:null};
 function load(){
   try{const d=JSON.parse(localStorage.getItem("gaffel2")||"null");
-    if(d){for(const k of ["currency","convFrom","convAmount","cart","promo","lastOrder","order","meet"]) if(d[k]!==undefined) S[k]=d[k];
+    if(d){for(const k of ["currency","convFrom","convAmount","cart","promo","lastOrder","order","meet","lang"]) if(d[k]!==undefined) S[k]=d[k];
       if(d.manualLoc) S.loc=d.manualLoc;}
   }catch(e){}
   if(!CURRENCIES[S.currency]) S.currency="DKK";
@@ -638,7 +642,7 @@ function load(){
   if(S.meet && (S.meet.status==="found"||S.meet.status==="booked"||S.meet.status==="checked") && !(S.meet.match&&RESTAURANTS.some(r=>r.id===S.meet.match.rid))) S.meet=null;
 }
 function save(){
-  try{localStorage.setItem("gaffel2",JSON.stringify({currency:S.currency,convFrom:S.convFrom,convAmount:S.convAmount,cart:S.cart,promo:S.promo,lastOrder:S.lastOrder,order:S.order,meet:S.meet,
+  try{localStorage.setItem("gaffel2",JSON.stringify({currency:S.currency,convFrom:S.convFrom,convAmount:S.convAmount,cart:S.cart,promo:S.promo,lastOrder:S.lastOrder,order:S.order,meet:S.meet,lang:S.lang,
     manualLoc:S.loc&&S.loc.manual?S.loc:null}));}catch(e){}
 }
 
@@ -646,7 +650,7 @@ function save(){
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const conv=(a,f,t)=>a/CURRENCIES[f].rate*CURRENCIES[t].rate;
-function fmt(a,code){const c=CURRENCIES[code];try{return new Intl.NumberFormat("da-DK",{style:"currency",currency:code,minimumFractionDigits:c.dec,maximumFractionDigits:c.dec}).format(a);}catch(e){return a.toFixed(c.dec)+" "+code;}}
+function fmt(a,code){const c=CURRENCIES[code];try{return new Intl.NumberFormat(S.lang==="en"?"en-GB":"da-DK",{style:"currency",currency:code,minimumFractionDigits:c.dec,maximumFractionDigits:c.dec}).format(a);}catch(e){return a.toFixed(c.dec)+" "+code;}}
 const price=dkk=>fmt(conv(dkk,"DKK",S.currency),S.currency);
 function dist(a,b){const R=6371,r=x=>x*Math.PI/180,dl=r(b.lat-a.lat),dn=r(b.lng-a.lng);
   const h=Math.sin(dl/2)**2+Math.cos(r(a.lat))*Math.cos(r(b.lat))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h));}
@@ -655,9 +659,9 @@ function info(r){
   const km=dist(S.loc,r),m=Math.round(12+km*4);
   return {km,min:m+5,eta:`${m}–${m+10} min`,fee:r.fee+(km>4?10:0),inRange:km<=8};
 }
-const kmTxt=km=>km<1?`${Math.round(km*1000)} m`:`${km.toFixed(1).replace(".",",")} km`;
-const ratingTxt=r=>r.rating.toFixed(1).replace(".",",");
-const revTxt=n=>n>=1000?`${(n/1000).toFixed(1).replace(".",",")}k`:String(n);
+const kmTxt=km=>km<1?`${Math.round(km*1000)} m`:`${km.toFixed(1).replace(".",DS())} km`;
+const ratingTxt=r=>r.rating.toFixed(1).replace(".",DS());
+const revTxt=n=>n>=1000?`${(n/1000).toFixed(1).replace(".",DS())}k`:String(n);
 const pct=x=>Math.round(x*100);
 function nutri(it){if(it.nu)return it.nu;let h=0;for(const c of it.n)h=(h*31+c.charCodeAt(0))>>>0;
   const k=it.t.includes("drik")?40+h%60:it.t.includes("let")?110+h%80:190+h%120;
@@ -745,7 +749,7 @@ function drawGpsSheet(){
      <dt>Breddegrad</dt><dd>${l.lat.toFixed(6)}</dd>
      <dt>Længdegrad</dt><dd>${l.lng.toFixed(6)}</dd>
      <dt>Nøjagtighed</dt><dd>± ${l.acc} m</dd>
-     ${l.speed!=null&&!isNaN(l.speed)?`<dt>Hastighed</dt><dd>${(l.speed*3.6).toFixed(1).replace(".",",")} km/t</dd>`:""}
+     ${l.speed!=null&&!isNaN(l.speed)?`<dt>Hastighed</dt><dd>${(l.speed*3.6).toFixed(1).replace(".",DS())} km/t</dd>`:""}
      <dt>Opdateret</dt><dd>${new Date(g.at).toLocaleTimeString("da-DK")}</dd></dl>`
    :g.status==="seeking"?`<dl class="kv"><dt>Status</dt><dd>Søger efter GPS-signal …</dd></dl>`
    :`<p style="color:var(--ink-2);margin-bottom:14px">Appen bruger enhedens GPS til at finde din adresse, sortere restauranter efter afstand og vise buddet på kortet.</p>`}
@@ -811,7 +815,7 @@ function floatBtn(){const {count,sub}=cartData();if(!count)return "";
 /* ---------- Forside ---------- */
 function vHome(){
   const st=S.gps.status, live=st==="live"&&S.loc&&!S.loc.manual;
-  return `<header class="hhead"><h1 class="logo" aria-label="Gaffel">${LOGO}<span>Gaffel</span></h1>${cartCirc()}</header>
+  return `<header class="hhead"><h1 class="logo" aria-label="Gaffel" translate="no">${LOGO}<span>Gaffel</span></h1><button class="langbtn" data-act="lang-sheet" aria-label="Skift sprog">${IC.globe}<span translate="no">${S.lang.toUpperCase()}</span></button>${cartCirc()}</header>
    <p class="hello">${greet()} · Restauranter i København</p>
    <div class="locrow">
      <button class="loc-btn" data-act="gps-sheet"><i class="dot ${live?"live":st==="seeking"?"seek":""}"></i><span>${esc(gpsLabel())}${live?` · ±${S.loc.acc} m`:""}</span></button>
@@ -835,8 +839,8 @@ function matchR(r){
 function homeResults(){
   const q=S.search.trim().toLowerCase();
   if(q){
-    const hits=ALL.filter(it=>(it.n+" "+it.d+" "+it.r.name+" "+it.r.cat+" "+it.r.kw).toLowerCase().includes(q));
-    const rh=RESTAURANTS.filter(r=>(r.name+" "+r.cat+" "+r.tag+" "+r.kw).toLowerCase().includes(q));
+    const hits=ALL.filter(it=>(it.n+" "+it.d+" "+it.r.name+" "+it.r.cat+" "+it.r.kw+(S.lang==="en"?" "+[it.n,it.d,it.r.cat,it.r.kw].map(trCore).join(" "):"")).toLowerCase().includes(q));
+    const rh=RESTAURANTS.filter(r=>(r.name+" "+r.cat+" "+r.tag+" "+r.kw+(S.lang==="en"?" "+[r.cat,r.kw,r.desc].map(trCore).join(" "):"")).toLowerCase().includes(q));
     return `<div class="sec-h"><div><span class="eyebrow">Søgning</span><h2>Resultater for “${esc(S.search.trim())}”</h2></div></div>
       ${rh.length?`<div class="list">${rh.map(nCard).join("")}</div>`:""}
       ${hits.length?`<div class="sec-h"><div><span class="eyebrow">${hits.length} retter</span><h2>Retter</h2></div></div><div class="list">${hits.map(it=>mCard(it,true)).join("")}</div>`
@@ -896,7 +900,7 @@ function vItem(){
      ${r.off?`<p class="warn" style="margin:16px 0 0;width:100%">${pct(r.off)} % rabat hos ${esc(r.name)} i dag – trækkes fra i kurven.</p>`:""}
      <div class="sep"></div>
      <p class="lbl">Næringsindhold pr. 100 g</p>
-     <div class="nut"><div><b>${n[0]}</b><span>kcal</span></div><div><b>${String(n[1]).replace(".",",")}</b><span>protein</span></div><div><b>${String(n[2]).replace(".",",")}</b><span>fedt</span></div><div><b>${String(n[3]).replace(".",",")}</b><span>kulhydrat</span></div></div>
+     <div class="nut"><div><b>${n[0]}</b><span>kcal</span></div><div><b>${String(n[1]).replace(".",DS())}</b><span>protein</span></div><div><b>${String(n[2]).replace(".",DS())}</b><span>fedt</span></div><div><b>${String(n[3]).replace(".",DS())}</b><span>kulhydrat</span></div></div>
      <div class="sep"></div>
      <h3>Ingredienser</h3><p class="body2">${esc(it.i)}</p>
      <div class="sep"></div>
@@ -913,7 +917,7 @@ function addToCart(id,q){
   const it=byId(id);
   if(S.cart.rid&&S.cart.rid!==it.r.id&&Object.keys(S.cart.items).length){
     const o=RESTAURANTS.find(x=>x.id===S.cart.rid);
-    if(!confirm(`Din kurv har varer fra ${o.name}. Vil du tømme den og starte en ny fra ${it.r.name}?`))return false;
+    if(!confirm(tr(`Din kurv har varer fra ${o.name}. Vil du tømme den og starte en ny fra ${it.r.name}?`)))return false;
     S.cart={rid:null,items:{}};S.promo=null;
   }
   S.cart.rid=it.r.id;S.cart.items[id]=(S.cart.items[id]||0)+q;save();return true;
@@ -1296,7 +1300,7 @@ function rates(a){
   if(isNaN(a)||a<0) return `<p style="color:var(--accent);font-weight:600">Skriv et tal, fx 250 eller 12,50.</p>`;
   return Object.keys(CURRENCIES).filter(k=>k!==S.convFrom).map(k=>{const v=conv(a,S.convFrom,k),one=conv(1,S.convFrom,k);
     return `<div class="rate"><button data-act="swap" data-c="${k}"><span class="code">${k}</span><span class="nm2">${esc(CURRENCIES[k].name)}</span></button>
-     <div class="val">${fmt(v,k)}<span>1 ${S.convFrom} = ${one.toFixed(one<1?4:2).replace(".",",")} ${k}</span></div></div>`;}).join("");
+     <div class="val">${fmt(v,k)}<span>1 ${S.convFrom} = ${one.toFixed(one<1?4:2).replace(".",DS())} ${k}</span></div></div>`;}).join("");
 }
 
 /* ---------- Klik ---------- */
@@ -1350,7 +1354,7 @@ document.addEventListener("click",e=>{
       if(S.quiz.i<QUIZ.length-1)S.quiz.i++; else S.view="quizres";
       render();window.scrollTo(0,0);break;}
     case "swap":{const a2=parseFloat(String(S.convAmount).replace(",",".")),to=b.dataset.c;
-      if(!isNaN(a2))S.convAmount=String(+conv(a2,S.convFrom,to).toFixed(CURRENCIES[to].dec)).replace(".",",");
+      if(!isNaN(a2))S.convAmount=String(+conv(a2,S.convFrom,to).toFixed(CURRENCIES[to].dec)).replace(".",DS());
       S.convFrom=to;save();render();break;}
     case "use-cur":S.currency=S.convFrom;save();toast(`Priser vises nu i ${S.currency}`);back();break;
     /* Spis sammen */
@@ -1371,16 +1375,18 @@ document.addEventListener("click",e=>{
     case "meet-send":meetSend();break;
     case "meet-checkin":S.meet.status="checked";save();render();window.scrollTo(0,0);break;
     case "meet-rate":S.meet.status="done";save();render();window.scrollTo(0,0);toast(b.dataset.v==="1"?"Tak! Vi husker, at I passede godt sammen":"Tak for svaret – vi matcher dig anderledes næste gang");break;
-    case "meet-cancel":if(confirm("Vil du aflyse aftalen? Dit match får besked.")){S.meet=newMeet(S.meet.where);save();render();toast("Aftalen er aflyst");}break;
+    case "meet-cancel":if(confirm(tr("Vil du aflyse aftalen? Dit match får besked."))){S.meet=newMeet(S.meet.where);save();render();toast("Aftalen er aflyst");}break;
     case "meet-new":S.meet=newMeet();save();render();window.scrollTo(0,0);break;
     case "meet-report":openSheet("report",`<h3>Anmeld eller bloker</h3><p style="color:var(--ink-2);margin-bottom:14px">Hvis noget føltes forkert, kan du blokere personen, så I aldrig bliver matchet igen, eller anmelde det til os. Kontakt altid 112 ved fare.</p>
       <button class="primary center" data-act="meet-block">Bloker og anmeld</button><button class="sec-btn" data-act="sheet-close">Fortryd</button>`);break;
     case "meet-block":closeSheet();S.meet.status="done";save();render();window.scrollTo(0,0);toast("Demo: personen er blokeret og anmeldt");break;
     case "sheet-close":closeSheet();break;
+    case "lang-sheet":openSheet("lang",`<h3 translate="no">Sprog · Language</h3>${Object.entries(LANGS).map(([k,v])=>`<button class="opt" data-act="setlang" data-l="${k}" aria-pressed="${k===S.lang}"><span translate="no">${v}</span><span>${k===S.lang?IC.tick:""}</span></button>`).join("")}`);break;
+    case "setlang":setLang(b.dataset.l);closeSheet();toast(S.lang==="en"?"Language: English":"Sprog: dansk");break;
     case "meet-share":{const m=S.meet,r=RESTAURANTS.find(x=>x.id===m.match.rid);
       const txt=`Jeg spiser på ${r.name} kl. ${m.match.slot} ${m.day} med ${listNames(m.match.people.map(p=>p.name))} (aftalt via Gaffel).`;
-      if(navigator.share)navigator.share({text:txt}).catch(()=>{});
-      else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>toast("Kopieret – send det til en ven"),()=>toast(txt));
+      if(navigator.share)navigator.share({text:tr(txt)}).catch(()=>{});
+      else if(navigator.clipboard)navigator.clipboard.writeText(tr(txt)).then(()=>toast("Kopieret – send det til en ven"),()=>toast(txt));
       else toast(txt);break;}
   }
 });
@@ -1414,8 +1420,301 @@ function softRender(){
   else render();
 }
 
+/* ---------- Sprog ----------
+   Appen er skrevet på dansk. På engelsk oversættes den viste tekst (og menuerne) efter hver visning
+   via ordbogen EN og mønstrene EN_RX. Tekst i elementer med translate="no" bliver ikke rørt. */
+const LANGS={da:"Dansk",en:"English"};
+const EN={
+ // Forside og navigation
+ "Slå GPS til for at finde dig":"Turn on GPS to find you","Finder din GPS-position …":"Finding your GPS position …","GPS virker ikke i denne visning – tryk for hjælp":"GPS doesn't work in this view – tap for help",
+ "Søg efter restaurant, ret eller køkken":"Search restaurants, dishes or cuisines","Søg":"Search","Skift sprog":"Change language","Tilbage":"Back","Luk":"Close",
+ "Spis sammen":"Eat together","Skal du spise alene i aften?":"Eating alone tonight?","Vil du hellere have selskab i aften?":"Would you rather have company tonight?",
+ "Bliv matchet med andre solospisere, der vil spise samme sted og på samme tid som dig.":"Get matched with other solo diners who want to eat at the same place and time as you.",
+ "Find en spisemakker":"Find a dining buddy","Vi leder efter en spisemakker …":"We're looking for a dining buddy …","Vi har fundet et match – bekræft det":"We found a match – confirm it",
+ "Filtre":"Filters","Alle":"All","Populære":"Popular","Tilbud":"Offers","Nye":"New","Vegansk":"Vegan",
+ "Asiatisk":"Asian","Dansk":"Danish","Mellemøstligt":"Middle Eastern","Indisk":"Indian","Mexicansk":"Mexican","Fransk":"French","Koreansk":"Korean","Græsk":"Greek","Spansk":"Spanish",
+ "Hjælp mig med at vælge":"Help me choose","Overrask mig":"Surprise me","Gentag sidste ordre":"Repeat last order",
+ "Kun i dag":"Today only","Dagens tilbud":"Today's offers","Tæt på dig":"Near you","Restauranter":"Restaurants","Se alle":"See all","Vis færre":"Show less",
+ "Fra menuerne":"From the menus","Udvalgte retter":"Featured dishes","Søgning":"Search","Retter":"Dishes",
+ "Ingen retter matcher. Prøv fx “pizza”, “vegansk” eller “sushi”.":"No dishes match. Try “pizza”, “vegan” or “sushi”.","Ingen restauranter i denne kategori.":"No restaurants in this category.",
+ "Sundt valg":"Healthy choice","Populær":"Popular","Topbedømt":"Top rated","Ny":"New","Lukket":"Closed","Uden for område":"Out of range","RABAT":"OFF",
+ "Bestil nu":"Order now","Lukket lige nu":"Closed right now","Uden for leveringsområde":"Outside delivery area","Følg din ordre":"Track your order",
+ // Restaurant og ret
+ "Menu":"Menu","Restauranten er lukket lige nu. Du kan se menuen, men ikke bestille.":"The restaurant is closed right now. You can browse the menu but not order.",
+ "Din position ligger uden for restaurantens leveringsområde (8 km).":"Your location is outside the restaurant's delivery area (8 km).",
+ "Spis her med en makker i aften":"Eat here with a buddy tonight","Bliv matchet med andre solospisere":"Get matched with other solo diners",
+ "Let":"Light","Stærk":"Spicy","Fisk":"Fish","Kød":"Meat","Sødt":"Sweet","Mættende":"Filling",
+ "Næringsindhold pr. 100 g":"Nutrition per 100 g","fedt":"fat","kulhydrat":"carbs","Ingredienser":"Ingredients","Opbevaring":"Storage",
+ "Højst et døgn ved 2–6 °C. Spises gerne med det samme.":"Keep for no more than a day at 2–6 °C. Best eaten right away.",
+ "Læg i kurv":"Add to cart","Færre":"Fewer","Flere":"More",
+ // Kurv
+ "Kurv":"Cart","Kurven er tom. Find en ret, du har lyst til.":"Your cart is empty. Find something you fancy.","Se restauranter":"See restaurants",
+ "Rabatkode (prøv GAFFEL10)":"Promo code (try GAFFEL10)","Brug":"Apply","Rabatkode":"Promo code","Ingen adresse endnu":"No address yet",
+ "Valgt område · tryk for at bruge GPS":"Chosen area · tap to use GPS","Tryk for at bruge enhedens GPS":"Tap to use your device's GPS",
+ "Varer":"Items","Levering":"Delivery","Servicegebyr":"Service fee","I alt":"Total","Vælg adresse for at bestille":"Choose an address to order",
+ "Fjern én":"Remove one","Tilføj én":"Add one",
+ // Følg ordre
+ "Din ordre":"Your order","GPS slået fra":"GPS off","Restauranten har modtaget din ordre":"The restaurant has received your order","Din mad bliver lavet lige nu":"Your food is being made right now",
+ "Din ordre er på vej til dig!":"Your order is on its way!","Leveret – velbekomme!":"Delivered – enjoy your meal!","Bud · cykel":"Courier · bike","Bestil igen":"Order again",
+ "Ring til buddet":"Call the courier","Skriv til buddet":"Message the courier",
+ // Quiz
+ "Hvad er du i humør til?":"What are you in the mood for?","Noget let":"Something light","Noget mættende":"Something filling","Noget sødt":"Something sweet","Ved ikke helt":"Not sure",
+ "Hvor sulten er du?":"How hungry are you?","Bare lidt – en snack":"Just a little – a snack","Klar til et måltid":"Ready for a meal","Rigtig sulten":"Really hungry",
+ "Hvilket køkken frister?":"Which cuisine tempts you?","Dansk smørrebrød":"Danish open sandwiches","Bowls & salater":"Bowls & salads","Frisk pasta":"Fresh pasta","Is & dessert":"Ice cream & dessert",
+ "Kød, fisk eller plantebaseret?":"Meat, fish or plant-based?","Plantebaseret":"Plant-based","Ligegyldigt":"Doesn't matter",
+ "Må det være stærkt?":"Can it be spicy?","Ja tak":"Yes please","Helst ikke":"Rather not",
+ "Hvem spiser du med?":"Who are you eating with?","Bare mig selv":"Just me","En date":"A date","Venner":"Friends","Familien":"Family",
+ "Hvor hurtigt skal maden komme?":"How fast should the food arrive?","Så hurtigt som muligt":"As fast as possible","Det må gerne tage lidt tid":"It can take a while",
+ "Hvad må retten koste?":"What can the dish cost?","Forrige spørgsmål":"Previous question",
+ "Dine anbefalinger":"Your recommendations","Ud fra dine svar passer disse steder bedst til dig lige nu.":"Based on your answers, these places suit you best right now.",
+ "Vælg din placering for at se, hvem der leverer hurtigst":"Choose your location to see who delivers fastest",
+ "Godt til en aften alene":"Good for an evening alone","Godt til en date":"Good for a date","Godt med venner":"Good with friends","Godt til familien":"Good for families",
+ "Let ret":"Light dish","Mættende ret":"Filling dish","Med kød":"With meat","Med fisk":"With fish","Passer til lille sult":"Good for a small appetite","Stor portion":"Large portion","Inden for budget":"Within budget",
+ "Prøv den her":"Try this one","Ingen af stedets retter passer helt til dine svar.":"None of this place's dishes fully match your answers.","Se hele menuen":"See the full menu","Tag quizzen igen":"Take the quiz again",
+ // Valuta og ark
+ "Valuta":"Currency","Vælg din startvaluta og se beløbet i alle de andre.":"Choose a starting currency and see the amount in all the others.","Beløb":"Amount","Startvaluta":"Starting currency",
+ "Tryk på en valuta for at gøre den til startvaluta. Kurserne er vejledende og opdateres ikke live – tjek din bank for den præcise kurs.":"Tap a currency to make it your starting currency. Rates are indicative and not updated live – check your bank for the exact rate.",
+ "Skriv et tal, fx 250 eller 12,50.":"Enter a number, e.g. 250 or 12.50.","Vis priser i":"Show prices in","Åbn valutaomregneren":"Open the currency converter",
+ "Danske kroner":"Danish kroner","Euro":"Euro","Amerikanske dollar":"US dollars","Britiske pund":"British pounds","Svenske kroner":"Swedish kronor","Norske kroner":"Norwegian kroner",
+ "Schweiziske franc":"Swiss francs","Polske złoty":"Polish złoty","Islandske kroner":"Icelandic krónur","Japanske yen":"Japanese yen","Tyrkiske lira":"Turkish lira","Thailandske baht":"Thai baht",
+ "Din lokation":"Your location","Status":"Status","GPS sporer live":"GPS tracking live","Område":"Area","Breddegrad":"Latitude","Længdegrad":"Longitude","Nøjagtighed":"Accuracy","Hastighed":"Speed","Opdateret":"Updated",
+ "Søger efter GPS-signal …":"Searching for GPS signal …","Appen bruger enhedens GPS til at finde din adresse, sortere restauranter efter afstand og vise buddet på kortet.":"The app uses your device's GPS to find your address, sort restaurants by distance and show the courier on the map.",
+ "Stop GPS-sporing":"Stop GPS tracking","Prøv igen":"Try again","Brug enhedens GPS":"Use device GPS","GPS-tjek":"GPS check","Sikker forbindelse (https)":"Secure connection (https)","Browseren har GPS":"Browser has GPS",
+ "Siden må bruge GPS":"Page may use GPS","Din tilladelse":"Your permission","Vises":"Shown","Eller vælg et område":"Or choose an area","Ja":"Yes","Nej":"No","Ukendt":"Unknown","Givet":"Granted","Ikke spurgt endnu":"Not asked yet","Afvist":"Denied",
+ "Inde i en anden side":"Inside another page","I egen fane":"In its own tab",
+ "GPS'en er spærret i denne visning, fordi appen vises inde i en anden side. Åbn appen i sin egen fane på https://preppya.github.io/gaffel/, så virker GPS'en. Indtil da kan du vælge dit område nedenfor.":"GPS is blocked in this view because the app is shown inside another page. Open the app in its own tab at https://preppya.github.io/gaffel/ and GPS will work. Until then you can choose your area below.",
+ "Adgang til lokation blev afvist. Tillad placering for browseren i telefonens indstillinger (iPhone: Anonymitet og sikkerhed → Lokalitetstjenester → Safari-websteder; Android: Indstillinger → Placering → Chrome) og for siden i browseren. Prøv så igen.":"Location access was denied. Allow location for your browser in the phone's settings (iPhone: Privacy & Security → Location Services → Safari Websites; Android: Settings → Location → Chrome) and for this page in the browser. Then try again.",
+ "GPS'en svarede ikke i tide. Gå evt. udendørs eller tæt på et vindue, og prøv igen.":"GPS didn't respond in time. Try going outside or near a window, and try again.",
+ "Positionen kunne ikke bestemmes. Tjek at lokationstjenester er slået til på enheden.":"Your position could not be determined. Check that location services are turned on.",
+ "Denne browser har ikke adgang til enhedens GPS.":"This browser can't access the device's GPS.","GPS kræver en sikker forbindelse (https).":"GPS requires a secure connection (https).",
+ // Beskeder
+ "Henter position fra enhedens GPS …":"Getting position from your device's GPS …","GPS-sporing stoppet":"GPS tracking stopped","Koden findes ikke. Tjek stavningen.":"That code doesn't exist. Check the spelling.",
+ "Opkald til buddet er ikke aktivt i demoen":"Calling the courier isn't active in the demo","Chat med buddet er ikke aktivt i demoen":"Chatting with the courier isn't active in the demo",
+ "Du har ikke bestilt noget endnu":"You haven't ordered anything yet","Ingen åbne restauranter leverer til dig lige nu":"No open restaurants deliver to you right now",
+ // Spis sammen
+ "1. Hvor vil du spise?":"1. Where do you want to eat?","Vælg sted":"Choose place","En bestemt restaurant":"A specific restaurant","Et område":"An area",
+ "3. Hvor mange vil du spise med?":"3. How many do you want to eat with?","Gruppestørrelse":"Group size","Kun os to":"Just the two of us","Lille bord (3–4)":"Small table (3–4)",
+ "4. Hvilken stemning?":"4. What kind of vibe?","Snakker gerne meget":"Happy to chat a lot","Hyggeligt og roligt":"Cosy and calm","Øver gerne et nyt sprog":"Happy to practise a new language",
+ "5. Dit fornavn":"5. Your first name","Dit fornavn":"Your first name","Fx Alex":"E.g. Alex","Kun dit fornavn vises for dem, du bliver matchet med.":"Only your first name is shown to the people you're matched with.",
+ "I mødes altid på restauranten – aldrig privat":"You always meet at the restaurant – never in private","Profiler med skjold er bekræftet med ID":"Profiles with a shield are verified with ID",
+ "Del jeres aftale med en ven med ét tryk":"Share your plans with a friend in one tap","Du kan altid aflyse eller blokere":"You can always cancel or block",
+ "Vælg sted og tidspunkt":"Choose place and time","Demo: de andre solospisere er opdigtede. Rigtig matchning mellem brugere kræver en server.":"Demo: the other solo diners are fictional. Real matching between users requires a server.",
+ "Leder efter solospisere …":"Looking for solo diners …","Søger i hele byen":"Searching the whole city","Stop søgningen":"Stop searching",
+ "Tjekker hvor du vil spise":"Checking where you want to eat","Matcher tidspunkt":"Matching the time","Finder fælles stemning":"Finding a shared vibe","Tjekker bekræftede profiler":"Checking verified profiles",
+ "Bekræftet profil":"Verified profile","Vil spise samme sted":"Wants to eat at the same place","Jeres bord":"Your table",
+ "Bekræft og reservér bord":"Confirm and book table","Find en anden":"Find someone else","Demo: profilerne er opdigtede, og der bliver ikke reserveret et rigtigt bord.":"Demo: the profiles are fictional and no real table is booked.",
+ "Ingen match lige nu":"No match right now","Ret sted eller tidspunkt":"Change place or time",
+ "Bordet er reserveret":"Your table is booked","God fornøjelse!":"Enjoy!","Tak for i aften":"Thanks for tonight","Dig":"You",
+ "Del med en ven":"Share with a friend","Jeg er ankommet":"I've arrived","Anmeld eller bloker":"Report or block","Aflys aftalen":"Cancel the plan","Find en ny spisemakker":"Find a new dining buddy",
+ "Godt – vi spiser gerne sammen igen":"Great – we'd happily eat together again","Ikke helt mit match":"Not quite my match",
+ "Skriv en besked …":"Write a message …","Besked":"Message","Send":"Send","Demo: beskeder og svar er simulerede.":"Demo: messages and replies are simulated.",
+ "Hvis noget føltes forkert, kan du blokere personen, så I aldrig bliver matchet igen, eller anmelde det til os. Kontakt altid 112 ved fare.":"If something felt wrong, you can block the person so you're never matched again, or report it to us. Always call 112 in an emergency.",
+ "Bloker og anmeld":"Block and report","Fortryd":"Cancel","Vil du aflyse aftalen? Dit match får besked.":"Do you want to cancel the plan? Your match will be notified.",
+ "Bordet er reserveret":"Your table is booked","Aftalen er aflyst":"The plan has been cancelled","Spis sammen: vi har fundet et match":"Eat together: we found a match","Spis sammen: ingen match lige nu":"Eat together: no match right now",
+ "Tak! Vi husker, at I passede godt sammen":"Thanks! We'll remember you were a good match","Tak for svaret – vi matcher dig anderledes næste gang":"Thanks – we'll match you differently next time",
+ "Demo: personen er blokeret og anmeldt":"Demo: the person has been blocked and reported","Kopieret – send det til en ven":"Copied – send it to a friend",
+ "Super, vi ses!":"Great, see you!","Det lyder godt. Jeg har en lilla jakke på, så du kan kende mig.":"Sounds good. I'll be wearing a purple jacket so you can spot me.","Fedt – jeg har hørt, at maden er rigtig god der.":"Nice – I've heard the food there is really good.",
+ "Ny i København":"New in Copenhagen","Arbejder hjemmefra og savner selskab":"Works from home and misses company","Studerer på KU":"Studies at the University of Copenhagen","Elsker at prøve nye køkkener":"Loves trying new cuisines",
+ "På forretningsrejse i byen":"In town on a business trip","Er lige flyttet til byen":"Just moved to the city","Går gerne en tur efter maden":"Happy to go for a walk after dinner","Laver selv mad, men vil ud i aften":"Usually cooks, but wants to go out tonight",
+ "Underviser i dansk":"Teaches Danish","Sygeplejerske med fri i aften":"Nurse with the evening off",
+ // Restauranter
+ "Friske bowls og salater med sæsonens grøntsager og hjemmelavede dressinger.":"Fresh bowls and salads with seasonal vegetables and homemade dressings.",
+ "Vietnamesisk suppe kogt i 12 timer, dampede bao og sprøde forårsruller.":"Vietnamese soup simmered for 12 hours, steamed bao and crispy spring rolls.",
+ "Napolitansk surdejspizza bagt i stenovn ved 450 grader – med tomater fra Campania.":"Neapolitan sourdough pizza baked in a stone oven at 450 degrees – with tomatoes from Campania.",
+ "Smashburgere på briochebolle, sprøde fritter og tykke milkshakes.":"Smash burgers on brioche buns, crispy fries and thick milkshakes.",
+ "Klassisk dansk smørrebrød på hjemmebagt rugbrød med håndpillede rejer og nye kartofler.":"Classic Danish open sandwiches on homemade rye bread with hand-peeled shrimp and new potatoes.",
+ "Sushi og poke med frisk fisk, der bliver skåret samme dag.":"Sushi and poke with fresh fish cut the same day.","Tyrkisk grill over trækul, mezze og varmt brød fra ovnen.":"Turkish charcoal grill, mezze and warm bread from the oven.",
+ "Nordindiske curryretter og naan, der bliver bagt i tandoorovnen.":"North Indian curries and naan baked in the tandoor oven.","Tacos på friske majstortillas, store burritos og nachos til at dele.":"Tacos on fresh corn tortillas, big burritos and nachos to share.",
+ "Thailandske wokretter og curry med friske urter, lime og chili.":"Thai wok dishes and curries with fresh herbs, lime and chilli.","Frisk pasta, der bliver rullet hver morgen, og klassiske italienske desserter.":"Fresh pasta rolled every morning and classic Italian desserts.",
+ "Fransk brasserie med steak frites, muslinger i hvidvin og crème brûlée.":"French brasserie with steak frites, mussels in white wine and crème brûlée.","Koreanske klassikere med kimchi, sprød kylling og varme risskåle.":"Korean classics with kimchi, crispy chicken and hot rice bowls.",
+ "Græske klassikere fra grillen og ovnen – serveret med god olivenolie.":"Greek classics from the grill and oven – served with good olive oil.","Små retter til at dele, saftig paella og churros med varm chokolade.":"Small plates to share, juicy paella and churros with hot chocolate.",
+ "Brunchtallerkener, nybagt brød og luftige pandekager hele dagen.":"Brunch plates, freshly baked bread and fluffy pancakes all day.","Langtidskogt bouillon, hjemmelavede nudler og sprøde gyoza.":"Slow-cooked broth, homemade noodles and crispy gyoza.","Hjemmelavet italiensk is, belgiske vafler og lune brownies.":"Homemade Italian ice cream, Belgian waffles and warm brownies.",
+ // Ord i nøgleord og menuafsnit
+ "Salater":"Salads","Vietnamesisk":"Vietnamese","Suppe":"Soup","Italiensk":"Italian","Surdej":"Sourdough","Burgere":"Burgers","Fritter":"Fries","Smørrebrød":"Open sandwiches","Frokost":"Lunch",
+ "Japansk":"Japanese","Tyrkisk":"Turkish","Vin":"Wine","Kylling":"Chicken","Risskåle":"Rice bowls","Bageri":"Bakery","Kaffe":"Coffee","Is":"Ice cream","Vafler":"Waffles",
+ "Drikke":"Drinks","Små retter":"Small plates","Tilbehør":"Sides","Hovedretter":"Mains","Is & kager":"Ice cream & cakes","Snacks":"Snacks",
+ // Retter: navne
+ "Quinoa-skål":"Quinoa bowl","Grillet asparges":"Grilled asparagus","Laksebowl":"Salmon bowl","Grøn juice":"Green juice","Forårsruller":"Spring rolls","Bao med svinebryst":"Pork belly bao",
+ "Vietnamesisk iskaffe":"Vietnamese iced coffee","Klassisk smash":"Classic smash","Sprød kylling":"Crispy chicken","Plantebøf":"Plant burger","Pommes frites":"French fries",
+ "Æg og rejer":"Egg and shrimp","Stjerneskud":"Stjerneskud (fish and shrimp)","Kartoffelmad":"Potato open sandwich","Hyldeblomstsaft":"Elderflower cordial","Laks nigiri (6 stk.)":"Salmon nigiri (6 pcs.)",
+ "Mezze-tallerken":"Mezze platter","Hvidløgsnaan":"Garlic naan","Fisketacos":"Fish tacos","Bønneburrito":"Bean burrito","Pad thai med rejer":"Pad thai with prawns","Grøn karry":"Green curry",
+ "Tom kha med tofu":"Tom kha with tofu","Bibimbap med tofu":"Bibimbap with tofu","Koreansk sprød kylling":"Korean fried chicken","Kimchi-pandekager":"Kimchi pancakes","Græsk salat":"Greek salad",
+ "Paella med skaldyr":"Seafood paella","Brunchtallerken":"Brunch plate","Avocadotoast":"Avocado toast","Pandekager":"Pancakes","Kanelsnegl":"Cinnamon roll","Miso ramen med tofu":"Miso ramen with tofu",
+ "Gyoza (5 stk.)":"Gyoza (5 pcs.)","Matcha-is":"Matcha ice cream","Gelato (2 kugler)":"Gelato (2 scoops)","Belgisk vaffel":"Belgian waffle","Brownie med is":"Brownie with ice cream",
+ // Retter: korte beskrivelser
+ "Quinoa, ristede kikærter og avocado":"Quinoa, roasted chickpeas and avocado","Asparges, ærter, parmesan og ruccola":"Asparagus, peas, parmesan and rocket","Bagt laks, brune ris og edamame":"Baked salmon, brown rice and edamame",
+ "Æble, spinat, ingefær":"Apple, spinach, ginger","Oksebouillon med risnudler og urter":"Beef broth with rice noodles and herbs","Grøntsagsbouillon med tofu og svampe":"Vegetable broth with tofu and mushrooms",
+ "Sprøde, med nuoc cham (4 stk.)":"Crispy, with nuoc cham (4 pcs.)","Hoisin, agurk og peanuts (2 stk.)":"Hoisin, cucumber and peanuts (2 pcs.)","Stærk kaffe med kondensmælk":"Strong coffee with condensed milk",
+ "San Marzano, fior di latte, basilikum":"San Marzano, fior di latte, basil","Stærk salami, chiliolie, mozzarella":"Spicy salami, chilli oil, mozzarella","Svampe, trøffelcreme, parmesan":"Mushrooms, truffle cream, parmesan",
+ "Mascarpone og espresso":"Mascarpone and espresso","Dobbelt bøf, cheddar, pickles":"Double patty, cheddar, pickles","Buttermilk-kylling, coleslaw, sriracha-mayo":"Buttermilk chicken, coleslaw, sriracha mayo",
+ "Vegansk bøf, tomat, rødløg":"Vegan patty, tomato, red onion","Med havsalt og aioli":"With sea salt and aioli","Vanilje, jordbær eller chokolade":"Vanilla, strawberry or chocolate",
+ "Håndpillede rejer, mayonnaise, dild":"Hand-peeled shrimp, mayonnaise, dill","Rødspætte, rejer, asparges":"Plaice, shrimp, asparagus","Nye kartofler, purløg, sprøde løg":"New potatoes, chives, crispy onions","Hjemmelavet":"Homemade",
+ "Norsk laks på sushiris":"Norwegian salmon on sushi rice","Tun, chilimayo, agurk (8 stk.)":"Tuna, chilli mayo, cucumber (8 pcs.)","Laks, edamame, avocado, sesam":"Salmon, edamame, avocado, sesame",
+ "Lammespyd, bulgur, grillet peber":"Lamb skewer, bulgur, grilled pepper","Hummus, syltede grøntsager, tahin":"Hummus, pickled vegetables, tahini","Hummus, baba ganoush, pita":"Hummus, baba ganoush, pita",
+ "Tandoori-kylling i cremet tomatsauce":"Tandoori chicken in creamy tomato sauce","Kikærter i krydret tomatsauce":"Chickpeas in spiced tomato sauce","Ovnbagt i tandoor":"Baked in the tandoor","Yoghurt, mango og kardemomme":"Yoghurt, mango and cardamom",
+ "Svinekød, ananas, koriander (3 stk.)":"Pork, pineapple, coriander (3 pcs.)","Sprød torsk, kålsalat, chipotle-mayo (3 stk.)":"Crispy cod, slaw, chipotle mayo (3 pcs.)","Sorte bønner, ris, guacamole":"Black beans, rice, guacamole",
+ "Med ost, jalapeños og salsa":"With cheese, jalapeños and salsa","Risnudler, tamarind, peanuts":"Rice noodles, tamarind, peanuts","Kylling, kokosmælk, thaibasilikum":"Chicken, coconut milk, Thai basil",
+ "Kokossuppe med citrongræs":"Coconut soup with lemongrass","Klisterris, mango og kokos":"Sticky rice, mango and coconut","Guanciale, æggeblomme, pecorino":"Guanciale, egg yolk, pecorino",
+ "Basilikum, pinjekerner, parmesan":"Basil, pine nuts, parmesan","Ragù, bechamel og parmesan":"Ragù, béchamel and parmesan","Vanilje og jordbærcoulis":"Vanilla and strawberry coulis",
+ "Entrecôte, pommes frites, béarnaise":"Entrecôte, fries, béarnaise","Blåmuslinger i hvidvin og fløde":"Mussels in white wine and cream","Skinke, gruyère og spejlæg":"Ham, gruyère and fried egg",
+ "Vanilje og karamelliseret sukker":"Vanilla and caramelised sugar","Ris, grøntsager, æg og gochujang":"Rice, vegetables, egg and gochujang","Dobbeltfriteret med sød chiliglasur":"Double-fried with sweet chilli glaze",
+ "Sprøde, med soja-dip (2 stk.)":"Crispy, with soy dip (2 pcs.)","Mælkete med tapiokaperler":"Milk tea with tapioca pearls","Svinekød, tzatziki, tomat og løg":"Pork, tzatziki, tomato and onion",
+ "Aubergine, oksekød og bechamel":"Aubergine, beef and béchamel","Feta, oliven, tomat og agurk":"Feta, olives, tomato and cucumber","Filodej, pistacie og honning":"Filo pastry, pistachio and honey",
+ "Sprøde kartofler, bravasauce, aioli":"Crispy potatoes, brava sauce, aioli","Rejer i hvidløgsolie og chili":"Prawns in garlic oil and chilli","Safranris, rejer og muslinger":"Saffron rice, prawns and mussels",
+ "Med varm chokoladesauce":"With hot chocolate sauce","Æg, bacon, pølse og surdejsbrød":"Eggs, bacon, sausage and sourdough","Surdejsbrød, avocado og lime":"Sourdough, avocado and lime",
+ "Med bær og ahornsirup (3 stk.)":"With berries and maple syrup (3 pcs.)","Nybagt med kardemomme":"Freshly baked with cardamom","Svinebouillon, chashu og æg":"Pork broth, chashu and egg",
+ "Miso, majs og bok choy":"Miso, corn and bok choy","Stegte dumplings med svinekød":"Pan-fried pork dumplings","Japansk grøn te-is":"Japanese green tea ice cream","Vælg mellem 12 smage":"Choose from 12 flavours",
+ "Med flødeskum og bær":"With whipped cream and berries","Lun chokoladebrownie":"Warm chocolate brownie","Vaniljeis med espresso":"Vanilla ice cream with espresso",
+ // Retter: ingredienser
+ "Quinoa, ovnristede kikærter, avocado, sugarsnaps, rødløg, spinat, pistacienødder og citronvinaigrette.":"Quinoa, oven-roasted chickpeas, avocado, sugar snaps, red onion, spinach, pistachios and lemon vinaigrette.",
+ "Grønne asparges, ærter, ruccola, høvlet parmesan, ristede græskarkerner og hyldeblomstdressing.":"Green asparagus, peas, rocket, shaved parmesan, toasted pumpkin seeds and elderflower dressing.",
+ "Ovnbagt laks, brune ris, edamame, agurk, syltede gulerødder, sesam og misodressing.":"Oven-baked salmon, brown rice, edamame, cucumber, pickled carrots, sesame and miso dressing.",
+ "Koldpresset æble, agurk, spinat, citron og ingefær.":"Cold-pressed apple, cucumber, spinach, lemon and ginger.",
+ "Oksebouillon, risnudler, oksebryst, bønnespirer, thaibasilikum, koriander, lime og chili.":"Beef broth, rice noodles, beef brisket, bean sprouts, Thai basil, coriander, lime and chilli.",
+ "Grøntsagsbouillon, risnudler, tofu, shiitake, bok choy, koriander og lime.":"Vegetable broth, rice noodles, tofu, shiitake, bok choy, coriander and lime.",
+ "Rispapir, glasnudler, gulerod, kål, svampe og nuoc cham.":"Rice paper, glass noodles, carrot, cabbage, mushrooms and nuoc cham.",
+ "Dampet bao, langtidsstegt svinebryst, hoisin, agurk, peanuts og koriander.":"Steamed bao, slow-roasted pork belly, hoisin, cucumber, peanuts and coriander.",
+ "Robusta-kaffe, sødet kondensmælk og is.":"Robusta coffee, sweetened condensed milk and ice.",
+ "Surdejsbund, San Marzano-tomater, fior di latte, basilikum og olivenolie.":"Sourdough base, San Marzano tomatoes, fior di latte, basil and olive oil.",
+ "Surdejsbund, tomatsauce, stærk salami, mozzarella og chiliolie.":"Sourdough base, tomato sauce, spicy salami, mozzarella and chilli oil.",
+ "Surdejsbund, trøffelcreme, blandede svampe, mozzarella og parmesan.":"Sourdough base, truffle cream, mixed mushrooms, mozzarella and parmesan.",
+ "Savoiardi, espresso, mascarpone, æg, sukker og kakao.":"Savoiardi, espresso, mascarpone, egg, sugar and cocoa.",
+ "Briochebolle, 2 × smashed oksebøf, cheddar, pickles, løg og husets sauce.":"Brioche bun, 2 × smashed beef patty, cheddar, pickles, onion and house sauce.",
+ "Briochebolle, friteret buttermilk-kylling, coleslaw og sriracha-mayo.":"Brioche bun, fried buttermilk chicken, coleslaw and sriracha mayo.",
+ "Vegansk bolle, plantebøf, vegansk cheddar, tomat, rødløg og salat.":"Vegan bun, plant-based patty, vegan cheddar, tomato, red onion and lettuce.",
+ "Kartofler, havsalt og hjemmelavet aioli.":"Potatoes, sea salt and homemade aioli.","Softice, sødmælk og valgfri smag.":"Soft serve, whole milk and your choice of flavour.",
+ "Rugbrød, smør, æg, håndpillede rejer, mayonnaise, dild og citron.":"Rye bread, butter, egg, hand-peeled shrimp, mayonnaise, dill and lemon.",
+ "Franskbrød, stegt og dampet rødspætte, rejer, asparges, kaviar og dressing.":"White bread, fried and steamed plaice, shrimp, asparagus, caviar and dressing.",
+ "Rugbrød, nye kartofler, mayonnaise, purløg og sprøde løg.":"Rye bread, new potatoes, mayonnaise, chives and crispy onions.","Hyldeblomst, citron, sukker og danskvand.":"Elderflower, lemon, sugar and sparkling water.",
+ "Sushiris, risvineddike og norsk laks.":"Sushi rice, rice vinegar and Norwegian salmon.","Sushiris, nori, tun, chilimayo, agurk og sesam.":"Sushi rice, nori, tuna, chilli mayo, cucumber and sesame.",
+ "Sushiris, laks, edamame, avocado, agurk, mango og ponzu.":"Sushi rice, salmon, edamame, avocado, cucumber, mango and ponzu.",
+ "Lammekød, peberfrugt, bulgur, grillet peber, tomat og yoghurt.":"Lamb, bell pepper, bulgur, grilled pepper, tomato and yoghurt.",
+ "Durumbrød, falafel, hummus, syltede grøntsager, salat og tahin.":"Durum bread, falafel, hummus, pickled vegetables, lettuce and tahini.","Hummus, baba ganoush, oliven, feta og varm pita.":"Hummus, baba ganoush, olives, feta and warm pita.",
+ "Tandoori-marineret kylling, tomat, smør, fløde, garam masala, bukkehorn og basmatiris.":"Tandoori-marinated chicken, tomato, butter, cream, garam masala, fenugreek and basmati rice.",
+ "Kikærter, tomat, løg, ingefær, hvidløg, chili, spidskommen, koriander og basmatiris.":"Chickpeas, tomato, onion, ginger, garlic, chilli, cumin, coriander and basmati rice.",
+ "Hvedemel, yoghurt, hvidløg, smør og frisk koriander.":"Wheat flour, yoghurt, garlic, butter and fresh coriander.","Yoghurt, mango, mælk, sukker og kardemomme.":"Yoghurt, mango, milk, sugar and cardamom.",
+ "Majstortillas, marineret svinekød, grillet ananas, løg, koriander, lime og salsa roja.":"Corn tortillas, marinated pork, grilled pineapple, onion, coriander, lime and salsa roja.",
+ "Majstortillas, friteret torsk, rødkålssalat, chipotle-mayo, lime og koriander.":"Corn tortillas, fried cod, red cabbage slaw, chipotle mayo, lime and coriander.",
+ "Hvedetortilla, sorte bønner, krydrede ris, majs, guacamole, salsa og vegansk ost.":"Flour tortilla, black beans, spiced rice, corn, guacamole, salsa and vegan cheese.",
+ "Majschips, cheddar, jalapeños, pico de gallo, creme fraiche og guacamole.":"Corn chips, cheddar, jalapeños, pico de gallo, sour cream and guacamole.",
+ "Risnudler, tigerrejer, æg, tofu, bønnespirer, purløg, tamarind, peanuts og lime.":"Rice noodles, tiger prawns, egg, tofu, bean sprouts, chives, tamarind, peanuts and lime.",
+ "Kylling, grøn karrypasta, kokosmælk, aubergine, bambusskud, thaibasilikum og jasminris.":"Chicken, green curry paste, coconut milk, aubergine, bamboo shoots, Thai basil and jasmine rice.",
+ "Kokosmælk, tofu, svampe, citrongræs, galanga, limeblade, lime og koriander.":"Coconut milk, tofu, mushrooms, lemongrass, galangal, lime leaves, lime and coriander.",
+ "Klisterris, frisk mango, kokosmælk, sukker og ristet sesam.":"Sticky rice, fresh mango, coconut milk, sugar and toasted sesame.",
+ "Frisk spaghetti, guanciale, æggeblomme, pecorino romano og sort peber.":"Fresh spaghetti, guanciale, egg yolk, pecorino romano and black pepper.",
+ "Frisk trofie, basilikumpesto, pinjekerner, parmesan, grønne bønner og kartoffel.":"Fresh trofie, basil pesto, pine nuts, parmesan, green beans and potato.",
+ "Pastaplader, langtidssimret oksekødsragù, bechamel, parmesan og basilikum.":"Pasta sheets, slow-simmered beef ragù, béchamel, parmesan and basil.","Fløde, vanilje, sukker, husblas og jordbærcoulis.":"Cream, vanilla, sugar, gelatine and strawberry coulis.",
+ "Entrecôte, pommes frites, sauce béarnaise og grøn salat.":"Entrecôte, fries, béarnaise sauce and green salad.",
+ "Blåmuslinger, hvidvin, skalotteløg, hvidløg, fløde, persille og pommes frites.":"Mussels, white wine, shallots, garlic, cream, parsley and fries.",
+ "Briochebrød, skinke, gruyère, bechamel og spejlæg.":"Brioche, ham, gruyère, béchamel and fried egg.","Fløde, æggeblommer, vanilje og brændt sukker.":"Cream, egg yolks, vanilla and burnt sugar.",
+ "Ris, sprød tofu, spinat, gulerod, bønnespirer, shiitake, spejlæg og gochujang.":"Rice, crispy tofu, spinach, carrot, bean sprouts, shiitake, fried egg and gochujang.",
+ "Kyllingelår, kartoffelmel, gochujang, honning, hvidløg, sesam og forårsløg.":"Chicken thighs, potato starch, gochujang, honey, garlic, sesame and spring onion.",
+ "Hvedemel, kimchi, forårsløg, chili og dip af soja og risvineddike.":"Wheat flour, kimchi, spring onion, chilli and a soy and rice vinegar dip.","Sort te, mælk, brun farin og tapiokaperler.":"Black tea, milk, brown sugar and tapioca pearls.",
+ "Pitabrød, grillet svinekød, tzatziki, tomat, rødløg og pommes frites.":"Pita bread, grilled pork, tzatziki, tomato, red onion and fries.",
+ "Aubergine, kartofler, oksekødssauce med kanel, bechamel og kefalotyri.":"Aubergine, potatoes, beef sauce with cinnamon, béchamel and kefalotyri.",
+ "Tomat, agurk, rødløg, peberfrugt, kalamata-oliven, feta og oregano.":"Tomato, cucumber, red onion, bell pepper, kalamata olives, feta and oregano.",
+ "Filodej, smør, pistacienødder, valnødder, honning og kanel.":"Filo pastry, butter, pistachios, walnuts, honey and cinnamon.","Kartofler, røget paprika, tomat, chili og hvidløgsaioli.":"Potatoes, smoked paprika, tomato, chilli and garlic aioli.",
+ "Tigerrejer, olivenolie, hvidløg, chili, persille og brød.":"Tiger prawns, olive oil, garlic, chilli, parsley and bread.",
+ "Bomba-ris, safran, rejer, blåmuslinger, blæksprutte, ærter og citron.":"Bomba rice, saffron, prawns, mussels, squid, peas and lemon.","Friturestegt dej, kanelsukker og mørk chokolade.":"Fried dough, cinnamon sugar and dark chocolate.",
+ "Spejlæg, bacon, pølse, bagte bønner, grillet tomat, svampe og surdejsbrød.":"Fried eggs, bacon, sausage, baked beans, grilled tomato, mushrooms and sourdough.",
+ "Ristet surdejsbrød, avocado, lime, chiliflager, radiser og karse.":"Toasted sourdough, avocado, lime, chilli flakes, radishes and cress.",
+ "Amerikanske pandekager, friske bær, ahornsirup og skyr.":"American pancakes, fresh berries, maple syrup and skyr.","Hvedemel, smør, kanel, kardemomme og sukker.":"Wheat flour, butter, cinnamon, cardamom and sugar.",
+ "Svinebouillon kogt i 18 timer, hvedenudler, chashu, marineret æg, nori og forårsløg.":"Pork broth simmered for 18 hours, wheat noodles, chashu, marinated egg, nori and spring onion.",
+ "Grøntsagsbouillon, hvid miso, nudler, tofu, majs, bok choy og sesam.":"Vegetable broth, white miso, noodles, tofu, corn, bok choy and sesame.",
+ "Gyozadej, svinekød, kål, ingefær, hvidløg og dip af soja.":"Gyoza wrappers, pork, cabbage, ginger, garlic and soy dip.","Fløde, mælk, matcha og sukker.":"Cream, milk, matcha and sugar.",
+ "Mælk, fløde, sukker og valgfri smag, fx pistacie, stracciatella eller citron.":"Milk, cream, sugar and your choice of flavour, e.g. pistachio, stracciatella or lemon.",
+ "Vaffeldej, perlesukker, flødeskum, friske bær og flormelis.":"Waffle batter, pearl sugar, whipped cream, fresh berries and icing sugar.",
+ "Mørk chokolade, smør, æg, sukker og en kugle vaniljeis.":"Dark chocolate, butter, eggs, sugar and a scoop of vanilla ice cream.","Vaniljegelato og en dobbelt espresso.":"Vanilla gelato and a double espresso."
+};
+const og=s=>s.replace(/ og /g," and ");
+const dayEn=d=>d==="i aften"?"tonight":"tomorrow evening";
+const trW=s=>EN[s]||s;
+const EN_RX=[
+ [/^(God morgen|Goddag|God aften) · Restauranter i København$/,(m,g)=>({"God morgen":"Good morning","Goddag":"Good afternoon","God aften":"Good evening"}[g])+" · Restaurants in Copenhagen"],
+ [/^Nær (.+)$/,"Near $1"],
+ [/^Bord kl\. (\S+) hos (.+) med (.+)$/,(m,a,b,c)=>`Table at ${b} · ${a} with ${og(c)}`],
+ [/^(\d+) restauranter$/,"$1 restaurants"],[/^(\d+) retter$/,"$1 dishes"],
+ [/^Resultater for “(.+)”$/,"Results for “$1”"],
+ [/^(.+) · kun i dag$/,"$1 · today only"],
+ [/^Gå til kassen · (\d+) varer?$/,(m,n)=>`Checkout · ${n} ${n==="1"?"item":"items"}`],
+ [/^(.+) · lukket lige nu$/,"$1 · closed right now"],
+ [/^(\d+) % rabat i dag$/,"$1% off today"],
+ [/^(\d+) % rabat hos (.+) i dag – trækkes fra i kurven\.$/,"$1% off at $2 today – deducted in the cart."],
+ [/^Pris i restaurantens valuta: (.+)$/,"Price in the restaurant's currency: $1"],
+ [/^Fra enhedens GPS · (.+)$/,"From your device's GPS · $1"],
+ [/^Fra (.+) · (.+ min)$/,"From $1 · $2"],
+ [/^Rabatkode (\S+) bekræftet$/,"Promo code $1 applied"],
+ [/^Dagens rabat \((\d+) %\)$/,"Today's discount ($1%)"],
+ [/^Levering \((.+)\)$/,"Delivery ($1)"],
+ [/^Du betaler (.+) – restauranten afregner i DKK$/,"You pay $1 – the restaurant settles in DKK"],
+ [/^Bestil for (.+)$/,"Order for $1"],
+ [/^Forventet levering kl\. (.+)$/,"Expected delivery at $1"],[/^Leveret kl\. (.+)$/,"Delivered at $1"],
+ [/^Spørgsmål (\d+) af (\d+)$/,"Question $1 of $2"],[/^Nr\. (\d+)$/,"No. $1"],
+ [/^Hurtig levering · (.+)$/,"Fast delivery · $1"],
+ [/^(\S+) køkken$/,(m,c)=>`${trW(c)} cuisine`],
+ [/^Gerne over (.+)$/,"Over $1 is fine"],
+ [/^Vis appens priser i (\S+)$/,"Show app prices in $1"],[/^Valuta: (\S+)$/,"Currency: $1"],
+ [/^Ingen skal spise alene, hvis de ikke har lyst\. Vælg hvor og hvornår, så finder vi andre solospisere, der vil det samme (i aften|i morgen aften)\.$/,(m,d)=>`Nobody should have to eat alone if they don't want to. Choose where and when, and we'll find other solo diners who want the same ${dayEn(d)}.`],
+ [/^2\. Hvornår (i aften|i morgen aften)\?$/,(m,d)=>`2. When ${dayEn(d)}?`],
+ [/^kl\. (\d\d:\d\d)$/,"$1"],
+ [/^(.+) · kl\. (\S+) (i aften|i morgen aften)$/,(m,a,b,d)=>`${a} · ${b} ${dayEn(d)}`],
+ [/^(\d+) andre søger i nærheden lige nu$/,"$1 others nearby are searching right now"],[/^1 anden søger i nærheden lige nu$/,"1 other person nearby is searching right now"],
+ [/^Vil spise (\S+ k?m) derfra$/,"Wants to eat $1 away"],[/^Vil gerne spise i nærheden \((.+)\)$/,"Happy to eat nearby ($1)"],
+ [/^Vil spise tæt på (.+)$/,"Wants to eat near $1"],[/^Vil spise i (.+)$/,"Wants to eat in $1"],
+ [/^Samme tidspunkt · kl\. (.+)$/,"Same time · $1"],[/^Ville spise kl\. (.+)$/,"Wanted to eat at $1"],
+ [/^Vi har fundet et lille bord, der vil spise kl\. (\S+) (i aften|i morgen aften)\.$/,(m,b,d)=>`We found a small table that wants to eat at ${b} ${dayEn(d)}.`],
+ [/^(.+) vil også spise kl\. (\S+) (i aften|i morgen aften)\.$/,(m,a,b,d)=>`${a} also wants to eat at ${b} ${dayEn(d)}.`],
+ [/^Vi fandt (\d+) – der kan nå at komme flere til bordet\.$/,"We found $1 – more may still join the table."],
+ [/^I AFTEN$/,"TONIGHT"],[/^I MORGEN AFTEN$/,"TOMORROW EVENING"],
+ [/^Der er ingen andre solospisere, der vil spise tæt på (.+) omkring kl\. (\S+)\. Prøv et andet tidspunkt eller et større område\.$/,"No other solo diners want to eat near $1 around $2. Try another time or a larger area."],
+ [/^Bord til (\d+) hos (.+) kl\. (\S+) (i aften|i morgen aften)$/,(m,n,r,t,d)=>`Table for ${n} at ${r} · ${t} ${dayEn(d)}`],
+ [/^Dig og (.+)$/,(m,a)=>`You and ${og(a)}`],[/^Chat med (.+)$/,(m,a)=>`Chat with ${og(a)}`],
+ [/^Hvordan var det at spise med (.+)\?$/,(m,a)=>`How was dining with ${og(a)}?`],
+ [/^Hej( [^!]+)?! Det bliver hyggeligt\. Jeg er der lidt før kl\. (\S+)\.$/,(m,n,t)=>`Hi${n||""}! This will be lovely. I'll be there a little before ${t}.`],
+ [/^Jeg spiser på (.+) kl\. (\S+) (i aften|i morgen aften) med (.+) \(aftalt via Gaffel\)\.$/,(m,r,t,d,a)=>`I'm eating at ${r} at ${t} ${dayEn(d)} with ${og(a)} (arranged via Gaffel).`],
+ [/^(\d+) × (.+) lagt i kurven$/,(m,n,x)=>`${n} × ${trW(x)} added to cart`],[/^(.+) lagt i kurven$/,(m,x)=>`${trW(x)} added to cart`],
+ [/^Priser vises nu i (\S+)$/,"Prices now shown in $1"],[/^(\d+) % rabat lagt på$/,"$1% discount applied"],
+ [/^Din kurv har varer fra (.+)\. Vil du tømme den og starte en ny fra (.+)\?$/,"Your cart has items from $1. Empty it and start a new one from $2?"],
+ [/^Kurv, (\d+) varer$/,"Cart, $1 items"],[/^Læg (.+) i kurven$/,(m,x)=>`Add ${trW(x)} to cart`],
+ [/^Ordrestatus: trin (\d) af 4$/,"Order status: step $1 of 4"],
+ [/^Kort over leveringen fra (.+) til din position$/,"Map of the delivery from $1 to your location"],
+ [/^Se menuen hos (.+)$/,"See the menu at $1"],[/^Se (.+)$/,(m,x)=>`View ${trW(x)}`]
+];
+function trCore(c){
+  if(EN[c]!==undefined)return EN[c];
+  for(const [rx,rep] of EN_RX)if(rx.test(c))return c.replace(rx,rep);
+  if(c.includes(" • "))return c.split(" • ").map(trW).join(" • ");
+  return c;
+}
+function tr(s){
+  if(S.lang!=="en"||typeof s!=="string")return s;
+  const m=s.match(/^(\s*)([\s\S]*?)(\s*)$/);
+  return m[2]?m[1]+trCore(m[2])+m[3]:s;
+}
+const skipTr=el=>el&&el.closest&&el.closest('[translate="no"],script,style,input,textarea');
+function trNode(root){
+  if(S.lang!=="en"||!root)return;
+  if(root.nodeType===3){if(!skipTr(root.parentElement)){const v=tr(root.data);if(v!==root.data)root.data=v;}return;}
+  if(root.nodeType!==1||skipTr(root))return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),list=[];let n;while((n=w.nextNode()))list.push(n);
+  for(const t of list){if(skipTr(t.parentElement))continue;const v=tr(t.data);if(v!==t.data)t.data=v;}
+  [root,...root.querySelectorAll("[placeholder],[aria-label],[title]")].forEach(el=>{
+    for(const a of ["placeholder","aria-label","title"]){const v=el.getAttribute&&el.getAttribute(a);if(v){const x=tr(v);if(x!==v)el.setAttribute(a,x);}}});
+}
+const trObserver=new MutationObserver(ms=>{if(S.lang!=="en")return;for(const m of ms)m.addedNodes.forEach(trNode);});
+function setLang(l){
+  S.lang=LANGS[l]?l:"da";save();
+  document.documentElement.lang=S.lang;
+  document.title=S.lang==="en"?"Gaffel – food delivered":"Gaffel – mad leveret";
+  render();
+}
+
 /* ---------- Start ---------- */
 load();
+if(!S.lang||!LANGS[S.lang]) S.lang="da";
+["view","sheet","toast"].forEach(id=>trObserver.observe(document.getElementById(id),{childList:true,subtree:true}));
+document.documentElement.lang=S.lang;
+if(S.lang==="en")document.title="Gaffel – food delivered";
 if(gpsPolicy()===false) S.gps={status:"off",err:"",blocked:true};
 render();
 // Start GPS automatisk, hvis brugeren allerede har givet tilladelse

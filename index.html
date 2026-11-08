@@ -353,7 +353,7 @@ svg{display:block}
 .rate2{display:grid;gap:10px}
 
 /* Fanebjælke */
-.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(480px,100%);z-index:7;display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border-top:1px solid var(--line);padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px))}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(480px,100%);z-index:7;display:grid;grid-template-columns:repeat(5,1fr);background:var(--card);border-top:1px solid var(--line);padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px))}
 .tabbar[hidden]{display:none}
 .tabbar button{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--ink-2);padding:4px 0}
 .tabbar button[aria-current="page"]{color:var(--ink)}
@@ -492,7 +492,7 @@ body[data-ui="dark"]{--bg:#0B0A0E;--card:#16141B;--tile:#201D27;--lav:#2A2533;--
 .ordtop .body{flex:1;min-width:0}
 .orditems{color:var(--ink-2);font-size:13px}
 .ordbtns{display:flex;gap:8px}
-.ordbtns button{flex:1;padding:11px;border-radius:999px;font-weight:700;font-size:13px;background:var(--tile);text-align:center}
+.ordbtns button{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px;border-radius:999px;font-weight:700;font-size:13px;background:var(--tile);text-align:center}
 .ordbtns button.dark{background:var(--btn);color:var(--btn-ink)}
 
 /* Anmeldelser */
@@ -564,6 +564,86 @@ body[data-ui="dark"]{--bg:#0B0A0E;--card:#16141B;--tile:#201D27;--lav:#2A2533;--
 .fcbtns button{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;color:#fff}
 .fcno{background:#E5484D}.fcno svg{transform:rotate(135deg)}
 .fcyes{background:#30A46C}
+
+/* Anmeld-genvej på forsiden */
+.rvprompt{display:flex;gap:12px;align-items:center;padding:12px}
+.rvprompt .body{flex:1;min-width:0}
+.starpick.sm{justify-content:flex-start;gap:2px;margin-top:4px}
+.starpick.sm svg{width:28px;height:28px}
+
+/* Leaflet (nødvendige grundregler, inline) */
+.leaflet-pane,.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile-container,.leaflet-pane>svg,.leaflet-pane>canvas,.leaflet-zoom-box,.leaflet-image-layer,.leaflet-layer{position:absolute;left:0;top:0}
+.leaflet-container{overflow:hidden;-webkit-tap-highlight-color:transparent;background:var(--map);touch-action:none;font:inherit}
+.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow{user-select:none;-webkit-user-select:none;-webkit-user-drag:none}
+.leaflet-container img.leaflet-tile,.leaflet-container .leaflet-marker-pane img{max-width:none!important;max-height:none!important;padding:0}
+.leaflet-tile-pane{filter:saturate(.72) brightness(1.03)}
+.leaflet-tile{filter:inherit;visibility:hidden}.leaflet-tile-loaded{visibility:inherit}
+.leaflet-zoom-box{width:0;height:0;box-sizing:border-box;z-index:800}
+.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200}.leaflet-overlay-pane{z-index:400}.leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}.leaflet-popup-pane{z-index:700}
+.leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}
+.leaflet-control{position:relative;z-index:800;pointer-events:auto;float:left;clear:both}
+.leaflet-top,.leaflet-bottom{position:absolute;z-index:1000;pointer-events:none}.leaflet-top{top:0}.leaflet-right{right:0}.leaflet-bottom{bottom:0}.leaflet-left{left:0}
+.leaflet-right .leaflet-control{float:right}
+.leaflet-zoom-animated{transform-origin:0 0}
+.leaflet-zoom-anim .leaflet-zoom-animated{transition:transform .25s cubic-bezier(0,0,.25,1)}
+.leaflet-zoom-anim .leaflet-tile,.leaflet-pan-anim .leaflet-tile{transition:none}
+.leaflet-zoom-anim .leaflet-zoom-hide{visibility:hidden}
+.leaflet-interactive{cursor:pointer}.leaflet-grab{cursor:grab}.leaflet-dragging .leaflet-grab{cursor:move}
+.leaflet-marker-icon,.leaflet-image-layer,.leaflet-pane>svg path,.leaflet-tile-container{pointer-events:none}
+.leaflet-marker-icon.leaflet-interactive,.leaflet-pane>svg path.leaflet-interactive{pointer-events:auto}
+.leaflet-container .leaflet-control-attribution{background:rgba(255,255,255,.85);margin:0;font-size:10px;padding:1px 6px;color:#333;border-radius:6px 0 0 0}
+.leaflet-control-attribution a{color:#4B3B6B}
+.leaflet-tooltip{position:absolute;padding:4px 8px;background:#fff;border-radius:8px;color:#2A2140;font-size:12px;font-weight:700;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.2);pointer-events:none}
+
+/* Kortvisning */
+body.on-map .app{padding-bottom:0}
+.mapwrap{position:fixed;left:50%;transform:translateX(-50%);top:0;bottom:calc(64px + env(safe-area-inset-bottom,0px));width:min(480px,100%);z-index:5}
+.lmap{position:absolute;inset:0;background:var(--map)}
+.svgmap{width:100%;height:100%;display:block}
+.svgpin{cursor:pointer}
+.svgnote{position:absolute;top:70px;left:18px;right:18px;background:var(--card);border-radius:12px;padding:8px 12px;font-size:12px;color:var(--ink-2);box-shadow:var(--shadow)}
+.mtop{position:absolute;top:0;left:0;right:0;z-index:1001;padding:calc(12px + env(safe-area-inset-top,0px)) 0 8px;background:linear-gradient(var(--bg) 40%,transparent)}
+.mchips{padding-top:0}
+.mchips .chip{padding:9px 16px}
+.mloc{position:absolute;right:16px;top:calc(76px + env(safe-area-inset-top,0px));z-index:1001;box-shadow:var(--shadow)}
+.mpin{width:44px;height:44px;border-radius:50%;border:3px solid #fff;overflow:hidden;box-shadow:0 4px 12px rgba(42,33,64,.35);background:var(--lav);position:relative;transition:transform .15s}
+.mpin img{width:100%;height:100%;object-fit:cover;display:block}
+.mpin span{display:none}
+.mpin.sel{border-color:var(--accent);transform:scale(1.25);z-index:5}
+.mme{width:22px;height:22px;border-radius:50%;background:#2E7DF6;border:4px solid #fff;box-shadow:0 0 0 8px rgba(46,125,246,.2)}
+.msheet{position:absolute;left:0;right:0;bottom:0;z-index:1002;background:var(--card);border-radius:26px 26px 0 0;box-shadow:0 -10px 30px rgba(42,33,64,.18);padding:6px 16px 16px;max-height:62%;overflow:auto}
+.mshandle{width:42px;height:5px;border-radius:3px;background:var(--line);margin:4px auto 10px}
+.mshead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px}
+.mlrow{padding:0 0 4px}
+.mlcard{flex:none;width:132px;padding:8px;display:flex;flex-direction:column;gap:6px;text-align:left;box-shadow:none}
+.mlcard .tile.xs{width:100%;height:72px;border-radius:12px}
+.mlcard .nm{font-size:13px;padding-right:0;white-space:normal;line-height:1.25}
+.mlcard .kw{font-size:12px}
+.mscard{display:flex;gap:12px;align-items:flex-start}
+.mscard .body{flex:1;min-width:0}
+.msbtns{display:grid;grid-template-columns:1.4fr 1fr;gap:10px;margin-top:12px}
+.msbtns .sec-btn{margin:0}
+.dirhead{display:flex;gap:10px;align-items:center}
+.dirhead .body{flex:1;min-width:0;display:grid;gap:2px}
+.dirhead .kw{white-space:normal}
+.dirhead b{color:var(--ink)}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 10px}
+.modes button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;border-radius:16px;border:1px solid var(--line);font-size:12px;color:var(--ink-2)}
+.modes button b{font-size:15px;color:var(--ink)}
+.modes button[aria-pressed="true"]{background:var(--btn);border-color:var(--btn);color:var(--btn-ink)}
+.modes button[aria-pressed="true"] b{color:var(--btn-ink)}
+.dsum{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:4px 0 8px}
+.dsum b{font-size:26px;font-weight:700}
+.dsum span{color:var(--ink-2);font-size:14px}
+.steps2{list-style:none;margin:6px 0 10px;padding:0;display:grid;gap:0}
+.steps2 li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;position:relative}
+.steps2 li+li{border-top:1px dashed var(--line)}
+.steps2 b{display:block;font-size:14px}
+.steps2 small{display:block;color:var(--ink-2);font-size:13px}
+.sic{width:34px;height:34px;border-radius:50%;background:var(--tile);display:grid;place-items:center;flex:none;color:var(--btn)}
+.lbadge{min-width:34px;height:34px;border-radius:9px;color:#fff;font-weight:800;font-size:12px;display:grid;place-items:center;flex:none;padding:0 4px}
+.dlinks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.dlinks .sec-btn{margin:0;text-decoration:none;color:var(--ink);font-size:13px;display:flex;align-items:center;justify-content:center}
 
 /* Madpas */
 .passbanner{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;text-align:left}
@@ -853,6 +933,10 @@ const IC={
   edit:sv('<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',20,1.8),
   mail:sv('<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m4 7 8 6 8-6"/>',20,1.8),
   logout:sv('<path d="M14 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4M10 16l-4-4 4-4M6 12h10"/>',20,1.8),
+  map:sv('<path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6z"/><path d="M9 4v14M15 6v14"/>',22,1.8),
+  train:sv('<rect x="6" y="3.5" width="12" height="13" rx="3"/><path d="M6 10.5h12M9.5 13.8h.01M14.5 13.8h.01M8.5 20l1.5-3.5M15.5 20 14 16.5"/>',20,1.9),
+  walk:sv('<circle cx="13" cy="4.5" r="1.8"/><path d="m9.5 21 2.2-6.5L14 17v4M10 11l2-3.5 3 2.5 2.5 1M11.7 14.5 10 11l-2.5 2"/>',20,1.9),
+  bike2:sv('<circle cx="6" cy="16.5" r="3.5"/><circle cx="18" cy="16.5" r="3.5"/><path d="M6 16.5 9.5 9h5l3.5 7.5M12 16.5 9.5 9M14 6h2.5"/>',20,1.9),
   stamp:sv('<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5" stroke-dasharray="2 2.2"/><path d="m10.2 12 1.3 1.3 2.4-2.6"/>',20,1.8),
   starL:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>'
 };
@@ -1137,10 +1221,10 @@ const S={view:"home",stack:[],rid:null,itemId:null,qty:1,search:"",cat:"Alle",al
   currency:"DKK",convFrom:"DKK",convAmount:"100",
   loc:null,gps:{status:"off",err:"",at:null},watchId:null,
   cart:{rid:null,items:{}},promo:null,order:null,lastOrder:null,quiz:{i:0,a:{}},meet:null,lang:null,
-  wallet:{cards:[],apple:true,def:"apple"},orders:[],reviews:{},user:null,prefs:{offers:true,status:true,meet:true,firstOnly:true},form:{},authTab:"in",rv:null,rvSort:"new",tables:{},safety:{name:"",phone:"",delay:20},safe:null,passport:{},badges:{},meetMode:"tables",tableTheme:-1,talkIdx:0};
+  wallet:{cards:[],apple:true,def:"apple"},orders:[],reviews:{},user:null,prefs:{offers:true,status:true,meet:true,firstOnly:true},form:{},authTab:"in",rv:null,rvSort:"new",tables:{},safety:{name:"",phone:"",delay:20},safe:null,passport:{},badges:{},meetMode:"tables",tableTheme:-1,talkIdx:0,visits:{},mapCat:"Alle",mapSel:null,dir:null};
 function load(){
   try{const d=JSON.parse(localStorage.getItem("gaffel2")||"null");
-    if(d){for(const k of ["currency","convFrom","convAmount","cart","promo","lastOrder","order","meet","lang","wallet","orders","reviews","user","prefs","tables","safety","safe","passport","badges"]) if(d[k]!==undefined) S[k]=d[k];
+    if(d){for(const k of ["currency","convFrom","convAmount","cart","promo","lastOrder","order","meet","lang","wallet","orders","reviews","user","prefs","tables","safety","safe","passport","badges","visits"]) if(d[k]!==undefined) S[k]=d[k];
       if(d.manualLoc) S.loc=d.manualLoc;}
   }catch(e){}
   if(!CURRENCIES[S.currency]) S.currency="DKK";
@@ -1151,7 +1235,7 @@ function load(){
   if(S.meet && (S.meet.status==="found"||S.meet.status==="booked"||S.meet.status==="checked") && !(S.meet.match&&RESTAURANTS.some(r=>r.id===S.meet.match.rid))) S.meet=null;
 }
 function save(){
-  try{localStorage.setItem("gaffel2",JSON.stringify({currency:S.currency,convFrom:S.convFrom,convAmount:S.convAmount,cart:S.cart,promo:S.promo,lastOrder:S.lastOrder,order:S.order,meet:S.meet,lang:S.lang,wallet:S.wallet,orders:S.orders,reviews:S.reviews,user:S.user,prefs:S.prefs,tables:S.tables,safety:S.safety,safe:S.safe,passport:S.passport,badges:S.badges,
+  try{localStorage.setItem("gaffel2",JSON.stringify({currency:S.currency,convFrom:S.convFrom,convAmount:S.convAmount,cart:S.cart,promo:S.promo,lastOrder:S.lastOrder,order:S.order,meet:S.meet,lang:S.lang,wallet:S.wallet,orders:S.orders,reviews:S.reviews,user:S.user,prefs:S.prefs,tables:S.tables,safety:S.safety,safe:S.safe,passport:S.passport,badges:S.badges,visits:S.visits,
     manualLoc:S.loc&&S.loc.manual?S.loc:null}));}catch(e){}
 }
 
@@ -1226,7 +1310,7 @@ function startGps(){
     const near=nearestArea(p);
     p.label=dist(p,near)<5?`Nær ${near.name}`:`${p.lat.toFixed(4)}, ${p.lng.toFixed(4)}`;
     S.loc=p;S.gps={status:"live",err:"",at:Date.now()};save();
-    if(S.view==="track") updateTrack(true); else if(!$("#sheetBg").hidden && $("#sheet").dataset.kind==="gps") gpsSheet(); else softRender();
+    if(S.view==="track") updateTrack(true); else if(!$("#sheetBg").hidden && $("#sheet").dataset.kind==="gps") gpsSheet(); else if(S.view==="map") mapUserUpdate(); else softRender();
   },err=>{
     stopGps(true);
     S.gps={status:"error",blocked:err.code===1&&embedded()&&gpsPolicy()!==true,err:err.code===1
@@ -1370,6 +1454,7 @@ function homeResults(){
    </div>
    ${S.lastOrder&&!S.order?`<div class="again"><button class="see" data-act="repeat">${IC.repeat} Gentag sidste ordre</button></div>`:""}
    ${passBanner()}
+   ${reviewPrompt()}
    ${offers.length?`<div class="sec-h"><div><span class="eyebrow">Kun i dag</span><h2>Dagens tilbud</h2></div></div>
      <div class="row">${offers.map(oCard).join("")}</div>`:""}
    <div class="sec-h"><div><span class="eyebrow">${rs.length} restauranter</span><h2>${S.loc?"Tæt på dig":"Restauranter"}</h2></div>
@@ -1395,6 +1480,7 @@ function vRest(){
    ${!r.open?`<p class="warn">Restauranten er lukket lige nu. Du kan se menuen, men ikke bestille.</p>`:!i.inRange?`<p class="warn">Din position ligger uden for restaurantens leveringsområde (8 km).</p>`:""}
    ${r.open?`<div style="padding:14px 18px 0"><button class="meet-inline" data-act="meet-here" data-r="${r.id}"><span class="ic">${IC.people}</span><span class="t">Spis her med en makker i aften<small>Bliv matchet med andre solospisere</small></span>${IC.arrow}</button></div>`:""}
    ${restTable(r)}
+   <div style="padding:12px 18px 0"><button class="meet-inline" data-act="dir-open" data-r="${r.id}"><span class="ic">${IC.map}</span><span class="t">Rutevejledning<small>Se vejen derhen med metro, til fods eller på cykel</small></span>${IC.arrow}</button></div>
    ${cur==="Alle"
      ?secs.map(s=>`<div class="sec-h small"><h2>${esc(s)}</h2><span class="kw">${items.filter(it=>it.sec===s).length} retter</span></div><div class="list">${items.filter(it=>it.sec===s).map(it=>mCard(it)).join("")}</div>`).join("")
      :`<div class="list" style="padding-top:14px">${items.map(it=>mCard(it)).join("")}</div>`}
@@ -1885,7 +1971,7 @@ document.addEventListener("click",e=>{
       m.chat=[{who:p.name,t:`Hej${m.name?" "+m.name:""}! Det bliver hyggeligt. Jeg er der lidt før kl. ${m.match.slot}.`}];
       save();render();window.scrollTo(0,0);toast("Bordet er reserveret");break;}
     case "meet-send":meetSend();break;
-    case "meet-checkin":{const m=S.meet;m.status="checked";S.badges.buddy=S.badges.buddy||Date.now();stamp(m.match.rid);armSafety({type:"meet",rid:m.match.rid,names:listNames(m.match.people.map(p=>p.name))});}save();render();window.scrollTo(0,0);break;
+    case "meet-checkin":{const m=S.meet;m.status="checked";S.visits[m.match.rid]={at:Date.now(),how:"Spisemakker"};S.badges.buddy=S.badges.buddy||Date.now();stamp(m.match.rid);armSafety({type:"meet",rid:m.match.rid,names:listNames(m.match.people.map(p=>p.name))});}save();render();window.scrollTo(0,0);break;
     case "meet-rate":S.meet.status="done";S.safe=null;save();render();window.scrollTo(0,0);toast(b.dataset.v==="1"?"Tak! Vi husker, at I passede godt sammen":"Tak for svaret – vi matcher dig anderledes næste gang");break;
     case "meet-cancel":if(confirm(tr("Vil du aflyse aftalen? Dit match får besked."))){S.meet=newMeet(S.meet.where);save();render();toast("Aftalen er aflyst");}break;
     case "meet-new":S.meet=newMeet();save();render();window.scrollTo(0,0);break;
@@ -1949,7 +2035,7 @@ document.addEventListener("click",e=>{
       if(t.taken>=t.seats){toast("Bordet er fuldt");break;}
       S.tables[id]={status:"booked",at:Date.now(),rid:t.rid,slot:t.slot};save();keepScroll();toast("Du har fået en plads");break;}
     case "table-cancel":if(confirm(tr("Vil du melde afbud? Din plads går til en anden."))){delete S.tables[b.dataset.t];save();keepScroll();toast("Din plads er frigivet");}break;
-    case "table-checkin":{const t=tablesToday().find(x=>x.id===b.dataset.t);S.tables[t.id].status="checked";S.badges.table=S.badges.table||Date.now();S.talkIdx=Math.floor(Math.random()*TALK_CARDS.length);
+    case "table-checkin":{const t=tablesToday().find(x=>x.id===b.dataset.t);S.visits[t.rid]={at:Date.now(),how:"Fællesbord"};S.tables[t.id].status="checked";S.badges.table=S.badges.table||Date.now();S.talkIdx=Math.floor(Math.random()*TALK_CARDS.length);
       stamp(t.rid);armSafety({type:"table",rid:t.rid,names:listNames(t.guests.slice(0,3).map(g=>g.name))});save();render();window.scrollTo(0,0);break;}
     case "table-rate":S.tables[b.dataset.t].status="done";S.safe=null;save();render();window.scrollTo(0,0);toast(b.dataset.v==="1"?"Tak! Vi glæder os til at se dig igen":"Tak for svaret – vi finder et bedre bord næste gang");break;
     case "table-share":{const t=tablesToday().find(x=>x.id===b.dataset.t),r=RESTAURANTS.find(x=>x.id===t.rid),txt=tr(`Jeg spiser ved et fællesbord på ${r.name} kl. ${t.slot} ${t.day} (via Gaffel).`);
@@ -1971,6 +2057,21 @@ document.addEventListener("click",e=>{
     case "fc-accept":{const st=$("#fcst"),t0=Date.now();b.remove();const yes=$("#fakecall .fcno");yes.setAttribute("aria-label",tr("Læg på"));
       clearInterval(fakeCall.t);fakeCall.t=setInterval(()=>{const s=Math.floor((Date.now()-t0)/1000);if(!$("#fakecall")){clearInterval(fakeCall.t);return;}st.textContent=`${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;},500);break;}
     case "fc-end":clearInterval(fakeCall.t);$("#fakecall")&&$("#fakecall").remove();break;
+    /* Steder du har spist og anmeldelser */
+    case "go-visited":go("visited");break;
+    case "review-visit":{const rid=b.dataset.r;S.visits[rid]={at:Date.now(),how:"Besøgt"};save();startReview(rid);break;}
+    case "rv-quick":startReview(b.dataset.r,+b.dataset.v);break;
+    /* Kort og rutevejledning */
+    case "map-cat":S.mapCat=b.dataset.c;document.querySelectorAll('[data-act="map-cat"]').forEach(x=>x.setAttribute("aria-pressed",x.dataset.c===S.mapCat));
+      if(S.mapSel&&RESTAURANTS.find(r=>r.id===S.mapSel).cat!==S.mapCat&&S.mapCat!=="Alle")S.mapSel=null;if(!S.dir)updateMapSheet();drawMarkers();break;
+    case "map-sel":selectRest(b.dataset.r);break;
+    case "map-close":S.mapSel=null;S.dir=null;updateMapSheet();drawMarkers();drawRoute();break;
+    case "map-locate":if(S.loc&&MAP){MAP.setView([S.loc.lat,S.loc.lng],15);}else gpsSheet();break;
+    case "dir-start":S.dir={rid:b.dataset.r,mode:"transit"};S.mapSel=b.dataset.r;updateMapSheet();drawMarkers();drawRoute();break;
+    case "dir-open":S.dir={rid:b.dataset.r,mode:"transit"};S.mapSel=b.dataset.r;S.mapCat="Alle";S.stack=[];S.view="map";render();window.scrollTo(0,0);break;
+    case "dir-mode":S.dir.mode=b.dataset.v;updateMapSheet();drawRoute();break;
+    case "dir-close":S.dir=null;updateMapSheet();drawMarkers();drawRoute();break;
+    case "tab-map":goTab("map");break;
     /* Madpas */
     case "go-passport":go("passport");break;
     case "copy-code":{const v=b.dataset.v;if(navigator.clipboard)navigator.clipboard.writeText(v).then(()=>toast("Koden er kopieret"),()=>toast(v));else toast(v);break;}
@@ -2015,11 +2116,13 @@ function addOrderBanner(){
 }
 function render(){
   const v=$("#view");
-  const map={home:vHome,rest:vRest,item:vItem,cart:vCart,track:vTrack,quiz:vQuiz,quizres:vQuizRes,currency:vCurrency,meet:vMeet,table:vTable,passport:vPassport,wallet:vWallet,addcard:vAddCard,profile:vProfile,orders:vOrders,editprofile:vEditProfile,myreviews:vMyReviews,review:vReview,reviews:vReviews};
+  const map={home:vHome,rest:vRest,item:vItem,cart:vCart,track:vTrack,quiz:vQuiz,quizres:vQuizRes,currency:vCurrency,meet:vMeet,table:vTable,passport:vPassport,map:vMap,visited:vVisited,wallet:vWallet,addcard:vAddCard,profile:vProfile,orders:vOrders,editprofile:vEditProfile,myreviews:vMyReviews,review:vReview,reviews:vReviews};
   if(S.view==="track"&&!S.order)S.view="home";
   if(S.view==="item"&&!byId(S.itemId))S.view="home";
   if(S.view==="rest"&&!RESTAURANTS.find(r=>r.id===S.rid))S.view="home";
+  if(S.view!=="map")destroyMap();
   v.innerHTML=(map[S.view]||vHome)();
+  if(S.view==="map")setTimeout(initMap,0);
   updateTrack.last=undefined;
   addOrderBanner();
   updateChrome();
@@ -2032,11 +2135,12 @@ function softRender(){
 }
 
 /* ---------- Fanebjælke ---------- */
-const TABS=[["home","Hjem","home"],["meet","Spis sammen","people"],["wallet","Kort","card"],["profile","Profil","user"]];
+const TABS=[["home","Hjem","home"],["meet","Spis sammen","people"],["map","Kort","map"],["wallet","Betaling","card"],["profile","Profil","user"]];
 const TAB_VIEWS=TABS.map(t=>t[0]);
 function updateChrome(){
   const tb=$("#tabbar"),show=TAB_VIEWS.includes(S.view)&&!(S.view==="meet"&&S.meet&&S.meet.status==="searching");
   document.body.classList.toggle("has-tabs",show);
+  document.body.classList.toggle("on-map",S.view==="map");
   const dark=["wallet","addcard"].includes(S.view);
   document.body.dataset.ui=dark?"dark":"";
   const tc=document.querySelector('meta[name="theme-color"]');if(tc)tc.content=dark?"#0B0A0E":"#FFF0F5";
@@ -2149,12 +2253,13 @@ function vProfile(){
   const nRev=Object.values(S.reviews).flat().length,m=payMethod();
   return `<header class="phead"><h1 class="ptitle">Profil</h1></header>
    <section class="card pcard"><span class="av big" aria-hidden="true">${esc(initialsOf(a))}</span><div class="body"><span class="pname">${esc(a.fname+" "+a.lname)}</span><span class="kw">${esc(a.email)}</span><span class="kw">Medlem siden ${new Date(a.created).toLocaleDateString(S.lang==="en"?"en-GB":"da-DK",{month:"long",year:"numeric"})}</span></div></section>
-   <div class="stats"><div class="stat"><b>${S.orders.length}</b><small>Ordrer</small></div><div class="stat"><b>${nRev}</b><small>Anmeldelser</small></div><div class="stat"><b>${S.wallet.cards.length}</b><small>Kort</small></div></div>
+   <div class="stats"><div class="stat"><b>${S.orders.length}</b><small>Ordrer</small></div><div class="stat"><b>${nRev}</b><small>Anmeldelser</small></div><div class="stat"><b>${S.wallet.cards.length}</b><small>Gemte kort</small></div></div>
    <section class="card mlist"><h3>Konto</h3>
      ${prow(IC.stamp,"Madpas",`${stampCount()}/${CUISINES.length} køkkener`,"go-passport")}
      ${prow(IC.edit,"Personlige oplysninger",esc(a.email),"go-editprofile")}
      ${prow(IC.receipt.replace('width="28" height="28"','width="20" height="20"'),"Ordrehistorik",`${S.orders.length} ordrer`,"tab-orders")}
      ${prow(IC.star,"Mine anmeldelser",`${nRev} anmeldelser`,"go-myreviews")}
+     ${prow(IC.pin,"Steder du har spist",`${placesEaten().length} steder`,"go-visited")}
      ${prow(IC.card,"Betaling",m?esc(payLabel(m)):"Ingen betalingsmetode","tab-wallet")}
      ${prow(IC.pin,"Standardområde",S.loc?esc(S.loc.label):"Ikke valgt","gps-sheet")}
      ${prow(IC.globe,"Sprog",S.lang==="en"?"English":"Dansk","lang-sheet")}
@@ -2354,7 +2459,7 @@ function ratingOf(r){const mine=S.reviews[r.id]||[],n=r.rev+mine.length;return {
 function rDist(r){const w=[1,2,3,4,5].map(k=>Math.exp(-((k-r.rating)**2)/0.9)),s=w.reduce((a,b)=>a+b,0),mine=S.reviews[r.id]||[];
   return w.map((x,i)=>x/s*r.rev+mine.filter(m=>m.stars===i+1).length);}
 const starsHtml=n=>`<span class="stars" role="img" aria-label="${Math.round(n)} af 5 stjerner">${[1,2,3,4,5].map(k=>`<i class="${k<=Math.round(n)?"on":""}">${IC.star}</i>`).join("")}</span>`;
-function canReview(r){return S.orders.some(o=>o.rid===r.id)||!!(S.meet&&S.meet.match&&S.meet.match.rid===r.id&&["checked","done"].includes(S.meet.status));}
+function canReview(r){return S.orders.some(o=>o.rid===r.id)||!!S.visits[r.id]||!!(S.meet&&S.meet.match&&S.meet.match.rid===r.id&&["checked","done"].includes(S.meet.status));}
 function rvSummary(r){const {avg,n}=ratingOf(r),d=rDist(r),tot=d.reduce((a,b)=>a+b,0);
   return `<section class="card rvsum"><div class="rvbig"><b>${avg.toFixed(1).replace(".",DS())}</b>${starsHtml(avg)}<span class="kw">${revTxt(n)} bedømmelser</span></div>
     <div class="rvbars">${[5,4,3,2,1].map(k=>`<div><span>${k}</span><i><b style="width:${(d[k-1]/tot*100).toFixed(1)}%"></b></i></div>`).join("")}</div></section>`;}
@@ -2366,7 +2471,7 @@ function rvCard(x,showRest){
     ${x.own?`<div class="rvown"><button class="see" data-act="review-edit" data-r="${x.rid}" data-id="${x.id}">${IC.edit} Rediger</button><button class="see" data-act="review-del" data-r="${x.rid}" data-id="${x.id}">${IC.trash} Slet</button></div>`:""}</article>`;}
 function rvCta(r){const mine=(S.reviews[r.id]||[]).length;
   return canReview(r)?`<button class="primary center" data-act="review-write" data-r="${r.id}">${IC.star}&nbsp; ${mine?"Skriv en ny anmeldelse":"Skriv en anmeldelse"}</button>`
-    :`<p class="note" style="text-align:center;margin:4px 0 0">Du kan skrive en anmeldelse, når du har bestilt eller spist her.</p>`;}
+    :`<button class="sec-btn" style="margin:0" data-act="review-visit" data-r="${r.id}">${IC.star}&nbsp; Jeg har spist her – skriv en anmeldelse</button><p class="note" style="text-align:center;margin:0">Har du spist her uden at bestille via Gaffel? Du kan stadig dele din oplevelse.</p>`;}
 function reviewBlock(r){const {n}=ratingOf(r),list=reviewsFor(r).sort((a,b)=>b.at-a.at).slice(0,2);
   return `<div class="sec-h"><div><span class="eyebrow">${revTxt(n)} bedømmelser</span><h2>Anmeldelser</h2></div><button class="see" data-act="reviews-all" data-r="${r.id}">Se alle ${IC.arrow}</button></div>
    ${rvSummary(r)}<div class="list" style="padding-top:12px">${list.map(x=>rvCard(x)).join("")}${rvCta(r)}</div>`;}
@@ -2501,7 +2606,7 @@ function safetyPrompt(){
     <button class="primary center" data-act="safe-ok">Ja, alt er fint</button><button class="sec-btn" data-act="safe-snooze">Udsæt 15 minutter</button><button class="danger" style="width:100%;margin:0" data-act="safe-help">Nej, jeg har brug for hjælp</button>`);
 }
 setInterval(()=>{const s=S.safe;if(!s)return;
-  if(s.stage==="armed"&&Date.now()>=s.due){s.stage="asking";s.askedAt=Date.now();save();safetyPrompt();try{navigator.vibrate&&navigator.vibrate([200,100,200]);}catch(e){}}
+  if(s.stage==="armed"&&Date.now()>=s.due){s.stage="asking";s.askedAt=Date.now();save();safetyPrompt();try{navigator.vibrate&&navigator.userActivation&&navigator.userActivation.hasBeenActive&&navigator.vibrate([200,100,200]);}catch(e){}}
   else if(s.stage==="asking"&&Date.now()-s.askedAt>5*60000){s.stage="alert";save();safetyPrompt();}},1000);
 function safetySheet(){const s=S.safety;
   openSheet("safetyset",`<h3>Tryghedstjek</h3><p class="mutedp">Når du har tjekket ind til en spiseaftale, spørger appen diskret, om alt er godt. Svarer du ikke, giver vi din tryghedskontakt besked.</p>
@@ -2515,7 +2620,7 @@ function fakeCall(){
   const el=document.createElement("div");el.className="fakecall";el.id="fakecall";el.setAttribute("role","dialog");
   el.innerHTML=`<div class="fcav">${esc(nm[0])}</div><h2>${esc(nm)}</h2><p id="fcst">${tr("Mobil · ringer …")}</p>
     <div class="fcbtns"><button data-act="fc-end" class="fcno" aria-label="${tr("Afvis")}">${IC.phone}</button><button data-act="fc-accept" class="fcyes" aria-label="${tr("Besvar")}">${IC.phone}</button></div>`;
-  document.body.appendChild(el);try{navigator.vibrate&&navigator.vibrate([400,200,400,200,400]);}catch(e){}
+  document.body.appendChild(el);try{navigator.vibrate&&navigator.userActivation&&navigator.userActivation.hasBeenActive&&navigator.vibrate([400,200,400,200,400]);}catch(e){}
 }
 
 /* ---------- Madpas ----------
@@ -2548,6 +2653,216 @@ function vPassport(){
      ${ok&&rw.code?`<button class="pillsm on" style="margin-top:8px" data-act="copy-code" data-v="${rw.code}">Kode: ${rw.code}</button>`:""}</div></div>`;}).join("")}</div>
    <div class="sec-h small"><h2>Badges</h2></div>
    <div class="badgegrid">${badges.map(([l,on])=>`<div class="badge ${on?"on":""}"><span>${on?IC.tick:IC.lock}</span><small>${esc(l)}</small></div>`).join("")}</div>`;
+}
+
+/* ---------- Steder du har spist (til anmeldelser) ---------- */
+function placesEaten(){
+  const m={};
+  for(const o of S.orders)if(!m[o.rid]||m[o.rid].at<o.at)m[o.rid]={rid:o.rid,at:o.at,how:"Bestilt"};
+  for(const [rid,v] of Object.entries(S.visits||{}))if(!m[rid]||m[rid].at<v.at)m[rid]={rid,at:v.at,how:v.how};
+  return Object.values(m).filter(x=>RESTAURANTS.some(r=>r.id===x.rid)).sort((a,b)=>b.at-a.at);
+}
+const myReviewOf=rid=>(S.reviews[rid]||[])[0];
+function vVisited(){
+  const list=placesEaten();
+  return `${topbar({title:"Steder du har spist",cart:false})}<p class="intro">Del din oplevelse, og hjælp andre med at finde gode steder.</p>
+   ${list.length?`<div class="list" style="padding-top:14px">${list.map(p=>{const r=RESTAURANTS.find(x=>x.id===p.rid),rv=myReviewOf(r.id);
+     return `<article class="card ordcard"><div class="ordtop">${tileR(r,"xs")}<div class="body"><span class="nm" style="padding-right:0">${esc(r.name)}</span><span class="kw"><span>${p.how}</span> · ${when(p.at)}</span></div>${rv?starsHtml(rv.stars):""}</div>
+       <div class="ordbtns">${rv?`<button data-act="review-edit" data-r="${r.id}" data-id="${rv.id}">${IC.edit} Ret anmeldelse</button>`:`<button class="dark" data-act="review-write" data-r="${r.id}">${IC.star} Skriv anmeldelse</button>`}<button data-act="rest" data-r="${r.id}">Se stedet</button></div></article>`;}).join("")}</div>`
+   :`<div class="empty" style="padding-top:50px"><div class="bigicon">${IC.pin}</div><p>Når du har bestilt fra et sted eller spist der, dukker det op her, så du kan anmelde det.</p></div>`}`;
+}
+function reviewPrompt(){
+  const p=placesEaten().find(x=>!myReviewOf(x.rid)&&Date.now()-x.at<7*86400e3);if(!p)return "";
+  const r=RESTAURANTS.find(x=>x.id===p.rid);
+  return `<div style="padding:12px 18px 0"><div class="card rvprompt">${tileR(r,"xs")}<div class="body"><span class="nm" style="padding-right:0">Hvordan var ${esc(r.name)}?</span><span class="kw">Tryk på en stjerne for at anmelde</span>
+    <div class="starpick sm" role="group" aria-label="Antal stjerner">${[1,2,3,4,5].map(k=>`<button data-act="rv-quick" data-r="${r.id}" data-v="${k}" aria-label="${k} stjerner">${IC.starL}</button>`).join("")}</div></div></div></div>`;
+}
+function startReview(rid,stars){
+  S.rv={stars:stars||0,tags:[],text:"",dish:"",showName:S.prefs.firstOnly!==false,edit:null,order:(S.orders.find(o=>o.rid===rid)||{}).id||null};
+  go("review",{rid});
+}
+
+/* ---------- Kort over København og rutevejledning ----------
+   Kortet bruger Leaflet med OpenStreetMap-data og OpenStreetMaps egne kortfliser. Gå- og cykelruter hentes fra den åbne rutetjeneste routing.openstreetmap.de.
+   Offentlig transport er et ESTIMAT ud fra metroens linjer (M1–M4) og omtrentlige stationspositioner – uden busser og køreplaner.
+   Den præcise rute åbnes i Google Maps eller Apple Maps. Restauranterne er opdigtede, så deres placeringer er kun eksempler. */
+const ST={"Vanløse":[55.6873,12.4915],"Flintholm":[55.6858,12.4991],"Lindevang":[55.6832,12.5130],"Fasanvej":[55.6815,12.5234],"Frederiksberg":[55.6810,12.5320],"Forum":[55.6818,12.5525],
+ "Nørreport":[55.6833,12.5717],"Kongens Nytorv":[55.6795,12.5853],"Christianshavn":[55.6722,12.5913],"Islands Brygge":[55.6634,12.5850],"DR Byen":[55.6560,12.5888],"Sundby":[55.6452,12.5857],
+ "Bella Center":[55.6380,12.5830],"Ørestad":[55.6290,12.5794],"Vestamager":[55.6193,12.5759],"Amagerbro":[55.6634,12.6030],"Lergravsparken":[55.6623,12.6162],"Øresund":[55.6612,12.6290],
+ "Amager Strand":[55.6560,12.6328],"Femøren":[55.6454,12.6382],"Kastrup":[55.6356,12.6475],"Lufthavnen":[55.6303,12.6493],"København H":[55.6727,12.5651],"Rådhuspladsen":[55.6763,12.5686],
+ "Gammel Strand":[55.6780,12.5793],"Marmorkirken":[55.6852,12.5893],"Østerport":[55.6925,12.5870],"Trianglen":[55.6991,12.5767],"Poul Henningsens Plads":[55.7069,12.5765],
+ "Vibenshus Runddel":[55.7062,12.5632],"Skjolds Plads":[55.7032,12.5490],"Nørrebro":[55.7006,12.5378],"Nørrebros Runddel":[55.6939,12.5374],"Nuuks Plads":[55.6880,12.5434],
+ "Aksel Møllers Have":[55.6862,12.5336],"Frederiksberg Allé":[55.6762,12.5381],"Enghave Plads":[55.6672,12.5466],"Orientkaj":[55.7117,12.5951],"Nordhavn":[55.7049,12.5911],
+ "Havneholmen":[55.6634,12.5609],"Enghave Brygge":[55.6573,12.5589],"Sluseholmen":[55.6487,12.5466],"Mozarts Plads":[55.6489,12.5328],"Ny Ellebjerg":[55.6545,12.5170]};
+const SHARED=["Vanløse","Flintholm","Lindevang","Fasanvej","Frederiksberg","Forum","Nørreport","Kongens Nytorv","Christianshavn"];
+const LINES={
+ M1:{color:"#00845A",stops:[...SHARED,"Islands Brygge","DR Byen","Sundby","Bella Center","Ørestad","Vestamager"]},
+ M2:{color:"#E6A800",stops:[...SHARED,"Amagerbro","Lergravsparken","Øresund","Amager Strand","Femøren","Kastrup","Lufthavnen"]},
+ M3:{color:"#E20025",ring:true,stops:["København H","Rådhuspladsen","Gammel Strand","Kongens Nytorv","Marmorkirken","Østerport","Trianglen","Poul Henningsens Plads","Vibenshus Runddel","Skjolds Plads","Nørrebro","Nørrebros Runddel","Nuuks Plads","Aksel Møllers Have","Frederiksberg","Frederiksberg Allé","Enghave Plads"]},
+ M4:{color:"#0098D8",stops:["Orientkaj","Nordhavn","Østerport","Marmorkirken","Kongens Nytorv","Gammel Strand","Rådhuspladsen","København H","Havneholmen","Enghave Brygge","Sluseholmen","Mozarts Plads","Ny Ellebjerg"]}};
+const pt=n=>({lat:ST[n][0],lng:ST[n][1]});
+const walkMin=(a,b)=>Math.max(1,Math.round(dist(a,b)*1.3/5*60));
+const bikeMin=(a,b)=>Math.max(1,Math.round(dist(a,b)*1.25/15*60));
+const walkM=(a,b)=>Math.round(dist(a,b)*1300/10)*10;
+const fmtMin=n=>n<60?`${n} min`:`${Math.floor(n/60)} t ${n%60} min`;
+const clock=m=>new Date(Date.now()+m*60000).toLocaleTimeString("da-DK",{hour:"2-digit",minute:"2-digit"});
+function dirOrigin(){return S.loc?{lat:S.loc.lat,lng:S.loc.lng,label:S.loc.label,set:true}:{...pt("København H"),label:"København H",set:false};}
+// Hurtigste metrorute: Dijkstra over (station, linje) med skift mellem linjer
+function transitRoute(o,d){
+  const RIDE=1.8,XFER=4,WAIT=3,near=p=>Object.keys(ST).map(n=>[n,dist(p,pt(n))]).filter(x=>x[1]<1.8).sort((a,b)=>a[1]-b[1]).slice(0,4);
+  const starts=near(o),ends=near(d);if(!starts.length||!ends.length)return null;
+  const linesAt=n=>Object.keys(LINES).filter(l=>LINES[l].stops.includes(n));
+  const D={},P={},Q=[];
+  const push=(k,c,p)=>{if(D[k]===undefined||c<D[k]){D[k]=c;P[k]=p;Q.push([c,k]);}};
+  for(const [s] of starts)for(const l of linesAt(s))push(s+"|"+l,walkMin(o,pt(s))+WAIT,null);
+  while(Q.length){Q.sort((a,b)=>a[0]-b[0]);const [c,k]=Q.shift();if(c>D[k])continue;const [s,l]=k.split("|"),st=LINES[l].stops,i=st.indexOf(s);
+    const nb=[st[i-1],st[i+1]];if(LINES[l].ring){nb[0]=st[(i-1+st.length)%st.length];nb[1]=st[(i+1)%st.length];}
+    for(const n of nb)if(n)push(n+"|"+l,c+RIDE,k);
+    for(const l2 of linesAt(s))if(l2!==l)push(s+"|"+l2,c+XFER,k);}
+  let best=null;
+  for(const [e] of ends)for(const l of linesAt(e)){const k=e+"|"+l;if(D[k]===undefined)continue;const t=D[k]+walkMin(pt(e),d);if(!best||t<best.t)best={t,k};}
+  if(!best)return null;
+  const path=[];for(let k=best.k;k;k=P[k])path.unshift(k.split("|"));
+  const legs=[],s0=path[0][0];legs.push({type:"walk",from:o,to:pt(s0),toName:s0,min:walkMin(o,pt(s0)),m:walkM(o,pt(s0))});
+  let seg=null;
+  for(const [s,l] of path){
+    if(!seg||seg.line!==l){if(seg&&seg.stations.length>1)legs.push(seg);if(seg&&seg.stations.length>1)legs.push({type:"xfer",at:seg.stations[seg.stations.length-1],to:l});seg={type:"ride",line:l,stations:[s]};}
+    else seg.stations.push(s);
+  }
+  if(seg&&seg.stations.length>1)legs.push(seg);
+  const rides=legs.filter(x=>x.type==="ride");if(!rides.length)return null;
+  for(const g of rides){const st=LINES[g.line].stops,a=st.indexOf(g.stations[0]),b=st.indexOf(g.stations[1]);
+    g.stops=g.stations.length-1;g.min=Math.round(g.stops*RIDE);
+    const both=g.stations.every(x=>SHARED.includes(x))&&(g.line==="M1"||g.line==="M2");g.label=both?"M1/M2":g.line;
+    if(LINES[g.line].ring)g.dir=`via ${g.stations[1]}`;
+    else if(both)g.dir=b>a?"mod Vestamager eller Lufthavnen":"mod Vanløse";
+    else g.dir=`mod ${b>a?st[st.length-1]:st[0]}`;}
+  // fjern skift, der kun skifter mellem M1 og M2 på den fælles strækning
+  const eN=path[path.length-1][0];legs.push({type:"walk",from:pt(eN),to:d,toName:null,min:walkMin(pt(eN),d),m:walkM(pt(eN),d)});
+  const total=Math.round(best.t);
+  return {total,legs,first:legs[0].min};
+}
+// Gå- og cykelruter fra OpenStreetMap (åben rutetjeneste); falder tilbage på et estimat
+const DIRC={};
+function osmRoute(mode,o,d){
+  const key=`${mode}|${o.lat.toFixed(4)},${o.lng.toFixed(4)}|${d.lat},${d.lng}`;
+  if(DIRC[key])return DIRC[key];
+  const est={min:mode==="bike"?bikeMin(o,d):walkMin(o,d),m:walkM(o,d),coords:null,est:true};DIRC[key]=est;
+  fetch(`https://routing.openstreetmap.de/routed-${mode==="bike"?"bike":"foot"}/route/v1/driving/${o.lng},${o.lat};${d.lng},${d.lat}?overview=full&geometries=geojson`)
+    .then(r=>r.json()).then(j=>{const rt=j.routes&&j.routes[0];if(!rt)return;
+      DIRC[key]={min:Math.max(1,Math.round(rt.duration/60)),m:Math.round(rt.distance/10)*10,coords:rt.geometry.coordinates.map(c=>[c[1],c[0]]),est:false};
+      if(S.view==="map"&&S.dir){updateMapSheet();drawRoute();}}).catch(()=>{});
+  return est;
+}
+function dirLinks(o,d,mode){
+  const gm={transit:"transit",walk:"walking",bike:"bicycling"}[mode],am={transit:"r",walk:"w",bike:"w"}[mode];
+  return `<div class="dlinks"><a class="sec-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=${o.lat},${o.lng}&destination=${d.lat},${d.lng}&travelmode=${gm}">Åbn i Google Maps</a>
+    <a class="sec-btn" target="_blank" rel="noopener" href="https://maps.apple.com/?saddr=${o.lat},${o.lng}&daddr=${d.lat},${d.lng}&dirflg=${am}">Åbn i Apple Maps</a></div>`;
+}
+function dirHtml(){
+  const r=RESTAURANTS.find(x=>x.id===S.dir.rid),o=dirOrigin(),tr=transitRoute(o,r),w=osmRoute("walk",o,r),b=osmRoute("bike",o,r),mode=S.dir.mode;
+  const modes=[["transit","Transport",IC.train,tr?tr.total:null],["walk","Gå",IC.walk,w.min],["bike","Cykel",IC.bike2,b.min]];
+  let body="";
+  if(mode==="transit"){
+    if(!tr)body=`<p class="note" style="padding:6px 2px">Der er ingen metro tæt på hverken dig eller restauranten. Gå eller cykl – eller se busser i Google Maps.</p>`;
+    else body=`<div class="dsum"><b>${fmtMin(tr.total)}</b><span>Ankomst ca. kl. ${clock(tr.total)}${w.min<=tr.total?` · <span>Det er hurtigere at gå</span>`:""}</span></div>
+      <ol class="steps2">${tr.legs.map((g,i)=>g.type==="walk"?`<li><span class="sic">${IC.walk}</span><div><b>Gå ${g.min} min</b><small>${g.m} m ${g.toName?`til ${esc(g.toName)} St.`:"til restauranten"}</small></div></li>`
+        :g.type==="xfer"?`<li><span class="sic">${IC.repeat}</span><div><b>Skift til ${g.to}</b><small>${esc(g.at)} St. · ca. 4 min</small></div></li>`
+        :`<li><span class="lbadge" style="background:${LINES[g.line].color}">${g.label}</span><div><b>${esc(g.stations[0])} → ${esc(g.stations[g.stations.length-1])}</b><small>${esc(g.dir)} · ${g.stops} stop · ${g.min} min</small></div></li>`).join("")}</ol>
+      <p class="note">Afgang fra stationen ca. kl. ${clock(tr.first)}. Metroen kører ca. hvert 3.–6. minut.</p>
+      <p class="demo" style="text-align:left;padding:0">Estimat ud fra metroens linjer. Busser, S-tog og præcise afgange er ikke med – åbn ruten i Google Maps for den nøjagtige rejse.</p>`;
+  }else{const x=mode==="walk"?w:b;
+    body=`<div class="dsum"><b>${fmtMin(x.min)}</b><span>${(x.m/1000).toFixed(1).replace(".",DS())} km · ankomst ca. kl. ${clock(x.min)}</span></div>
+      <p class="note">${x.est?"Estimat i fugleflugt – henter rute …":mode==="walk"?"Gårute fra OpenStreetMap.":"Cykelrute fra OpenStreetMap ad cykelstier, hvor det er muligt."}</p>`;}
+  return `<div class="mshandle"></div>
+   <div class="dirhead"><button class="circ sm" data-act="dir-close" aria-label="Tilbage">${IC.back}</button>
+     <div class="body"><span class="kw"><span>Fra:</span> <b>${esc(o.label)}</b>${o.set?"":` · <span>vælg din position</span>`}</span><span class="kw"><span>Til:</span> <b>${esc(r.name)}</b></span></div>
+     <button class="pillsm" data-act="gps-sheet">Skift start</button></div>
+   <div class="modes" role="group" aria-label="Transportform">${modes.map(([k,l,ic,mn])=>`<button data-act="dir-mode" data-v="${k}" aria-pressed="${mode===k}">${ic}<b>${mn==null?"–":fmtMin(mn)}</b><small>${l}</small></button>`).join("")}</div>
+   ${body}${dirLinks(o,r,mode)}`;
+}
+function mapList(){
+  const rs=RESTAURANTS.filter(r=>S.mapCat==="Alle"||r.cat===S.mapCat).sort((a,b)=>S.loc?dist(S.loc,a)-dist(S.loc,b):b.rating-a.rating);
+  return `<div class="mshandle"></div><div class="mshead"><b>${rs.length} restauranter</b><span class="kw">${S.loc?"Tættest på dig først":"Tryk på et sted på kortet"}</span></div>
+   <div class="row mlrow">${rs.map(r=>`<button class="card mlcard" data-act="map-sel" data-r="${r.id}">${tileR(r,"xs")}<span class="nm">${esc(r.name)}</span><span class="kw">${S.loc?kmTxt(dist(S.loc,r)):esc(r.tag)}</span></button>`).join("")}</div>`;
+}
+function mapSel(){
+  const r=RESTAURANTS.find(x=>x.id===S.mapSel);
+  return `<div class="mshandle"></div><div class="mscard">${tileR(r,"xs")}<div class="body"><span class="nm" style="padding-right:0">${esc(r.name)}</span><span class="kw">${esc(r.kw)}</span>${metaPills(r,info(r))}</div>
+    <button class="circ sm" data-act="map-close" aria-label="Luk">${IC.x}</button></div>
+   <div class="msbtns"><button class="primary center" data-act="dir-start" data-r="${r.id}">${IC.route}&nbsp; Rutevejledning</button><button class="sec-btn" data-act="rest" data-r="${r.id}">Se menu</button></div>`;
+}
+const mapSheetHtml=()=>S.dir?dirHtml():S.mapSel?mapSel():mapList();
+function vMap(){
+  return `<div class="mapwrap"><div id="lmap" class="lmap" role="region" aria-label="Kort over København"></div>
+    <div class="mtop"><div class="row chips mchips" role="group" aria-label="Køkkener">${["Alle",...CUISINES].map(c=>`<button class="chip" data-act="map-cat" data-c="${esc(c)}" aria-pressed="${S.mapCat===c}">${esc(c)}</button>`).join("")}</div></div>
+    <button class="circ mloc" data-act="map-locate" aria-label="Min position">${IC.gps}</button>
+    <div class="msheet" id="msheet">${mapSheetHtml()}</div></div>`;
+}
+function updateMapSheet(){const el=$("#msheet");if(el)el.innerHTML=mapSheetHtml();}
+let MAP=null,MKS={},RLAY=null,ULAY=null,FALLBACK=false;
+function loadLeaflet(){
+  if(window.L)return Promise.resolve();if(loadLeaflet.p)return loadLeaflet.p;
+  loadLeaflet.p=new Promise((res,rej)=>{const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js";s.crossOrigin="anonymous";
+    s.onload=()=>window.L?res():rej();s.onerror=()=>{loadLeaflet.p=null;rej();};document.head.appendChild(s);setTimeout(()=>{if(!window.L)rej();},8000);});
+  return loadLeaflet.p;
+}
+function destroyMap(){if(MAP){try{MAP.remove();}catch(e){}MAP=null;MKS={};RLAY=null;ULAY=null;}}
+const pinHtml=r=>`<div class="mpin ${S.mapSel===r.id||(S.dir&&S.dir.rid===r.id)?"sel":""}"><img src="${IMG["r-"+r.id]||""}" alt=""><span>${esc(r.name)}</span></div>`;
+async function initMap(){
+  const el=$("#lmap");if(!el)return;FALLBACK=false;
+  try{await loadLeaflet();}catch(e){FALLBACK=true;el.innerHTML=svgMap();return;}
+  if(!$("#lmap")||S.view!=="map")return;
+  destroyMap();
+  MAP=L.map(el,{zoomControl:false,attributionControl:true}).setView(S.loc?[S.loc.lat,S.loc.lng]:[55.684,12.565],13);
+  let ok=false,errs=0;
+  const tl=L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>-bidragydere'}).addTo(MAP);
+  tl.on("tileload",()=>ok=true);tl.on("tileerror",()=>errs++);
+  setTimeout(()=>{if(!ok&&S.view==="map"&&$("#lmap")){destroyMap();FALLBACK=true;$("#lmap").innerHTML=svgMap();}},6000);
+  for(const [k,l] of Object.entries(LINES)){const c=l.stops.map(n=>ST[n]);if(l.ring)c.push(ST[l.stops[0]]);L.polyline(c,{color:l.color,weight:3,opacity:.35,interactive:false}).addTo(MAP);}
+  RLAY=L.layerGroup().addTo(MAP);ULAY=L.layerGroup().addTo(MAP);
+  drawMarkers();drawUser();drawRoute();
+}
+function drawMarkers(){
+  if(FALLBACK){$("#lmap").innerHTML=svgMap();return;}
+  if(!MAP)return;
+  for(const m of Object.values(MKS))MAP.removeLayer(m);MKS={};
+  for(const r of RESTAURANTS.filter(x=>S.mapCat==="Alle"||x.cat===S.mapCat)){
+    const m=L.marker([r.lat,r.lng],{icon:L.divIcon({className:"",html:pinHtml(r),iconSize:[44,44],iconAnchor:[22,22]}),title:r.name,keyboard:true}).addTo(MAP);
+    m.on("click",()=>selectRest(r.id));MKS[r.id]=m;}
+}
+function drawUser(){if(!MAP||!ULAY)return;ULAY.clearLayers();if(!S.loc)return;
+  L.marker([S.loc.lat,S.loc.lng],{icon:L.divIcon({className:"",html:'<div class="mme"></div>',iconSize:[22,22],iconAnchor:[11,11]}),interactive:false}).addTo(ULAY);}
+function drawRoute(){
+  if(FALLBACK){$("#lmap").innerHTML=svgMap();return;}
+  if(!MAP||!RLAY)return;RLAY.clearLayers();if(!S.dir)return;
+  const r=RESTAURANTS.find(x=>x.id===S.dir.rid),o=dirOrigin(),pts=[[o.lat,o.lng],[r.lat,r.lng]];
+  if(!o.set)L.circleMarker([o.lat,o.lng],{radius:7,color:"#fff",weight:3,fillColor:"#4B3B6B",fillOpacity:1}).addTo(RLAY);
+  if(S.dir.mode==="transit"){const tr=transitRoute(o,r);
+    if(tr)for(const g of tr.legs){
+      if(g.type==="walk")L.polyline([[g.from.lat,g.from.lng],[g.to.lat,g.to.lng]],{color:"#4B3B6B",weight:4,dashArray:"2 8",lineCap:"round"}).addTo(RLAY);
+      if(g.type==="ride"){const c=g.stations.map(n=>ST[n]);pts.push(...c);L.polyline(c,{color:LINES[g.line].color,weight:7,opacity:.95}).addTo(RLAY);
+        for(const n of [g.stations[0],g.stations[g.stations.length-1]])L.circleMarker(ST[n],{radius:6,color:LINES[g.line].color,weight:3,fillColor:"#fff",fillOpacity:1}).bindTooltip(n).addTo(RLAY);}}
+  }else{const x=osmRoute(S.dir.mode,o,r),c=x.coords||[[o.lat,o.lng],[r.lat,r.lng]];pts.push(...c);
+    L.polyline(c,{color:"#4B3B6B",weight:6,opacity:.9,dashArray:x.coords?null:"2 8",lineCap:"round"}).addTo(RLAY);}
+  MAP.fitBounds(L.latLngBounds(pts),{paddingTopLeft:[30,90],paddingBottomRight:[30,Math.min(420,window.innerHeight*.5)]});
+}
+function selectRest(id){S.mapSel=id;S.dir=null;updateMapSheet();drawMarkers();drawRoute();
+  if(MAP){const r=RESTAURANTS.find(x=>x.id===id);MAP.panTo([r.lat-0.004,r.lng]);}}
+function mapUserUpdate(){drawUser();if(S.dir){updateMapSheet();drawRoute();}}
+// Reserve-kort uden internetfliser: metrolinjer og restauranter tegnet som SVG
+function svgMap(){
+  const W=400,H=520,P=(lat,lng)=>[((lng-12.48)/0.19*W).toFixed(1),((55.722-lat)/0.112*H).toFixed(1)];
+  let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" class="svgmap" role="img" aria-label="Skitse af København med restauranter og metrolinjer"><rect width="${W}" height="${H}" fill="var(--map)"/>`;
+  for(const l of Object.values(LINES)){const c=l.stops.map(n=>P(...ST[n]));if(l.ring)c.push(P(...ST[l.stops[0]]));s+=`<polyline points="${c.join(" ")}" fill="none" stroke="${l.color}" stroke-width="3" opacity=".5"/>`;}
+  if(S.dir){const r=RESTAURANTS.find(x=>x.id===S.dir.rid),o=dirOrigin(),tr=S.dir.mode==="transit"&&transitRoute(o,r);
+    if(tr)for(const g of tr.legs){if(g.type==="walk")s+=`<line x1="${P(g.from.lat,g.from.lng)[0]}" y1="${P(g.from.lat,g.from.lng)[1]}" x2="${P(g.to.lat,g.to.lng)[0]}" y2="${P(g.to.lat,g.to.lng)[1]}" stroke="#4B3B6B" stroke-width="3" stroke-dasharray="2 6"/>`;
+      if(g.type==="ride")s+=`<polyline points="${g.stations.map(n=>P(...ST[n])).join(" ")}" fill="none" stroke="${LINES[g.line].color}" stroke-width="6"/>`;}
+    else{const a=P(o.lat,o.lng),b=P(r.lat,r.lng);s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#4B3B6B" stroke-width="4" stroke-dasharray="2 7"/>`;}}
+  for(const r of RESTAURANTS.filter(x=>S.mapCat==="Alle"||x.cat===S.mapCat)){const [x,y]=P(r.lat,r.lng),sel=S.mapSel===r.id||(S.dir&&S.dir.rid===r.id);
+    s+=`<g class="svgpin" data-act="map-sel" data-r="${r.id}" role="button" aria-label="${esc(r.name)}"><circle cx="${x}" cy="${y}" r="${sel?11:8}" fill="${sel?"var(--accent)":"var(--btn)"}" stroke="#fff" stroke-width="3"/>${sel?`<text x="${x}" y="${+y-16}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">${esc(r.name)}</text>`:""}</g>`;}
+  if(S.loc){const [x,y]=P(S.loc.lat,S.loc.lng);s+=`<circle cx="${x}" cy="${y}" r="7" fill="#2E7DF6" stroke="#fff" stroke-width="3"/>`;}
+  return s+`</svg><p class="svgnote">Kortfliserne kunne ikke hentes her. Viser en skitse – åbn appen på preppya.github.io/gaffel for det fulde kort.</p>`;
 }
 
 /* ---------- Sprog ----------
@@ -2813,7 +3128,7 @@ const EN_RX=[
 // Tekster til menuafsnit, faner, profil, betaling og anmeldelser
 Object.assign(EN,{
  "Forretter":"Starters","Supper":"Soups","Meze":"Meze","Ris":"Rice","Grill":"Grill","Curry":"Curry","Pizza":"Pizza","Bowls":"Bowls","Sushi":"Sushi",
- "Hovedmenu":"Main menu","Hjem":"Home","Kort":"Cards","Profil":"Profile",
+ "Hovedmenu":"Main menu","Hjem":"Home","Kort":"Map","Profil":"Profile",
  "Velkommen til Gaffel":"Welcome to Gaffel","Gem dine ordrer, betalingskort og anmeldelser – og find spisemakkere med din profil.":"Save your orders, payment cards and reviews – and find dining buddies with your profile.",
  "Log ind eller opret":"Sign in or sign up","Log ind":"Sign in","Opret profil":"Create profile","Fornavn":"First name","Efternavn":"Last name","E-mail":"Email","Telefon (valgfri)":"Phone (optional)","Telefon":"Phone",
  "Adgangskode":"Password","Vis":"Show","Skjul":"Hide","Jeg accepterer vilkår og privatlivspolitik":"I accept the terms and privacy policy","Glemt adgangskode?":"Forgot password?","Fortsæt som gæst":"Continue as guest",
@@ -2930,6 +3245,34 @@ EN_RX.push(
  [/^Madpas · (\d+)\/(\d+) køkkener$/,"Food passport · $1/$2 cuisines"],[/^\/(\d+) køkkener$/,"/$1 cuisines"],[/^(\d+)\/(\d+) køkkener$/,"$1/$2 cuisines"],
  [/^(\d+) stempler til: (.+)$/,(m,n,x)=>`${n} stamps to: ${trW(x)}`],[/^Låses op ved (\d+) stempler$/,"Unlocks at $1 stamps"],[/^Kode: (\S+)$/,"Code: $1"],
  [/^Nyt stempel i dit madpas: (.+)$/,(m,c)=>`New stamp in your food passport: ${trW(c)}`],[/^Du har låst op: (.+)!$/,(m,x)=>`You unlocked: ${trW(x)}!`]
+);
+// Steder du har spist, kort og rutevejledning
+Object.assign(EN,{
+ "Betaling":"Payment","Gemte kort":"Saved cards","Steder du har spist":"Places you've eaten","Bestilt":"Ordered","Spisemakker":"Dining buddy","Besøgt":"Visited",
+ "Del din oplevelse, og hjælp andre med at finde gode steder.":"Share your experience and help others find great places.","Ret anmeldelse":"Edit review","Skriv anmeldelse":"Write review","Se stedet":"See the place",
+ "Når du har bestilt fra et sted eller spist der, dukker det op her, så du kan anmelde det.":"Once you've ordered from or eaten at a place, it shows up here so you can review it.",
+ "Tryk på en stjerne for at anmelde":"Tap a star to review","Jeg har spist her – skriv en anmeldelse":"I've eaten here – write a review",
+ "Har du spist her uden at bestille via Gaffel? Du kan stadig dele din oplevelse.":"Eaten here without ordering via Gaffel? You can still share your experience.",
+ "Rutevejledning":"Directions","Se vejen derhen med metro, til fods eller på cykel":"See how to get there by metro, on foot or by bike",
+ "Kort over København":"Map of Copenhagen","Min position":"My location","Tættest på dig først":"Closest to you first","Tryk på et sted på kortet":"Tap a place on the map","Se menu":"See menu",
+ "Transport":"Transit","Gå":"Walk","Cykel":"Bike","Transportform":"Mode of transport","Fra:":"From:","Til:":"To:","vælg din position":"choose your location","Skift start":"Change start",
+ "Det er hurtigere at gå":"It's faster to walk","til restauranten":"to the restaurant",
+ "Der er ingen metro tæt på hverken dig eller restauranten. Gå eller cykl – eller se busser i Google Maps.":"There's no metro near you or the restaurant. Walk or cycle – or check buses in Google Maps.",
+ "Estimat ud fra metroens linjer. Busser, S-tog og præcise afgange er ikke med – åbn ruten i Google Maps for den nøjagtige rejse.":"Estimate based on the metro lines. Buses, S-trains and exact departures aren't included – open the route in Google Maps for the exact journey.",
+ "Estimat i fugleflugt – henter rute …":"Straight-line estimate – fetching route …","Gårute fra OpenStreetMap.":"Walking route from OpenStreetMap.","Cykelrute fra OpenStreetMap ad cykelstier, hvor det er muligt.":"Cycling route from OpenStreetMap, using bike lanes where possible.",
+ "Åbn i Google Maps":"Open in Google Maps","Åbn i Apple Maps":"Open in Apple Maps","Metroen kører ca. hvert 3.–6. minut.":"The metro runs roughly every 3–6 minutes.",
+ "mod Vestamager eller Lufthavnen":"towards Vestamager or the Airport","Skitse af København med restauranter og metrolinjer":"Sketch of Copenhagen with restaurants and metro lines",
+ "Kortfliserne kunne ikke hentes her. Viser en skitse – åbn appen på preppya.github.io/gaffel for det fulde kort.":"The map tiles couldn't be loaded here. Showing a sketch – open the app at preppya.github.io/gaffel for the full map."
+});
+EN_RX.push(
+ [/^(\d+) steder$/,"$1 places"],[/^(\d+) m til restauranten$/,"$1 m to the restaurant"],[/^Køkkener$/,"Cuisines"],[/^· (.+)$/,(m,x)=>"· "+trCore(x)],[/^Hvordan var (.+)\?$/,"How was $1?"],
+ [/^(\d+) t (\d+) min$/,"$1 h $2 min"],[/^Gå (\d+) min$/,"Walk $1 min"],
+ [/^(\d+) m til (.+) St\.$/,"$1 m to $2 St."],[/^(\d+) m$/,"$1 m"],
+ [/^Skift til (M\d)$/,"Change to $1"],[/^(.+) St\. · ca\. 4 min$/,"$1 St. · about 4 min"],
+ [/^(mod|via) (.+) · (\d+) stop · (\d+) min$/,(m,a,b,n,t)=>`${a==="mod"?"towards":"via"} ${b==="Vestamager eller Lufthavnen"?"Vestamager or the Airport":b} · ${n} ${n==="1"?"stop":"stops"} · ${t} min`],
+ [/^Ankomst ca\. kl\. (\S+)$/,"Arrival around $1"],[/^Ankomst ca\. kl\. (\S+) · $/,"Arrival around $1 · "],
+ [/^(\S+) km · ankomst ca\. kl\. (\S+)$/,"$1 km · arrival around $2"],
+ [/^Afgang fra stationen ca\. kl\. (\S+)\. Metroen kører ca\. hvert 3\.–6\. minut\.$/,"Departs the station around $1. The metro runs roughly every 3–6 minutes."]
 );
 function trCore(c){
   if(EN[c]!==undefined)return EN[c];

@@ -3,31 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#F2F2F0">
+<meta name="theme-color" content="#FFF0F5">
 <title>Gaffel – mad leveret</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%237E1621'/%3E%3Cpath d='M15.5 9.5v6.7a3.2 3.2 0 0 0 2.6 3.1V30a1.9 1.9 0 0 0 3.8 0V19.3a3.2 3.2 0 0 0 2.6-3.1V9.5M18.7 9.5v6.2M21.3 9.5v6.2' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%234B3B6B'/%3E%3Cpath d='M15.5 9.5v6.7a3.2 3.2 0 0 0 2.6 3.1V30a1.9 1.9 0 0 0 3.8 0V19.3a3.2 3.2 0 0 0 2.6-3.1V9.5M18.7 9.5v6.2M21.3 9.5v6.2' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
+/* Visuel identitet: lavender blush som baggrund, lavendel som flader, dyb blomme til tekst og knapper */
 :root{
-  --bg:#F2F2F0; --card:#FFFFFF; --tile:#F4F4F2; --ink:#151515; --ink-2:#8A8A88; --line:#E7E7E4;
-  --btn:#151515; --btn-ink:#FFFFFF; --accent:#9E1B2A; --accent-soft:#FBECEE; --hero:#151515;
-  --map:#ECECE9; --block:#E0E0DC; --street:#FFFFFF;
-  --shadow:0 1px 2px rgba(0,0,0,.03),0 10px 26px rgba(0,0,0,.05);
+  --bg:#FFF0F5; --card:#FFFFFF; --tile:#F3F0FB; --lav:#E6E6FA; --ink:#2A2140; --ink-2:#776C8C; --line:#EADFEA;
+  --btn:#4B3B6B; --btn-ink:#FFFFFF; --accent:#A23E72; --accent-soft:#FBE4EE; --hero:#3D2F5A;
+  --map:#EFEAF7; --block:#E3DCF0; --street:#FFFFFF;
+  --shadow:0 1px 2px rgba(75,59,107,.04),0 10px 26px rgba(75,59,107,.07);
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#0F0F0F; --card:#1A1A1A; --tile:#232323; --ink:#F2F2F2; --ink-2:#9A9A97; --line:#2B2B2B;
-    --btn:#F2F2F2; --btn-ink:#151515; --accent:#F0707A; --accent-soft:#3A1F22; --hero:#000000;
-    --map:#1A1A1A; --block:#232323; --street:#2E2E2E; --shadow:none; color-scheme:dark;
+    --bg:#17121F; --card:#221B2D; --tile:#2C2340; --lav:#2C2340; --ink:#F3EEFA; --ink-2:#AFA3C4; --line:#3A2F4C;
+    --btn:#E6E6FA; --btn-ink:#2A2140; --accent:#E59BC2; --accent-soft:#3B2234; --hero:#0F0B16;
+    --map:#1E1828; --block:#2A2238; --street:#352B47; --shadow:none; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0F0F0F; --card:#1A1A1A; --tile:#232323; --ink:#F2F2F2; --ink-2:#9A9A97; --line:#2B2B2B;
-  --btn:#F2F2F2; --btn-ink:#151515; --accent:#F0707A; --accent-soft:#3A1F22; --hero:#000000;
-  --map:#1A1A1A; --block:#232323; --street:#2E2E2E; --shadow:none; color-scheme:dark;
+  --bg:#17121F; --card:#221B2D; --tile:#2C2340; --lav:#2C2340; --ink:#F3EEFA; --ink-2:#AFA3C4; --line:#3A2F4C;
+  --btn:#E6E6FA; --btn-ink:#2A2140; --accent:#E59BC2; --accent-soft:#3B2234; --hero:#0F0B16;
+  --map:#1E1828; --block:#2A2238; --street:#352B47; --shadow:none; color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -53,7 +54,7 @@ svg{display:block}
 
 /* Forside */
 .hhead{display:flex;align-items:center;gap:12px;padding:16px 18px 2px}
-.logo{display:flex;align-items:center;gap:10px;margin-right:auto;color:var(--accent);font:inherit;min-width:0}
+.logo{display:flex;align-items:center;gap:10px;margin-right:auto;color:var(--btn);font:inherit;min-width:0}
 .logo svg{width:38px;height:38px;flex:none}
 .logo span{font:700 29px/1 "Playfair Display",Georgia,"Times New Roman",serif;color:var(--ink)}
 .hello{padding:2px 18px 0;color:var(--ink-2);font-size:14px}
@@ -119,6 +120,7 @@ svg{display:block}
 
 .ocard{flex:none;width:310px;display:flex;gap:12px;padding:8px}
 .ocard .tile{width:112px;min-height:146px;align-self:stretch}
+.ocard .tile img{width:94px;height:94px}
 .ocard .body{padding:10px 4px 6px 0}
 .timer{position:absolute;top:8px;right:2px;display:inline-flex;align-items:center;gap:4px;color:var(--accent);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
 .ocard .off{margin-top:24px}
@@ -281,7 +283,74 @@ svg{display:block}
 .errbox{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:12px;padding:12px 14px;font-size:14px;margin-bottom:14px}
 .toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:var(--btn);color:var(--btn-ink);padding:11px 18px;border-radius:999px;z-index:30;font-weight:700;font-size:14px;max-width:90vw;text-align:center}
 .toast[hidden]{display:none}
-@media (prefers-reduced-motion:reduce){.dot.live,.dot.seek{animation:none}.prog i{transition:none}}
+/* Spis sammen */
+.meet-cta{display:block;width:calc(100% - 36px);margin:16px 18px 0;padding:20px;border-radius:26px;background:linear-gradient(140deg,var(--lav),var(--accent-soft));border:1px solid var(--line);text-align:left}
+.meet-cta h2{font:600 22px/1.2 "Playfair Display",Georgia,serif;margin-top:2px}
+.meet-cta p{color:var(--ink-2);margin:6px 0 14px;font-size:14px}
+.meet-cta .primary{width:100%}
+.meet-cta.live{display:flex;align-items:center;gap:14px}
+.meet-cta .mt{display:block;font:600 18px/1.25 "Playfair Display",Georgia,serif}
+.meet-cta.live .grow{flex:1;min-width:0}
+.meet-cta .ic{width:46px;height:46px;border-radius:50%;background:var(--card);color:var(--btn);display:grid;place-items:center;flex:none}
+.meet-inline{display:flex;align-items:center;gap:12px;width:100%;padding:14px 16px;border-radius:20px;background:linear-gradient(140deg,var(--lav),var(--accent-soft));border:1px solid var(--line);font-weight:600;text-align:left}
+.meet-inline .ic{width:38px;height:38px;border-radius:50%;background:var(--card);color:var(--btn);display:grid;place-items:center;flex:none}
+.meet-inline span.t{flex:1}
+.meet-inline small{display:block;color:var(--ink-2);font-weight:500;font-size:13px}
+.mform{padding:18px 18px 0;display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
+.mform h3{font-size:15px;font-weight:700;margin-bottom:10px}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--tile);border-radius:999px;padding:4px;margin-bottom:10px}
+.seg button{border-radius:999px;padding:11px 8px;font-weight:600;font-size:14px;text-align:center}
+.seg button[aria-pressed="true"]{background:var(--card);box-shadow:var(--shadow);color:var(--ink)}
+.wrapchips{display:flex;flex-wrap:wrap;gap:8px}
+.wrapchips .chip{padding:9px 16px;box-shadow:none}
+.txtin{width:100%;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:13px 18px}
+.txtin:focus{outline:none;border-color:var(--btn)}
+.safe{list-style:none;margin:0;padding:16px;border-radius:20px;background:var(--card);border:1px solid var(--line);display:grid;gap:10px}
+.safe li{display:flex;gap:10px;align-items:center;font-size:14px}
+.safe svg{color:var(--btn);flex:none}
+.demo{font-size:12px;color:var(--ink-2);text-align:center;padding:0 18px}
+.mh{font:600 25px/1.2 "Playfair Display",Georgia,serif;text-align:center;padding:0 18px}
+.radar{width:210px;height:210px;margin:34px auto 18px;border-radius:50%;display:grid;place-items:center;position:relative;color:var(--btn)}
+.radar::before,.radar::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--btn);opacity:0;animation:ring 2.4s ease-out infinite}
+.radar::after{animation-delay:1.2s}
+.radar .core{width:104px;height:104px;border-radius:50%;background:var(--lav);display:grid;place-items:center;border:1px solid var(--line)}
+.radar .core svg{width:58px;height:58px}
+.radar.still::before,.radar.still::after{animation:none;opacity:0}
+@keyframes ring{0%{transform:scale(.48);opacity:.7}100%{transform:scale(1.12);opacity:0}}
+.livecount{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:12px;font-weight:600;font-size:14px}
+.steps{list-style:none;margin:22px 18px;padding:16px;border-radius:20px;background:var(--card);border:1px solid var(--line);display:grid;gap:10px}
+.steps li{display:flex;gap:10px;align-items:center;color:var(--ink-2);font-size:14px}
+.steps li svg{opacity:.25}
+.steps li.done{color:var(--ink)}
+.steps li.done svg{opacity:1;color:var(--btn)}
+.mx{width:calc(100% - 36px);margin:0 18px}
+.person{display:flex;gap:14px;padding:16px}
+.av{width:56px;height:56px;border-radius:50%;background:var(--lav);color:var(--btn);display:grid;place-items:center;font-weight:800;font-size:20px;flex:none;border:2px solid var(--card)}
+.person .label{top:2px;right:0}
+.person .nm{padding-right:70px;font-size:16px}
+.person .why{padding:10px 0 0}
+.vb{display:inline-flex;gap:5px;align-items:center;font-size:12px;font-weight:700;color:var(--btn);margin-top:4px}
+.vb svg{width:15px;height:15px}
+.okhead{text-align:center;padding:10px 18px 4px}
+.okic{width:74px;height:74px;border-radius:50%;background:var(--btn);color:var(--btn-ink);display:grid;place-items:center;margin:8px auto 14px}
+.okic svg{width:34px;height:34px}
+.avrow{display:flex;justify-content:center;margin:14px 0 4px}
+.avrow .av{margin-left:-10px}
+.avrow .av:first-child{margin-left:0}
+.avrow .av.me{background:var(--btn);color:var(--btn-ink)}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.act{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px;font-weight:600;font-size:13px;text-align:center}
+.act .ic{width:40px;height:40px;border-radius:50%;background:var(--tile);color:var(--btn);display:grid;place-items:center}
+.chatcard{padding:16px}
+.chatlog{display:grid;gap:8px;margin:10px 0 12px;max-height:260px;overflow:auto}
+.msg{max-width:82%;padding:10px 14px;border-radius:18px 18px 18px 6px;background:var(--tile);font-size:14px;justify-self:start}
+.msg b{display:block;font-size:12px;color:var(--ink-2)}
+.msg.me{justify-self:end;background:var(--btn);color:var(--btn-ink);border-radius:18px 18px 6px 18px}
+.chatin{display:flex;gap:8px}
+.chatin .circ{background:var(--btn);color:var(--btn-ink);border-color:var(--btn)}
+.rate2{display:grid;gap:10px}
+
+@media (prefers-reduced-motion:reduce){.dot.live,.dot.seek{animation:none}.prog i{transition:none}.radar::before,.radar::after{animation:none;opacity:.25;transform:scale(.9)}}
 </style>
 </head>
 <body>
@@ -409,7 +478,13 @@ const IC={
   pot:'<svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 11h18v2a7 7 0 0 1-7 7h-4a7 7 0 0 1-7-7zm-1 10h20v2H2zM8 3c1 1-1 2 0 3s-1 2 0 3h1.6c-1-1 1-2 0-3s1-2 0-3zm4 0c1 1-1 2 0 3s-1 2 0 3h1.6c-1-1 1-2 0-3s1-2 0-3zm4 0c1 1-1 2 0 3s-1 2 0 3h1.6c-1-1 1-2 0-3s1-2 0-3z"/></svg>',
   bike:sv('<circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 9 9h6l3.5 7.5M9 9 7.5 6H5M15 9l-3 7.5h-6.5M14 5h2.5l1.5 4"/>',30,2.2),
   check:'<svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m7 12.5 3.2 3.2L17 9" fill="none" stroke="var(--hero)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  gps:sv('<circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/>',20)
+  gps:sv('<circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/>',20),
+  people:sv('<circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.6"/><path d="M15.6 14.3A5 5 0 0 1 21 19"/>',20,1.9),
+  shield:sv('<path d="M12 3 5 6v6c0 4.2 3 7.6 7 9 4-1.4 7-4.8 7-9V6z"/><path d="m9 12 2 2 4-4"/>',18,1.9),
+  share:sv('<path d="M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/>',20,1.9),
+  send:sv('<path d="M4 12 20 4l-6 16-2.5-6.5z"/>',18,2),
+  door:sv('<path d="M5 21h14M7 21V4h10v17"/><circle cx="14" cy="12.5" r=".8" fill="currentColor"/>',20,1.9),
+  xc:sv('<circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/>',20,1.9)
 };
 // Logo: en gaffel i en tallerken
 const LOGO=`<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.6" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="20" cy="20" r="14.4" fill="none" stroke="currentColor" stroke-width=".8" opacity=".55"/><path d="M15.5 9.5v6.7a3.2 3.2 0 0 0 2.6 3.1V30a1.9 1.9 0 0 0 3.8 0V19.3a3.2 3.2 0 0 0 2.6-3.1V9.5M18.7 9.5v6.2M21.3 9.5v6.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -549,18 +624,21 @@ const FILTERS=["Alle","Populære","Tilbud","Nye","Vegansk"];
 const S={view:"home",stack:[],rid:null,itemId:null,qty:1,search:"",cat:"Alle",allRest:false,allItems:false,msec:"Alle",
   currency:"DKK",convFrom:"DKK",convAmount:"100",
   loc:null,gps:{status:"off",err:"",at:null},watchId:null,
-  cart:{rid:null,items:{}},promo:null,order:null,lastOrder:null,quiz:{i:0,a:{}}};
+  cart:{rid:null,items:{}},promo:null,order:null,lastOrder:null,quiz:{i:0,a:{}},meet:null};
 function load(){
   try{const d=JSON.parse(localStorage.getItem("gaffel2")||"null");
-    if(d){for(const k of ["currency","convFrom","convAmount","cart","promo","lastOrder","order"]) if(d[k]!==undefined) S[k]=d[k];
+    if(d){for(const k of ["currency","convFrom","convAmount","cart","promo","lastOrder","order","meet"]) if(d[k]!==undefined) S[k]=d[k];
       if(d.manualLoc) S.loc=d.manualLoc;}
   }catch(e){}
   if(!CURRENCIES[S.currency]) S.currency="DKK";
   if(!CURRENCIES[S.convFrom]) S.convFrom="DKK";
   if(S.order && Date.now()-S.order.started>3600e3) S.order=null;
+  // En aftale fra en tidligere dag ryddes væk
+  if(S.meet && S.meet.t0 && Date.now()-S.meet.t0>18*3600e3) S.meet=null;
+  if(S.meet && (S.meet.status==="found"||S.meet.status==="booked"||S.meet.status==="checked") && !(S.meet.match&&RESTAURANTS.some(r=>r.id===S.meet.match.rid))) S.meet=null;
 }
 function save(){
-  try{localStorage.setItem("gaffel2",JSON.stringify({currency:S.currency,convFrom:S.convFrom,convAmount:S.convAmount,cart:S.cart,promo:S.promo,lastOrder:S.lastOrder,order:S.order,
+  try{localStorage.setItem("gaffel2",JSON.stringify({currency:S.currency,convFrom:S.convFrom,convAmount:S.convAmount,cart:S.cart,promo:S.promo,lastOrder:S.lastOrder,order:S.order,meet:S.meet,
     manualLoc:S.loc&&S.loc.manual?S.loc:null}));}catch(e){}
 }
 
@@ -771,7 +849,8 @@ function homeResults(){
   if(S.loc) items=items.filter(it=>it.r.open&&info(it.r).inRange).concat(items.filter(it=>!(it.r.open&&info(it.r).inRange)));
   const offers=(S.cat==="Alle"||S.cat==="Tilbud")?RESTAURANTS.filter(r=>r.off>0&&r.open).sort((a,b)=>b.off-a.off):[];
   const shownR=S.allRest?rs:rs.slice(0,6), shownI=S.allItems?items:items.slice(0,6);
-  return `<div class="row chips" role="group" aria-label="Filtre">${cats.map(c=>`<button class="chip" data-act="cat" data-c="${esc(c)}" aria-pressed="${c===S.cat}">${esc(c)}</button>`).join("")}</div>
+  return `${meetCta()}
+   <div class="row chips" role="group" aria-label="Filtre">${cats.map(c=>`<button class="chip" data-act="cat" data-c="${esc(c)}" aria-pressed="${c===S.cat}">${esc(c)}</button>`).join("")}</div>
    <div class="quick">
      <button class="qa" data-act="quiz"><span class="ic">${IC.sliders}</span>Hjælp mig med at vælge</button>
      <button class="qa" data-act="surprise"><span class="ic">${IC.cloche}</span>Overrask mig</button>
@@ -800,6 +879,7 @@ function vRest(){
    </section>
    <div class="row chips menu-chips" role="group" aria-label="Menu">${["Alle",...secs].map(s=>`<button class="chip" data-act="msec" data-s="${esc(s)}" aria-pressed="${s===cur}">${esc(s)}</button>`).join("")}</div>
    ${!r.open?`<p class="warn">Restauranten er lukket lige nu. Du kan se menuen, men ikke bestille.</p>`:!i.inRange?`<p class="warn">Din position ligger uden for restaurantens leveringsområde (8 km).</p>`:""}
+   ${r.open?`<div style="padding:14px 18px 0"><button class="meet-inline" data-act="meet-here" data-r="${r.id}"><span class="ic">${IC.people}</span><span class="t">Spis her med en makker i aften<small>Bliv matchet med andre solospisere</small></span>${IC.arrow}</button></div>`:""}
    <div class="list" style="padding-top:14px">${items.map(it=>mCard(it)).join("")}</div>
    ${floatBtn()}`;
 }
@@ -1003,6 +1083,7 @@ function vQuizRes(){
   return `${topbar({title:"Dine anbefalinger",close:true})}
    <p class="intro">Ud fra dine svar passer disse steder bedst til dig lige nu.</p>
    ${noLoc?`<button class="warn" data-act="gps-sheet">Vælg din placering for at se, hvem der leverer hurtigst</button>`:""}
+   ${S.quiz.a.occ==="alene"?meetCta(true):""}
    <div class="list" style="padding-top:16px">${top.map((x,n)=>`<article class="card qres">
      <button class="ncard ${x.ok?"":"dim"}" data-act="rest" data-r="${x.r.id}">${tileR(x.r,"m")}
        <span class="body"><span class="label">${!x.r.open?"Lukket":!x.i.inRange?"Uden for område":`Nr. ${n+1}`}</span><span class="nm">${esc(x.r.name)}</span>
@@ -1014,6 +1095,186 @@ function vQuizRes(){
    <div style="height:18px"></div>
    <button class="ghost-btn" data-act="quiz-again">Tag quizzen igen</button>
    ${floatBtn()}`;
+}
+
+/* ---------- Spis sammen (møde-algoritme) ----------
+   Matcher en solospiser med andre solospisere ud fra HVOR de vil spise, HVORNÅR, gruppestørrelse og stemning.
+   Demo: de andre profiler er opdigtede og genereres lokalt. Rigtig realtidsmatch mellem brugere kræver en server. */
+const SLOTS=["17:30","18:00","18:30","19:00","19:30","20:00","20:30"];
+const TALK={snak:"Snakker gerne meget",rolig:"Hyggeligt og roligt",sprog:"Øver gerne et nyt sprog"};
+const MEET_NAMES=["Sofie","Mads","Aisha","Jonas","Freja","Ali","Clara","Oliver","Maja","Emil","Nora","Lucas","Ida","Elias","Yasmin","Mikkel","Laura","Tobias","Sara","Ahmed","Signe","Kasper","Lea","Omar","Anna","Felix","Mathilde","Jakob","Amira","Rasmus","Hannah","Victor","Nadia","Simon","Julie","Karim",
+  "Astrid","Malthe","Leila","Frederik","Cecilie","Noah","Zainab","Magnus","Emma","Hassan","Josefine","William","Mira","Christian","Selma","Anton","Fatima","Sebastian","Alberte","Daniel","Iben","Marcus","Rosa","Peter"];
+const MEET_BIOS=["Ny i København","Arbejder hjemmefra og savner selskab","Studerer på KU","Elsker at prøve nye køkkener","På forretningsrejse i byen","Er lige flyttet til byen","Går gerne en tur efter maden","Laver selv mad, men vil ud i aften","Underviser i dansk","Sygeplejerske med fri i aften"];
+const SEARCH_MS=4500;
+const slotMin=t=>{const [h,m]=t.split(":").map(Number);return h*60+m;};
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+// Dagens demo-solospisere – de samme hele dagen, nye i morgen
+function demoPool(){
+  const d=new Date(),r=rng(d.getFullYear()*1000+d.getMonth()*40+d.getDate()),pick=a=>a[Math.floor(r()*a.length)];
+  const open=RESTAURANTS.filter(x=>x.open);
+  return MEET_NAMES.map((n,i)=>({id:"p"+i,name:n,age:21+Math.floor(r()*42),bio:pick(MEET_BIOS),rid:pick(open).id,slot:pick(SLOTS),size:r()<.55?2:4,talk:pick(Object.keys(TALK)),verified:r()<.85}));
+}
+function newMeet(where){return {status:"setup",wmode:where&&where.type==="a"?"a":"r",where:where||null,slot:null,size:2,talk:"snak",name:S.meet&&S.meet.name||"",skip:[],chat:[]};}
+function meetPlace(w){
+  if(!w)return null;
+  if(w.type==="r"){const r=RESTAURANTS.find(x=>x.id===w.id);return r?{label:r.name,lat:r.lat,lng:r.lng}:null;}
+  const a=AREAS[w.i];return a?{label:a.name,lat:a.lat,lng:a.lng}:null;
+}
+function slotsToday(){const now=new Date(),n=now.getHours()*60+now.getMinutes();const t=SLOTS.filter(s=>slotMin(s)>=n+20);
+  return t.length?{list:t,day:"i aften"}:{list:SLOTS,day:"i morgen aften"};}
+const listNames=a=>a.length<2?a.join(""):a.slice(0,-1).join(", ")+" og "+a[a.length-1];
+// Point for hvor godt en anden solospiser passer. null = passer ikke.
+function meetScore(p,m){
+  const why=[],pr=RESTAURANTS.find(x=>x.id===p.rid);let s=0;
+  if(m.where.type==="r"){
+    const mine=RESTAURANTS.find(x=>x.id===m.where.id);
+    if(p.rid===mine.id){s+=50;why.push("Vil spise samme sted");}
+    else{const km=dist(pr,mine);if(km<1.2){s+=28;why.push(`Vil spise ${kmTxt(km)} derfra`);}else if(km<2.5){s+=12;why.push(`Vil gerne spise i nærheden (${kmTxt(km)})`);}else return null;}
+  }else{
+    const a=AREAS[m.where.i],km=dist(pr,a);
+    if(km<1.5){s+=45;why.push(`Vil spise i ${a.name}`);}else if(km<3){s+=22;why.push(`Vil spise tæt på ${a.name}`);}else return null;
+  }
+  const dt=Math.abs(slotMin(p.slot)-slotMin(m.slot));
+  if(dt===0){s+=30;why.push(`Samme tidspunkt · kl. ${m.slot}`);}else if(dt<=30){s+=18;why.push(`Ville spise kl. ${p.slot}`);}else if(dt<=60)s+=6;else return null;
+  if(p.talk===m.talk){s+=10;why.push(TALK[m.talk]);}
+  if(p.size===m.size)s+=10;
+  if(p.verified)s+=5;
+  return {p,s,why};
+}
+function findMatch(m){
+  const scored=demoPool().filter(p=>!m.skip.includes(p.id)).map(p=>meetScore(p,m)).filter(Boolean).sort((a,b)=>b.s-a.s);
+  if(!scored.length)return null;
+  const group=scored.slice(0,m.size===2?1:3);
+  let rid=m.where.type==="r"?m.where.id:null;
+  if(!rid){const c={};group.forEach(g=>c[g.p.rid]=(c[g.p.rid]||0)+g.s);rid=Object.keys(c).sort((a,b)=>c[b]-c[a])[0];}
+  return {rid,slot:m.slot,people:group.map(g=>({...g.p,why:g.why,score:Math.min(99,Math.round(g.s/105*100))}))};
+}
+function startMeetSearch(){
+  const m=S.meet,sl=slotsToday(),pl=meetPlace(m.where);
+  m.day=sl.day;m.status="searching";m.t0=Date.now();m.match=null;m.chat=[];
+  m.count=demoPool().filter(p=>{const r=RESTAURANTS.find(x=>x.id===p.rid);return dist(r,pl)<3&&Math.abs(slotMin(p.slot)-slotMin(m.slot))<=60&&!m.skip.includes(p.id);}).length;
+  save();render();window.scrollTo(0,0);
+}
+function resolveMeet(){
+  const m=S.meet,res=findMatch(m);
+  if(res){m.match=res;m.status="found";}else m.status="none";
+  save();
+  if(S.view==="meet")render();else{toast(res?"Spis sammen: vi har fundet et match":"Spis sammen: ingen match lige nu");if(S.view==="home")softRender();}
+}
+const MEET_STEPS=["Tjekker hvor du vil spise","Matcher tidspunkt","Finder fælles stemning","Tjekker bekræftede profiler"];
+setInterval(()=>{const m=S.meet;if(!m||m.status!=="searching")return;
+  const el=(Date.now()-m.t0)/SEARCH_MS;if(el>=1){resolveMeet();return;}
+  const ul=$("#meetsteps");if(ul)ul.innerHTML=meetSteps(el);},400);
+const meetSteps=el=>MEET_STEPS.map((s,i)=>`<li class="${i<Math.floor(el*MEET_STEPS.length+.3)?"done":""}">${IC.tick}<span>${s}</span></li>`).join("");
+
+function meetCta(compact){
+  const m=S.meet;
+  if(m&&["searching","found","booked","checked"].includes(m.status)){
+    const r=m.match&&RESTAURANTS.find(x=>x.id===m.match.rid);
+    const txt=m.status==="searching"?"Vi leder efter en spisemakker …":m.status==="found"?"Vi har fundet et match – bekræft det":`Bord kl. ${m.match.slot} hos ${r.name} med ${listNames(m.match.people.map(p=>p.name))}`;
+    return `<button class="meet-cta live" data-act="meet"><span class="ic">${IC.people}</span><span class="grow"><span class="eyebrow">Spis sammen</span><span class="mt">${esc(txt)}</span></span>${IC.arrow}</button>`;
+  }
+  return `<section class="meet-cta"><span class="eyebrow">Spis sammen</span><h2>${compact?"Vil du hellere have selskab i aften?":"Skal du spise alene i aften?"}</h2>
+    <p>Bliv matchet med andre solospisere, der vil spise samme sted og på samme tid som dig.</p>
+    <button class="primary center" data-act="meet">${IC.people}&nbsp; Find en spisemakker</button></section>`;
+}
+function vMeet(){
+  if(!S.meet)S.meet=newMeet();
+  const m=S.meet,head=topbar({title:"Spis sammen",cart:false});
+  if(m.status==="searching")return head+meetSearching(m);
+  if(m.status==="found")return head+meetFound(m);
+  if(m.status==="none")return head+`<div class="radar still"><div class="core">${IC.people}</div></div>
+    <h2 class="mh">Ingen match lige nu</h2><p class="intro" style="margin:8px 0 22px">Der er ingen andre solospisere, der vil spise tæt på ${esc(meetPlace(m.where).label)} omkring kl. ${m.slot}. Prøv et andet tidspunkt eller et større område.</p>
+    <button class="ghost-btn" data-act="meet-edit">Ret sted eller tidspunkt</button>`;
+  if(["booked","checked","done"].includes(m.status))return head+meetBooked(m);
+  return head+meetSetup(m);
+}
+function meetSetup(m){
+  const sl=slotsToday();if(m.slot&&!sl.list.includes(m.slot))m.slot=null;
+  const open=RESTAURANTS.filter(r=>r.open).sort((a,b)=>S.loc?dist(S.loc,a)-dist(S.loc,b):a.name.localeCompare(b.name,"da"));
+  const ready=m.where&&m.slot;
+  const ch=(act,attr,on,label)=>`<button class="chip" data-act="${act}" ${attr} aria-pressed="${!!on}">${esc(label)}</button>`;
+  return `<p class="intro">Ingen skal spise alene, hvis de ikke har lyst. Vælg hvor og hvornår, så finder vi andre solospisere, der vil det samme ${sl.day}.</p>
+  <div class="mform">
+   <section><h3>1. Hvor vil du spise?</h3>
+     <div class="seg" role="group" aria-label="Vælg sted"><button data-act="meet-wmode" data-v="r" aria-pressed="${m.wmode==="r"}">En bestemt restaurant</button><button data-act="meet-wmode" data-v="a" aria-pressed="${m.wmode==="a"}">Et område</button></div>
+     <div class="wrapchips">${m.wmode==="r"
+       ?open.map(r=>ch("meet-r",`data-id="${r.id}"`,m.where&&m.where.type==="r"&&m.where.id===r.id,r.name+(S.loc?` · ${kmTxt(dist(S.loc,r))}`:""))).join("")
+       :AREAS.map((a,i)=>ch("meet-a",`data-i="${i}"`,m.where&&m.where.type==="a"&&m.where.i===i,a.name)).join("")}</div></section>
+   <section><h3>2. Hvornår ${sl.day}?</h3><div class="wrapchips">${sl.list.map(s=>ch("meet-slot",`data-v="${s}"`,m.slot===s,"kl. "+s)).join("")}</div></section>
+   <section><h3>3. Hvor mange vil du spise med?</h3>
+     <div class="seg" role="group" aria-label="Gruppestørrelse"><button data-act="meet-size" data-v="2" aria-pressed="${m.size===2}">Kun os to</button><button data-act="meet-size" data-v="4" aria-pressed="${m.size===4}">Lille bord (3–4)</button></div></section>
+   <section><h3>4. Hvilken stemning?</h3><div class="wrapchips">${Object.entries(TALK).map(([k,v])=>ch("meet-talk",`data-v="${k}"`,m.talk===k,v)).join("")}</div></section>
+   <section><h3>5. Dit fornavn</h3><input class="txtin" id="meetname" maxlength="20" placeholder="Fx Alex" value="${esc(m.name||"")}" autocomplete="given-name" aria-label="Dit fornavn">
+     <p class="note">Kun dit fornavn vises for dem, du bliver matchet med.</p></section>
+   <ul class="safe">${["I mødes altid på restauranten – aldrig privat","Profiler med skjold er bekræftet med ID","Del jeres aftale med en ven med ét tryk","Du kan altid aflyse eller blokere"].map(t=>`<li>${IC.shield}<span>${t}</span></li>`).join("")}</ul>
+   <button class="primary center" data-act="meet-go" ${ready?"":"disabled"}>${IC.people}&nbsp; ${ready?"Find en spisemakker":"Vælg sted og tidspunkt"}</button>
+   <p class="demo">Demo: de andre solospisere er opdigtede. Rigtig matchning mellem brugere kræver en server.</p>
+  </div>`;
+}
+function meetSearching(m){
+  const el=Math.min(1,(Date.now()-m.t0)/SEARCH_MS);
+  return `<div class="radar"><div class="core">${LOGO}</div></div>
+   <h2 class="mh">Leder efter solospisere …</h2>
+   <p class="intro" style="margin-top:6px">${esc(meetPlace(m.where).label)} · kl. ${m.slot} ${m.day}</p>
+   <p class="livecount"><i class="dot live"></i><span>${m.count?`${m.count} ${m.count===1?"anden søger":"andre søger"} i nærheden lige nu`:"Søger i hele byen"}</span></p>
+   <ul class="steps" id="meetsteps">${meetSteps(el)}</ul>
+   <button class="sec-btn mx" data-act="meet-stop">Stop søgningen</button>`;
+}
+function personCard(p){
+  return `<article class="card person"><span class="av" aria-hidden="true">${esc(p.name[0])}</span>
+    <div class="body"><span class="label">${p.score}% match</span><span class="nm">${esc(p.name)}, ${p.age}</span><span class="kw">${esc(p.bio)}</span>
+     ${p.verified?`<span class="vb">${IC.shield}Bekræftet profil</span>`:""}
+     <div class="why">${p.why.map(w=>`<span>${IC.tick}${esc(w)}</span>`).join("")}</div></div></article>`;
+}
+function meetFound(m){
+  const r=RESTAURANTS.find(x=>x.id===m.match.rid),ppl=m.match.people;
+  return `<p class="intro">${ppl.length===1?`${esc(ppl[0].name)} vil også spise`:"Vi har fundet et lille bord, der vil spise"} kl. ${m.match.slot} ${m.day}.</p>
+   <div class="list" style="padding-top:16px">
+    ${ppl.map(personCard).join("")}
+    ${m.size===4&&ppl.length<3?`<p class="note" style="margin:0 4px">Vi fandt ${ppl.length} – der kan nå at komme flere til bordet.</p>`:""}
+    <p class="lbl" style="padding:6px 4px 0">Jeres bord</p>
+    <button class="card ncard" data-act="rest" data-r="${r.id}">${tileR(r,"m")}<span class="body"><span class="nm">${esc(r.name)}</span>
+      <span class="off">kl. ${m.match.slot}<small>${m.day.toUpperCase()}</small></span><span class="kw">${esc(r.kw)}</span>${metaPills(r,info(r))}</span></button>
+    <button class="primary center" data-act="meet-accept">Bekræft og reservér bord</button>
+    <button class="sec-btn" data-act="meet-next">Find en anden</button>
+    <p class="demo">Demo: profilerne er opdigtede, og der bliver ikke reserveret et rigtigt bord.</p>
+   </div>`;
+}
+const chatHtml=m=>m.chat.map(c=>`<div class="msg ${c.me?"me":""}">${c.me?"":`<b>${esc(c.who)}</b>`}${esc(c.t)}</div>`).join("");
+function meetBooked(m){
+  const r=RESTAURANTS.find(x=>x.id===m.match.rid),ppl=m.match.people,names=listNames(ppl.map(p=>p.name));
+  const title={booked:"Bordet er reserveret",checked:"God fornøjelse!",done:"Tak for i aften"}[m.status];
+  return `<div class="okhead"><div class="okic">${m.status==="booked"?IC.tick:IC.people}</div><h2 class="mh">${title}</h2>
+     <p class="intro" style="margin-top:6px">Bord til ${ppl.length+1} hos ${esc(r.name)} kl. ${m.match.slot} ${m.day}</p>
+     <div class="avrow"><span class="av me" title="Dig">${esc((m.name||"Dig")[0])}</span>${ppl.map(p=>`<span class="av" title="${esc(p.name)}">${esc(p.name[0])}</span>`).join("")}</div>
+     <p class="note" style="margin-top:4px">Dig og ${esc(names)}</p></div>
+   <div class="list" style="padding-top:14px">
+    <button class="card ncard" data-act="rest" data-r="${r.id}">${tileR(r,"m")}<span class="body"><span class="nm">${esc(r.name)}</span><span class="kw">${esc(r.kw)}</span>${metaPills(r,info(r))}</span></button>
+    ${m.status==="done"?`<button class="primary center" data-act="meet-new">${IC.people}&nbsp; Find en ny spisemakker</button>`:`
+    <div class="acts">
+      <button class="card act" data-act="meet-share"><span class="ic">${IC.share}</span>Del med en ven</button>
+      ${m.status==="booked"?`<button class="card act" data-act="meet-checkin"><span class="ic">${IC.door}</span>Jeg er ankommet</button>`:`<button class="card act" data-act="meet-report"><span class="ic">${IC.xc}</span>Anmeld eller bloker</button>`}
+    </div>
+    ${m.status==="checked"?`<div class="card chatcard rate2"><h3 style="font-size:16px">Hvordan var det at spise med ${esc(names)}?</h3>
+      <button class="primary center" data-act="meet-rate" data-v="1">Godt – vi spiser gerne sammen igen</button>
+      <button class="sec-btn" style="margin:0" data-act="meet-rate" data-v="0">Ikke helt mit match</button></div>`:""}
+    <div class="card chatcard"><h3 style="font-size:16px">Chat med ${esc(names)}</h3>
+      <div class="chatlog" id="chatlog">${chatHtml(m)}</div>
+      <div class="chatin"><input class="txtin" id="chatin" placeholder="Skriv en besked …" maxlength="200" aria-label="Besked"><button class="circ" data-act="meet-send" aria-label="Send">${IC.send}</button></div></div>
+    ${m.status==="booked"?`<button class="sec-btn" data-act="meet-cancel">Aflys aftalen</button>`:""}`}
+    <p class="demo">Demo: beskeder og svar er simulerede.</p>
+   </div>`;
+}
+function meetSend(){
+  const inp=$("#chatin"),m=S.meet;if(!inp||!m||!m.match)return;
+  const t=inp.value.trim();if(!t)return;
+  m.chat.push({me:true,t});inp.value="";save();
+  const log=$("#chatlog");if(log){log.innerHTML=chatHtml(m);log.scrollTop=log.scrollHeight;}
+  if(!m.replied){m.replied=true;const p=m.match.people[0];
+    setTimeout(()=>{if(!S.meet||!S.meet.match)return;
+      S.meet.chat.push({who:p.name,t:["Super, vi ses!","Det lyder godt. Jeg har en lilla jakke på, så du kan kende mig.","Fedt – jeg har hørt, at maden er rigtig god der."][S.meet.chat.length%3]});save();
+      const l=$("#chatlog");if(l){l.innerHTML=chatHtml(S.meet);l.scrollTop=l.scrollHeight;}},1500);}
 }
 
 /* ---------- Valuta ---------- */
@@ -1092,10 +1353,42 @@ document.addEventListener("click",e=>{
       if(!isNaN(a2))S.convAmount=String(+conv(a2,S.convFrom,to).toFixed(CURRENCIES[to].dec)).replace(".",",");
       S.convFrom=to;save();render();break;}
     case "use-cur":S.currency=S.convFrom;save();toast(`Priser vises nu i ${S.currency}`);back();break;
+    /* Spis sammen */
+    case "meet":if(!S.meet||S.meet.status==="done")S.meet=newMeet();go("meet");break;
+    case "meet-here":{const w={type:"r",id:b.dataset.r};if(!S.meet||["setup","none","done"].includes(S.meet.status))S.meet=newMeet(w);go("meet");break;}
+    case "meet-wmode":S.meet.wmode=b.dataset.v;keepScroll();break;
+    case "meet-r":S.meet.where={type:"r",id:b.dataset.id};save();keepScroll();break;
+    case "meet-a":S.meet.where={type:"a",i:+b.dataset.i};save();keepScroll();break;
+    case "meet-slot":S.meet.slot=b.dataset.v;save();keepScroll();break;
+    case "meet-size":S.meet.size=+b.dataset.v;save();keepScroll();break;
+    case "meet-talk":S.meet.talk=b.dataset.v;save();keepScroll();break;
+    case "meet-go":if(S.meet.where&&S.meet.slot){S.meet.skip=[];startMeetSearch();}break;
+    case "meet-stop":case "meet-edit":S.meet.status="setup";save();render();break;
+    case "meet-next":S.meet.skip.push(...S.meet.match.people.map(p=>p.id));startMeetSearch();break;
+    case "meet-accept":{const m=S.meet,p=m.match.people[0];m.status="booked";m.replied=false;
+      m.chat=[{who:p.name,t:`Hej${m.name?" "+m.name:""}! Det bliver hyggeligt. Jeg er der lidt før kl. ${m.match.slot}.`}];
+      save();render();window.scrollTo(0,0);toast("Bordet er reserveret");break;}
+    case "meet-send":meetSend();break;
+    case "meet-checkin":S.meet.status="checked";save();render();window.scrollTo(0,0);break;
+    case "meet-rate":S.meet.status="done";save();render();window.scrollTo(0,0);toast(b.dataset.v==="1"?"Tak! Vi husker, at I passede godt sammen":"Tak for svaret – vi matcher dig anderledes næste gang");break;
+    case "meet-cancel":if(confirm("Vil du aflyse aftalen? Dit match får besked.")){S.meet=newMeet(S.meet.where);save();render();toast("Aftalen er aflyst");}break;
+    case "meet-new":S.meet=newMeet();save();render();window.scrollTo(0,0);break;
+    case "meet-report":openSheet("report",`<h3>Anmeld eller bloker</h3><p style="color:var(--ink-2);margin-bottom:14px">Hvis noget føltes forkert, kan du blokere personen, så I aldrig bliver matchet igen, eller anmelde det til os. Kontakt altid 112 ved fare.</p>
+      <button class="primary center" data-act="meet-block">Bloker og anmeld</button><button class="sec-btn" data-act="sheet-close">Fortryd</button>`);break;
+    case "meet-block":closeSheet();S.meet.status="done";save();render();window.scrollTo(0,0);toast("Demo: personen er blokeret og anmeldt");break;
+    case "sheet-close":closeSheet();break;
+    case "meet-share":{const m=S.meet,r=RESTAURANTS.find(x=>x.id===m.match.rid);
+      const txt=`Jeg spiser på ${r.name} kl. ${m.match.slot} ${m.day} med ${listNames(m.match.people.map(p=>p.name))} (aftalt via Gaffel).`;
+      if(navigator.share)navigator.share({text:txt}).catch(()=>{});
+      else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>toast("Kopieret – send det til en ven"),()=>toast(txt));
+      else toast(txt);break;}
   }
 });
+function keepScroll(){const y=window.scrollY;render();window.scrollTo(0,y);}
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="chatin"){e.preventDefault();meetSend();}});
 document.addEventListener("input",e=>{
   if(e.target.id==="q"){S.search=e.target.value;$("#results").innerHTML=homeResults();addOrderBanner();}
+  if(e.target.id==="meetname"&&S.meet){S.meet.name=e.target.value.trim();save();}
   if(e.target.id==="amt"){S.convAmount=e.target.value;save();$("#rates").innerHTML=rates(parseFloat(e.target.value.replace(",",".")));}
 });
 document.addEventListener("change",e=>{if(e.target.id==="from"){S.convFrom=e.target.value;save();render();}});
@@ -1106,7 +1399,7 @@ function addOrderBanner(){
 }
 function render(){
   const v=$("#view");
-  const map={home:vHome,rest:vRest,item:vItem,cart:vCart,track:vTrack,quiz:vQuiz,quizres:vQuizRes,currency:vCurrency};
+  const map={home:vHome,rest:vRest,item:vItem,cart:vCart,track:vTrack,quiz:vQuiz,quizres:vQuizRes,currency:vCurrency,meet:vMeet};
   if(S.view==="track"&&!S.order)S.view="home";
   if(S.view==="item"&&!byId(S.itemId))S.view="home";
   if(S.view==="rest"&&!RESTAURANTS.find(r=>r.id===S.rid))S.view="home";

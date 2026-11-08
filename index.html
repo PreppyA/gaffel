@@ -565,6 +565,80 @@ body[data-ui="dark"]{--bg:#0B0A0E;--card:#16141B;--tile:#201D27;--lav:#2A2533;--
 .fcno{background:#E5484D}.fcno svg{transform:rotate(135deg)}
 .fcyes{background:#30A46C}
 
+/* Skrabekalender */
+.scbanner{display:flex;align-items:center;gap:12px;width:100%;padding:14px;text-align:left;background:linear-gradient(135deg,#4B3B6B,#A23E72);color:#fff;border:0}
+.scbanner .t{flex:1;min-width:0}
+.scbanner .eyebrow{color:rgba(255,255,255,.75);margin-bottom:2px}
+.scbanner b{display:block;font-size:16px}
+.scbanner small{opacity:.85;font-size:13px}
+.scic{width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.18);display:grid;place-items:center;flex:none}
+.ptsbar{display:flex;gap:16px;align-items:center;margin:6px 18px 0;padding:16px;background:linear-gradient(135deg,#4B3B6B,#2A2140);color:#fff;border:0}
+.ptsl small,.ptsr small{display:block;opacity:.75;font-size:12px}
+.ptsl b{font-size:34px;font-weight:700;line-height:1}
+.ptsr{flex:1}
+.ptsbar .bar{background:rgba(255,255,255,.2)}
+.ptsbar .bar b{background:#E6E6FA}
+.scardwrap{padding:0 18px}
+.scard{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:4px;border-radius:24px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);aspect-ratio:1;touch-action:none;user-select:none;-webkit-user-select:none}
+.scard.done{touch-action:auto}
+.scell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:6px;border-radius:16px;margin:4px;background:var(--tile);text-align:center;transition:background .3s}
+.scell img{width:58%;aspect-ratio:1;border-radius:50%;object-fit:cover;box-shadow:0 6px 14px rgba(0,0,0,.15)}
+.scell span{font-size:11px;font-weight:700;line-height:1.15}
+.scell.win{background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
+.scard canvas{position:absolute;inset:0;border-radius:24px;cursor:grab;touch-action:none}
+.winsvg{position:absolute;inset:4px;width:calc(100% - 8px);height:calc(100% - 8px);pointer-events:none}
+.winsvg line{stroke:var(--accent);stroke-width:2.6;stroke-linecap:round;opacity:.85}
+.scres{margin:14px 18px 0;padding:16px;border-radius:20px;background:var(--tile);text-align:center;display:grid;gap:4px}
+.scres b{font-size:20px}
+.scres span{color:var(--ink-2)}
+.scres small{color:var(--ink-2);font-size:12px;font-variant-numeric:tabular-nums}
+.scres.won{background:linear-gradient(135deg,var(--lav),var(--accent-soft))}
+.scres.won b{color:var(--accent)}
+.calcard{padding:14px}
+.calt{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.calt b{text-transform:capitalize}
+.calg{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.calh{text-align:center;font-size:11px;font-weight:700;color:var(--ink-2)}
+.calc{aspect-ratio:1;border-radius:10px;background:var(--tile);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px}
+.calc b{font-size:13px}
+.calc small{font-size:10px;font-weight:700;color:var(--ink-2);line-height:1}
+.calc small svg{width:10px;height:10px}
+.calc.win{background:var(--accent-soft)}.calc.win small{color:var(--accent)}
+.calc.today{background:var(--btn);color:var(--btn-ink);cursor:pointer}.calc.today small{color:var(--btn-ink)}
+.calc.future{opacity:.45}
+.calc.miss{opacity:.6}
+.tiercard{display:flex;align-items:center;gap:12px;padding:12px 14px}
+.tiercard .body{flex:1;min-width:0}
+.tierp{width:58px;height:58px;border-radius:16px;background:var(--tile);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none}
+.tierp b{font-size:17px;line-height:1}
+.tierp small{font-size:11px;color:var(--ink-2)}
+.tiercard.on .tierp{background:var(--btn);color:var(--btn-ink)}
+.tiercard.on .tierp small{color:var(--btn-ink)}
+.pillsm[disabled]{opacity:.5;cursor:not-allowed}
+.coupon{display:flex;align-items:center;gap:12px;padding:0 12px 0 0;overflow:hidden}
+.cpl{width:76px;align-self:stretch;background:linear-gradient(135deg,#A23E72,#4B3B6B);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:2px dashed var(--card);flex:none;padding:14px 0}
+.cpl b{font-size:20px;line-height:1}
+.cpl small{font-size:11px;opacity:.85}
+.coupon .body{flex:1;min-width:0;padding:12px 0}
+.plog{padding:6px 16px;margin:0 18px}
+.plog div{display:flex;justify-content:space-between;gap:10px;padding:10px 0;font-size:14px}
+.plog div+div{border-top:1px solid var(--line)}
+.plog .plus{color:#2E9E44}.plog .minus{color:var(--accent)}
+.vchip{display:flex;align-items:center;gap:12px;padding:12px 14px;width:100%;text-align:left;background:linear-gradient(135deg,var(--lav),var(--accent-soft))}
+.vchip span{flex:1;min-width:0}
+.vchip b{display:block}
+.vchip small{color:var(--ink-2);font-size:12px}
+.pill-x{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.2);margin-left:4px;color:inherit}
+.pill-x svg{width:12px;height:12px}
+.ads{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding:0 18px}
+.ad{position:relative;border-radius:22px;overflow:hidden;padding:46px 18px 18px;min-height:170px;color:#fff;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:6px;
+  background:linear-gradient(180deg,rgba(20,14,30,.15),rgba(20,14,30,.82)),var(--adimg) center/cover;box-shadow:var(--shadow)}
+.ad.house{background:linear-gradient(135deg,#4B3B6B,#A23E72)}
+.ad h3{font:600 20px/1.2 "Playfair Display",Georgia,serif}
+.ad p{font-size:13px;opacity:.9}
+.adtag{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.92);color:#2A2140;font-size:11px;font-weight:700;border-radius:999px;padding:3px 9px;letter-spacing:.04em}
+.ad .pill-btn{background:#fff;color:#2A2140;margin-top:6px}
+
 /* Anmeld-genvej på forsiden */
 .rvprompt{display:flex;gap:12px;align-items:center;padding:12px}
 .rvprompt .body{flex:1;min-width:0}
@@ -933,6 +1007,7 @@ const IC={
   edit:sv('<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',20,1.8),
   mail:sv('<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m4 7 8 6 8-6"/>',20,1.8),
   logout:sv('<path d="M14 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4M10 16l-4-4 4-4M6 12h10"/>',20,1.8),
+  gift:sv('<rect x="3.5" y="8.5" width="17" height="5" rx="1"/><path d="M5 13.5V20h14v-6.5M12 8.5V20M12 8.5C10 4 6.5 4.5 7 7c.3 1.4 3 1.5 5 1.5zM12 8.5c2-4.5 5.5-4 5-1.5-.3 1.4-3 1.5-5 1.5z"/>',22,1.8),
   map:sv('<path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6z"/><path d="M9 4v14M15 6v14"/>',22,1.8),
   train:sv('<rect x="6" y="3.5" width="12" height="13" rx="3"/><path d="M6 10.5h12M9.5 13.8h.01M14.5 13.8h.01M8.5 20l1.5-3.5M15.5 20 14 16.5"/>',20,1.9),
   walk:sv('<circle cx="13" cy="4.5" r="1.8"/><path d="m9.5 21 2.2-6.5L14 17v4M10 11l2-3.5 3 2.5 2.5 1M11.7 14.5 10 11l-2.5 2"/>',20,1.9),
@@ -1221,10 +1296,10 @@ const S={view:"home",stack:[],rid:null,itemId:null,qty:1,search:"",cat:"Alle",al
   currency:"DKK",convFrom:"DKK",convAmount:"100",
   loc:null,gps:{status:"off",err:"",at:null},watchId:null,
   cart:{rid:null,items:{}},promo:null,order:null,lastOrder:null,quiz:{i:0,a:{}},meet:null,lang:null,
-  wallet:{cards:[],apple:true,def:"apple"},orders:[],reviews:{},user:null,prefs:{offers:true,status:true,meet:true,firstOnly:true},form:{},authTab:"in",rv:null,rvSort:"new",tables:{},safety:{name:"",phone:"",delay:20},safe:null,passport:{},badges:{},meetMode:"tables",tableTheme:-1,talkIdx:0,visits:{},mapCat:"Alle",mapSel:null,dir:null};
+  wallet:{cards:[],apple:true,def:"apple"},orders:[],reviews:{},user:null,prefs:{offers:true,status:true,meet:true,firstOnly:true},form:{},authTab:"in",rv:null,rvSort:"new",tables:{},safety:{name:"",phone:"",delay:20},safe:null,passport:{},badges:{},meetMode:"tables",tableTheme:-1,talkIdx:0,visits:{},mapCat:"Alle",mapSel:null,dir:null,points:0,pointsLog:[],scratch:{},vouchers:[],scratchSalt:0,cartVoucher:null};
 function load(){
   try{const d=JSON.parse(localStorage.getItem("gaffel2")||"null");
-    if(d){for(const k of ["currency","convFrom","convAmount","cart","promo","lastOrder","order","meet","lang","wallet","orders","reviews","user","prefs","tables","safety","safe","passport","badges","visits"]) if(d[k]!==undefined) S[k]=d[k];
+    if(d){for(const k of ["currency","convFrom","convAmount","cart","promo","lastOrder","order","meet","lang","wallet","orders","reviews","user","prefs","tables","safety","safe","passport","badges","visits","points","pointsLog","scratch","vouchers","scratchSalt","cartVoucher"]) if(d[k]!==undefined) S[k]=d[k];
       if(d.manualLoc) S.loc=d.manualLoc;}
   }catch(e){}
   if(!CURRENCIES[S.currency]) S.currency="DKK";
@@ -1235,7 +1310,7 @@ function load(){
   if(S.meet && (S.meet.status==="found"||S.meet.status==="booked"||S.meet.status==="checked") && !(S.meet.match&&RESTAURANTS.some(r=>r.id===S.meet.match.rid))) S.meet=null;
 }
 function save(){
-  try{localStorage.setItem("gaffel2",JSON.stringify({currency:S.currency,convFrom:S.convFrom,convAmount:S.convAmount,cart:S.cart,promo:S.promo,lastOrder:S.lastOrder,order:S.order,meet:S.meet,lang:S.lang,wallet:S.wallet,orders:S.orders,reviews:S.reviews,user:S.user,prefs:S.prefs,tables:S.tables,safety:S.safety,safe:S.safe,passport:S.passport,badges:S.badges,visits:S.visits,
+  try{localStorage.setItem("gaffel2",JSON.stringify({currency:S.currency,convFrom:S.convFrom,convAmount:S.convAmount,cart:S.cart,promo:S.promo,lastOrder:S.lastOrder,order:S.order,meet:S.meet,lang:S.lang,wallet:S.wallet,orders:S.orders,reviews:S.reviews,user:S.user,prefs:S.prefs,tables:S.tables,safety:S.safety,safe:S.safe,passport:S.passport,badges:S.badges,visits:S.visits,points:S.points,pointsLog:S.pointsLog,scratch:S.scratch,vouchers:S.vouchers,scratchSalt:S.scratchSalt,cartVoucher:S.cartVoucher,
     manualLoc:S.loc&&S.loc.manual?S.loc:null}));}catch(e){}
 }
 
@@ -1446,7 +1521,7 @@ function homeResults(){
   if(S.loc) items=items.filter(it=>it.r.open&&info(it.r).inRange).concat(items.filter(it=>!(it.r.open&&info(it.r).inRange)));
   const offers=(S.cat==="Alle"||S.cat==="Tilbud")?RESTAURANTS.filter(r=>r.off>0&&r.open).sort((a,b)=>b.off-a.off):[];
   const shownR=S.allRest?rs:rs.slice(0,6), shownI=S.allItems?items:items.slice(0,6);
-  return `${safetyBanner()}${meetCta()}
+  return `${safetyBanner()}${scratchBanner()}${meetCta()}
    <div class="row chips" role="group" aria-label="Filtre">${cats.map(c=>`<button class="chip" data-act="cat" data-c="${esc(c)}" aria-pressed="${c===S.cat}">${esc(c)}</button>`).join("")}</div>
    <div class="quick">
      <button class="qa" data-act="quiz"><span class="ic">${IC.sliders}</span>Hjælp mig med at vælge</button>
@@ -1532,14 +1607,15 @@ function changeLine(id,d){
 /* ---------- Kurv ---------- */
 function cartTotals(r,sub){
   const i=info(r),rdisc=Math.round(sub*(r.off||0)),disc=S.promo?Math.round(sub*PROMOS[S.promo]):0,service=Math.round(sub*0.05);
-  return {i,rdisc,disc,service,total:sub+i.fee+service-rdisc-disc};
+  const v=activeVoucher(r),vdisc=v?Math.round(sub*v.pct):0;
+  return {i,rdisc,disc,service,vdisc,v,total:Math.max(0,sub+i.fee+service-rdisc-disc-vdisc)};
 }
 function vCart(){
   const {r,lines,sub,count}=cartData();
   if(!count) return `${topbar({title:"Kurv",close:true,cart:false})}
     <div class="empty" style="padding-top:60px"><div class="bigicon">${IC.bag}</div><p style="margin:0 0 20px">Kurven er tom. Find en ret, du har lyst til.</p>
     <button class="ghost-btn" data-act="home">Se restauranter</button></div>`;
-  const {i,rdisc,disc,service,total}=cartTotals(r,sub);
+  const {i,rdisc,disc,service,vdisc,v,total}=cartTotals(r,sub);
   const live=S.gps.status==="live"&&S.loc&&!S.loc.manual;
   return `${topbar({title:"Kurv",close:true,cart:false})}
    <p class="intro">Fra ${esc(r.name)} · ${i.eta}</p>
@@ -1547,6 +1623,7 @@ function vCart(){
     ${lines.map(l=>`<div class="card ccard">${tile(l.it,"s")}<div class="body"><span class="nm" style="padding-right:0">${esc(l.it.n)}</span>
       <span class="pr">${price(l.it.p*l.q)}</span>
       <div class="stepper sm" style="display:inline-flex;margin-top:8px"><button data-act="l-" data-id="${l.it.id}" aria-label="Fjern én">${IC.minus}</button><b>${l.q}</b><button data-act="l+" data-id="${l.it.id}" aria-label="Tilføj én">${IC.plus}</button></div></div></div>`).join("")}
+    ${voucherRow(r)}
     ${S.promo?`<div><span class="pill">${IC.tick} Rabatkode ${esc(S.promo)} bekræftet</span></div>`
       :`<div class="card promo"><input id="promo" placeholder="Rabatkode (prøv GAFFEL10)" aria-label="Rabatkode" autocapitalize="characters"><button data-act="promo">Brug</button></div>`}
     <button class="card addr" data-act="gps-sheet"><span class="pin">${IC.pin}</span><span class="t"><b>${S.loc?esc(S.loc.label):"Ingen adresse endnu"}</b><span>${live?`Fra enhedens GPS · ±${S.loc.acc} m`:S.loc?"Valgt område · tryk for at bruge GPS":"Tryk for at bruge enhedens GPS"}</span></span>${IC.arrow}</button>
@@ -1557,6 +1634,7 @@ function vCart(){
       <div><span>Levering${i.km!==null?` (${kmTxt(i.km)})`:""}</span><span>${price(i.fee)}</span></div>
       <div><span>Servicegebyr</span><span>${price(service)}</span></div>
       ${disc?`<div><span>Rabatkode</span><span>– ${price(disc)}</span></div>`:""}
+      ${vdisc?`<div><span>Kupon (${pct(v.pct)} %)</span><span>– ${price(vdisc)}</span></div>`:""}
       <div class="tot"><span>I alt</span><span>${price(total)}</span></div>
     </div>
     ${S.currency!=="DKK"?`<p class="alt">Du betaler ${fmt(total,"DKK")} – restauranten afregner i DKK</p>`:""}
@@ -2072,6 +2150,19 @@ document.addEventListener("click",e=>{
     case "dir-mode":S.dir.mode=b.dataset.v;updateMapSheet();drawRoute();break;
     case "dir-close":S.dir=null;updateMapSheet();drawMarkers();drawRoute();break;
     case "tab-map":goTab("map");break;
+    /* Skrabekalender og kuponer */
+    case "go-scratch":go("scratch");break;
+    case "scratch-all":finishScratch();break;
+    case "scratch-scroll":{const t=$("#scratchtop");t&&t.scrollIntoView({behavior:"smooth"});break;}
+    case "tier-redeem":redeemSheet(+b.dataset.c);break;
+    case "tier-confirm":{const cost=+b.dataset.c,p=TIERS.find(t=>t[0]===cost)[1];if(S.points<cost){closeSheet();break;}
+      const code="GAF-"+Math.random().toString(36).slice(2,6).toUpperCase()+"-"+pct(p);
+      S.points-=cost;S.vouchers.unshift({id:"v"+Date.now(),code,pct:p,rid:b.dataset.r,at:Date.now(),exp:Date.now()+30*86400e3,used:null});
+      S.pointsLog.unshift({at:Date.now(),pts:-cost,txt:`${tr("Kupon")} ${pct(p)} % · ${RESTAURANTS.find(x=>x.id===b.dataset.r).name}`});
+      save();closeSheet();keepScroll();toast(`Kupon på ${pct(p)} % er klar`);break;}
+    case "voucher-go":{const v=S.vouchers.find(x=>x.id===b.dataset.v);S.cartVoucher=v.id;save();go("rest",{rid:v.rid,msec:"Alle"});toast("Kuponen bliver brugt i kurven");break;}
+    case "voucher-use":S.cartVoucher=b.dataset.v;save();keepScroll();break;
+    case "voucher-off":S.cartVoucher=null;save();keepScroll();break;
     /* Madpas */
     case "go-passport":go("passport");break;
     case "copy-code":{const v=b.dataset.v;if(navigator.clipboard)navigator.clipboard.writeText(v).then(()=>toast("Koden er kopieret"),()=>toast(v));else toast(v);break;}
@@ -2116,13 +2207,14 @@ function addOrderBanner(){
 }
 function render(){
   const v=$("#view");
-  const map={home:vHome,rest:vRest,item:vItem,cart:vCart,track:vTrack,quiz:vQuiz,quizres:vQuizRes,currency:vCurrency,meet:vMeet,table:vTable,passport:vPassport,map:vMap,visited:vVisited,wallet:vWallet,addcard:vAddCard,profile:vProfile,orders:vOrders,editprofile:vEditProfile,myreviews:vMyReviews,review:vReview,reviews:vReviews};
+  const map={home:vHome,rest:vRest,item:vItem,cart:vCart,track:vTrack,quiz:vQuiz,quizres:vQuizRes,currency:vCurrency,meet:vMeet,table:vTable,passport:vPassport,map:vMap,scratch:vScratch,visited:vVisited,wallet:vWallet,addcard:vAddCard,profile:vProfile,orders:vOrders,editprofile:vEditProfile,myreviews:vMyReviews,review:vReview,reviews:vReviews};
   if(S.view==="track"&&!S.order)S.view="home";
   if(S.view==="item"&&!byId(S.itemId))S.view="home";
   if(S.view==="rest"&&!RESTAURANTS.find(r=>r.id===S.rid))S.view="home";
   if(S.view!=="map")destroyMap();
   v.innerHTML=(map[S.view]||vHome)();
   if(S.view==="map")setTimeout(initMap,0);
+  if(S.view==="scratch")setTimeout(initScratch,0);
   updateTrack.last=undefined;
   addOrderBanner();
   updateChrome();
@@ -2255,6 +2347,7 @@ function vProfile(){
    <section class="card pcard"><span class="av big" aria-hidden="true">${esc(initialsOf(a))}</span><div class="body"><span class="pname">${esc(a.fname+" "+a.lname)}</span><span class="kw">${esc(a.email)}</span><span class="kw">Medlem siden ${new Date(a.created).toLocaleDateString(S.lang==="en"?"en-GB":"da-DK",{month:"long",year:"numeric"})}</span></div></section>
    <div class="stats"><div class="stat"><b>${S.orders.length}</b><small>Ordrer</small></div><div class="stat"><b>${nRev}</b><small>Anmeldelser</small></div><div class="stat"><b>${S.wallet.cards.length}</b><small>Gemte kort</small></div></div>
    <section class="card mlist"><h3>Konto</h3>
+     ${prow(IC.gift,"Point og kuponer",`${S.points} point · ${S.vouchers.filter(v=>!v.used).length} kuponer`,"go-scratch")}
      ${prow(IC.stamp,"Madpas",`${stampCount()}/${CUISINES.length} køkkener`,"go-passport")}
      ${prow(IC.edit,"Personlige oplysninger",esc(a.email),"go-editprofile")}
      ${prow(IC.receipt.replace('width="28" height="28"','width="20" height="20"'),"Ordrehistorik",`${S.orders.length} ordrer`,"tab-orders")}
@@ -2438,6 +2531,7 @@ function placeOrder(payLbl){
   S.lastOrder={rid:S.cart.rid,items:{...S.cart.items}};
   S.orders.unshift({id:"o"+Date.now(),rid:r.id,items:{...S.cart.items},sub,total:t.total,saved:t.rdisc+t.disc,at:Date.now(),pay:payLbl});
   S.orders=S.orders.slice(0,50);
+  if(t.v){t.v.used=Date.now();}S.cartVoucher=null;
   S.order={rid:r.id,started:Date.now(),min:info(r).min};S.cart={rid:null,items:{}};S.promo=null;S.payWith=null;save();
   stamp(r.id);
   S.stack=[];S.view="track";render();window.scrollTo(0,0);toast("Betalingen er gennemført");
@@ -2865,6 +2959,132 @@ function svgMap(){
   return s+`</svg><p class="svgnote">Kortfliserne kunne ikke hentes her. Viser en skitse – åbn appen på preppya.github.io/gaffel for det fulde kort.</p>`;
 }
 
+/* ---------- Skrabekalender, point og kuponer ----------
+   Ét skrabelod om dagen med 3×3 felter. Hvert felt er en restaurant. 3 ens på en række (vandret, lodret eller på skrå) = 10 point pr. række.
+   Point indløses til kuponer på et valgfrit sted. Loddet afgøres af dagens dato og et tilfældigt tal pr. enhed. */
+const WIN9=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+const TIERS=[[100,.10],[200,.20],[400,.25],[500,.30],[1400,.50]];
+const dayKey=(d=new Date())=>`${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+const linesOf=c=>WIN9.filter(l=>c[l[0]]===c[l[1]]&&c[l[1]]===c[l[2]]);
+function scratchGrid(key){
+  if(!S.scratchSalt){S.scratchSalt=1+Math.floor(Math.random()*1e6);save();}
+  const n=key.split("-").reduce((a,x)=>a*100+ +x,0),r=rng(n*7+S.scratchSalt),pick=a=>a[Math.floor(r()*a.length)];
+  const pool=RESTAURANTS.filter(x=>x.open).map(x=>[r(),x.id]).sort((a,b)=>a[0]-b[0]).slice(0,4).map(x=>x[1]),win=r()<0.4;
+  for(let t=0;t<300;t++){
+    const c=Array.from({length:9},()=>pick(pool));
+    if(win){const L=pick(WIN9),a=pick(pool);L.forEach(i=>c[i]=a);}
+    const n2=linesOf(c).length;
+    if(win?n2===1:n2===0)return {cells:c,win};
+  }
+  return {cells:pool.concat(pool,pool).slice(0,9),win:false};
+}
+function activeVoucher(r){
+  const v=S.cartVoucher&&S.vouchers.find(x=>x.id===S.cartVoucher);
+  return v&&!v.used&&v.rid===r.id&&Date.now()<v.exp?v:null;
+}
+function voucherRow(r){
+  const v=activeVoucher(r);
+  if(v)return `<div><span class="pill">${IC.tick} Kupon ${pct(v.pct)} % bruges <button class="pill-x" data-act="voucher-off" aria-label="Fjern kupon">${IC.x}</button></span></div>`;
+  const av=S.vouchers.filter(x=>!x.used&&x.rid===r.id&&Date.now()<x.exp).sort((a,b)=>b.pct-a.pct)[0];
+  return av?`<button class="card vchip" data-act="voucher-use" data-v="${av.id}">${IC.gift}<span><b>Brug din kupon: ${pct(av.pct)} % rabat</b><small>Fra skrabekalenderen · kode ${av.code}</small></span>${IC.arrow}</button>`:"";
+}
+function nextTier(){return TIERS.find(t=>t[0]>S.points)||null;}
+function scratchBanner(){
+  const done=S.scratch[dayKey()];
+  return `<div style="padding:14px 18px 0"><button class="card scbanner" data-act="go-scratch"><span class="scic">${IC.gift}</span>
+    <span class="t"><span class="eyebrow">Skrabekalender</span><b>${done?"Du har skrabet i dag":"Dit skrabelod er klar"}</b><small>${S.points} point · ${done?"nyt lod i morgen":"3 på stribe = 10 point"}</small></span>${IC.arrow}</button></div>`;
+}
+const cellHtml=(rid,i,win)=>{const r=RESTAURANTS.find(x=>x.id===rid);return `<div class="scell ${win?"win":""}" data-i="${i}"><img src="${IMG["r-"+rid]||""}" alt=""><span>${esc(r.name)}</span></div>`;};
+function winSvg(lines){
+  const c=i=>[((i%3)+.5)/3*100,(Math.floor(i/3)+.5)/3*100];
+  return `<svg class="winsvg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines.map(l=>{const a=c(l[0]),b=c(l[2]);return `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}"/>`;}).join("")}</svg>`;
+}
+function scratchCal(){
+  const d=new Date(),y=d.getFullYear(),m=d.getMonth(),days=new Date(y,m+1,0).getDate(),first=(new Date(y,m,1).getDay()+6)%7,today=d.getDate();
+  const head=["Man","Tir","Ons","Tor","Fre","Lør","Søn"].map(x=>`<span class="calh">${x}</span>`).join("");
+  let cells="";for(let i=0;i<first;i++)cells+=`<span></span>`;
+  for(let day=1;day<=days;day++){const s=S.scratch[`${y}-${m+1}-${day}`];
+    let cls,sub;
+    if(day>today){cls="future";sub=IC.lock;}
+    else if(s){cls=s.pts?"win":"lose";sub=s.pts?`+${s.pts}`:"–";}
+    else if(day===today){cls="today";sub="Skrab";}
+    else {cls="miss";sub="";}
+    cells+=`<span class="calc ${cls}" ${day===today&&!s?'data-act="scratch-scroll" role="button"':""}><b>${day}</b><small>${sub}</small></span>`;}
+  return `<section class="card calcard"><div class="calt"><b>${d.toLocaleDateString(S.lang==="en"?"en-GB":"da-DK",{month:"long",year:"numeric"})}</b><span class="kw">${Object.values(S.scratch).filter(x=>x.pts).length} gevinster i alt</span></div><div class="calg">${head}${cells}</div></section>`;
+}
+const ADS=[{rid:"sushi",cta:"Bestil nu"},{rid:"pizza",cta:"Se menuen"},{house:"tables"},{rid:"gelato",cta:"Se menuen"},{rid:"bistro",cta:"Se menuen"}];
+function adsHtml(){
+  return `<div class="sec-h small"><div><span class="eyebrow">Annoncer</span><h2>Tilbud fra vores partnere</h2></div></div>
+   <div class="ads">${ADS.map(a=>{
+     if(a.house)return `<article class="ad house"><span class="adtag">Annonce · Gaffel</span><h3>Spis ikke alene i aften</h3><p>Tag en plads ved et fællesbord og mød nye mennesker over god mad.</p><button class="pill-btn" data-act="go-tables">Se fællesborde</button></article>`;
+     const r=RESTAURANTS.find(x=>x.id===a.rid);
+     return `<article class="ad" style="--adimg:url('${IMG["r-"+r.id]}')"><span class="adtag">Annonce</span><h3>${esc(r.name)}${r.off?` · ${pct(r.off)} % i dag`:""}</h3><p>${esc(r.desc)}</p><button class="pill-btn" data-act="rest" data-r="${r.id}">${a.cta}</button></article>`;}).join("")}</div>
+   <p class="demo" style="margin-top:10px">Annoncerne er eksempler for appens opdigtede restauranter.</p>`;
+}
+function vScratch(){
+  const key=dayKey(),done=S.scratch[key],g=scratchGrid(key),nt=nextTier(),prev=[...TIERS].reverse().find(t=>t[0]<=S.points);
+  const lines=done?linesOf(g.cells):[],winCells=lines.flat();
+  const avail=S.vouchers.filter(v=>!v.used&&Date.now()<v.exp);
+  return `${topbar({title:"Skrabekalender",cart:false})}
+   <section class="card ptsbar"><div class="ptsl"><small>Dine point</small><b>${S.points}</b></div>
+     <div class="ptsr"><small>${nt?`${nt[0]-S.points} point til ${pct(nt[1])} % rabat`:"Du kan indløse den største rabat"}</small><i class="bar"><b style="width:${nt?Math.min(100,(S.points-(prev?prev[0]:0))/(nt[0]-(prev?prev[0]:0))*100):100}%"></b></i></div></section>
+   <div class="sec-h small" id="scratchtop"><div><span class="eyebrow">${new Date().toLocaleDateString(S.lang==="en"?"en-GB":"da-DK",{weekday:"long",day:"numeric",month:"long"})}</span><h2>Dagens skrabelod</h2></div></div>
+   <p class="note" style="padding:0 18px;margin:0 0 12px">Skrab alle 9 felter. Får du 3 ens restauranter på en række – vandret, lodret eller på skrå – vinder du 10 point.</p>
+   <div class="scardwrap"><div class="scard ${done?"done":""}" id="scard">${g.cells.map((rid,i)=>cellHtml(rid,i,winCells.includes(i))).join("")}
+     ${done&&lines.length?winSvg(lines):""}${done?"":`<canvas id="scratchcv" aria-label="Skrabefelt – træk fingeren hen over felterne"></canvas>`}</div></div>
+   ${done?`<div class="scres ${done.pts?"won":""}"><b>${done.pts?`+${done.pts} point!`:"Ingen tre på stribe i dag"}</b><span>${done.pts?"Pointene er lagt på din konto.":"Prøv igen i morgen – der kommer et nyt lod hver dag."}</span><small>Nyt lod om <span class="cd2">${countdown()}</span></small></div>`
+     :`<button class="sec-btn mx" style="margin-top:12px" data-act="scratch-all">Afslør alle felter</button>`}
+   <div class="sec-h small"><div><span class="eyebrow">Kalender</span><h2>Din måned</h2></div></div>
+   <div style="padding:0 18px">${scratchCal()}</div>
+   <div class="sec-h small"><div><span class="eyebrow">Indløs point</span><h2>Rabat på et valgfrit sted</h2></div></div>
+   <div class="list">${TIERS.map(([c,p])=>`<div class="card tiercard ${S.points>=c?"on":""}"><span class="tierp"><b>${pct(p)} %</b><small>rabat</small></span><div class="body"><span class="nm" style="padding-right:0">${c} point</span><span class="kw">Valgfrit sted · gælder 30 dage</span></div>
+     <button class="pillsm ${S.points>=c?"on":""}" data-act="tier-redeem" data-c="${c}" ${S.points>=c?"":"disabled"}>${S.points>=c?"Indløs":`${c-S.points} mangler`}</button></div>`).join("")}</div>
+   ${avail.length?`<div class="sec-h small"><div><span class="eyebrow">Klar til brug</span><h2>Dine kuponer</h2></div></div>
+     <div class="list">${avail.map(v=>{const r=RESTAURANTS.find(x=>x.id===v.rid);return `<div class="card coupon"><div class="cpl"><b>${pct(v.pct)} %</b><small>rabat</small></div><div class="body"><span class="nm" style="padding-right:0">${esc(r.name)}</span><span class="kw">Kode ${v.code} · udløber ${new Date(v.exp).toLocaleDateString(S.lang==="en"?"en-GB":"da-DK",{day:"numeric",month:"short"})}</span></div><button class="pillsm on" data-act="voucher-go" data-v="${v.id}">Brug</button></div>`;}).join("")}</div>`:""}
+   ${S.pointsLog.length?`<div class="sec-h small"><h2>Pointhistorik</h2></div><div class="card plog">${S.pointsLog.slice(0,6).map(x=>`<div><span>${esc(x.txt)}</span><b class="${x.pts>0?"plus":"minus"}">${x.pts>0?"+":""}${x.pts}</b></div>`).join("")}</div>`:""}
+   ${adsHtml()}`;
+}
+// Skrabefeltet: et lærred over felterne, som "viskes ud" med finger eller mus
+function initScratch(){
+  const cv=$("#scratchcv"),card=$("#scard");if(!cv||!card)return;
+  const w=card.clientWidth,h=card.clientHeight,dpr=window.devicePixelRatio||1;
+  cv.width=w*dpr;cv.height=h*dpr;cv.style.width=w+"px";cv.style.height=h+"px";
+  const ctx=cv.getContext("2d");ctx.scale(dpr,dpr);
+  const cw=w/3,ch=h/3;
+  for(let i=0;i<9;i++){const x=(i%3)*cw,y=Math.floor(i/3)*ch,gr=ctx.createLinearGradient(x,y,x+cw,y+ch);
+    gr.addColorStop(0,"#CFC6EA");gr.addColorStop(.5,"#ECE8F8");gr.addColorStop(1,"#B9AEDD");
+    ctx.fillStyle=gr;ctx.beginPath();ctx.roundRect?ctx.roundRect(x+4,y+4,cw-8,ch-8,16):ctx.rect(x+4,y+4,cw-8,ch-8);ctx.fill();
+    ctx.fillStyle="rgba(75,59,107,.75)";ctx.font="700 13px Manrope,system-ui,sans-serif";ctx.textAlign="center";ctx.fillText(tr("SKRAB"),x+cw/2,y+ch/2+5);
+    ctx.fillStyle="rgba(255,255,255,.55)";for(let k=0;k<5;k++){ctx.beginPath();ctx.arc(x+12+((k*37+i*13)%(cw-24)),y+12+((k*23+i*7)%(ch-24)),1.6,0,7);ctx.fill();}}
+  ctx.globalCompositeOperation="destination-out";
+  let down=false,last=null,moves=0;
+  const pos=e=>{const b=cv.getBoundingClientRect();return [e.clientX-b.left,e.clientY-b.top];};
+  const scr=(a,b)=>{ctx.lineWidth=40;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();};
+  const check=()=>{const data=ctx.getImageData(0,0,cv.width,cv.height).data,W=cv.width,H=cv.height;let all=0;
+    for(let i=0;i<9;i++){let clr=0,tot=0;const x0=(i%3)*W/3,y0=Math.floor(i/3)*H/3;
+      for(let yy=y0+8;yy<y0+H/3-8;yy+=8*dpr)for(let xx=x0+8;xx<x0+W/3-8;xx+=8*dpr){tot++;if(data[(Math.floor(yy)*W+Math.floor(xx))*4+3]<40)clr++;}
+      if(clr/tot>0.45)all++;}
+    if(all===9)finishScratch();};
+  cv.addEventListener("pointerdown",e=>{down=true;last=pos(e);scr(last,last);cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener("pointermove",e=>{if(!down)return;const p=pos(e);scr(last,p);last=p;if(++moves%10===0)check();});
+  const up=()=>{if(!down)return;down=false;check();};
+  cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",up);
+}
+function finishScratch(){
+  const key=dayKey();if(S.scratch[key])return;
+  const g=scratchGrid(key),lines=linesOf(g.cells),pts=lines.length*10;
+  S.scratch[key]={pts,at:Date.now()};
+  if(pts){S.points+=pts;S.pointsLog.unshift({at:Date.now(),pts,txt:tr("Skrabelod")+" "+new Date().toLocaleDateString(S.lang==="en"?"en-GB":"da-DK",{day:"numeric",month:"short"})});}
+  save();const cv=$("#scratchcv");if(cv){cv.style.transition="opacity .4s";cv.style.opacity="0";}
+  setTimeout(()=>{keepScroll();toast(pts?`Tre på stribe! +${pts} point`:"Ingen tre på stribe i dag – prøv igen i morgen");},420);
+}
+function redeemSheet(cost){
+  const p=TIERS.find(t=>t[0]===cost)[1];
+  openSheet("redeem",`<h3>${pct(p)} % rabat for ${cost} point</h3><p class="mutedp" style="text-align:left">Vælg det sted, hvor du vil bruge rabatten. Kuponen gælder i 30 dage på én ordre.</p>
+    ${RESTAURANTS.filter(r=>r.open).map(r=>`<button class="opt" data-act="tier-confirm" data-c="${cost}" data-r="${r.id}"><span>${esc(r.name)}<span class="muted">${esc(r.tag)}</span></span>${IC.chev}</button>`).join("")}`);
+}
+setInterval(()=>{const t=countdown();document.querySelectorAll(".cd2").forEach(e=>e.textContent=t);},1000);
+
 /* ---------- Sprog ----------
    Appen er skrevet på dansk. På engelsk oversættes den viste tekst (og menuerne) efter hver visning
    via ordbogen EN og mønstrene EN_RX. Tekst i elementer med translate="no" bliver ikke rørt. */
@@ -3273,6 +3493,32 @@ EN_RX.push(
  [/^Ankomst ca\. kl\. (\S+)$/,"Arrival around $1"],[/^Ankomst ca\. kl\. (\S+) · $/,"Arrival around $1 · "],
  [/^(\S+) km · ankomst ca\. kl\. (\S+)$/,"$1 km · arrival around $2"],
  [/^Afgang fra stationen ca\. kl\. (\S+)\. Metroen kører ca\. hvert 3\.–6\. minut\.$/,"Departs the station around $1. The metro runs roughly every 3–6 minutes."]
+);
+// Skrabekalender, point, kuponer og annoncer
+Object.assign(EN,{
+ "Skrabekalender":"Scratch calendar","Du har skrabet i dag":"You've scratched today","Dit skrabelod er klar":"Your scratch card is ready","Dagens skrabelod":"Today's scratch card",
+ "Skrab alle 9 felter. Får du 3 ens restauranter på en række – vandret, lodret eller på skrå – vinder du 10 point.":"Scratch all 9 squares. Get 3 of the same restaurant in a row – across, down or diagonally – and win 10 points.",
+ "Skrabefelt – træk fingeren hen over felterne":"Scratch area – drag your finger across the squares","Afslør alle felter":"Reveal all squares","SKRAB":"SCRATCH","Skrab":"Scratch",
+ "Ingen tre på stribe i dag":"No three in a row today","Pointene er lagt på din konto.":"The points have been added to your account.","Prøv igen i morgen – der kommer et nyt lod hver dag.":"Try again tomorrow – there's a new card every day.",
+ "Kalender":"Calendar","Din måned":"Your month","Indløs point":"Redeem points","Rabat på et valgfrit sted":"Discount at a place of your choice","rabat":"off","Valgfrit sted · gælder 30 dage":"Any place · valid 30 days","Indløs":"Redeem",
+ "Klar til brug":"Ready to use","Dine kuponer":"Your coupons","Brug":"Use","Pointhistorik":"Points history","Dine point":"Your points","Du kan indløse den største rabat":"You can redeem the biggest discount",
+ "Vælg det sted, hvor du vil bruge rabatten. Kuponen gælder i 30 dage på én ordre.":"Choose the place where you want to use the discount. The coupon is valid for 30 days on one order.",
+ "Kuponen bliver brugt i kurven":"The coupon will be applied in the cart","Point og kuponer":"Points and coupons","Fjern kupon":"Remove coupon","Skrabelod":"Scratch card","Kupon":"Coupon",
+ "Ingen tre på stribe i dag – prøv igen i morgen":"No three in a row today – try again tomorrow",
+ "Annoncer":"Ads","Tilbud fra vores partnere":"Offers from our partners","Annonce":"Ad","Annonce · Gaffel":"Ad · Gaffel","Spis ikke alene i aften":"Don't eat alone tonight",
+ "Tag en plads ved et fællesbord og mød nye mennesker over god mad.":"Take a seat at a shared table and meet new people over good food.","Se fællesborde":"See shared tables",
+ "Annoncerne er eksempler for appens opdigtede restauranter.":"The ads are examples for the app's fictional restaurants.",
+ "Suppe & bao":"Soup & bao","Napolitansk surdej":"Neapolitan sourdough","Smashburgere":"Smash burgers","Sushi & poke":"Sushi & poke","Grill & mezze":"Grill & mezze","Curry & tandoori":"Curry & tandoori",
+ "Thai · wok & curry":"Thai · wok & curry","Fransk brasserie":"French brasserie","Koreansk street food":"Korean street food","Græsk taverna":"Greek taverna","Tapas & paella":"Tapas & paella","Brunch & bageri":"Brunch & bakery","Japansk ramen":"Japanese ramen"
+});
+EN_RX.push(
+ [/^\+(\d+) point!$/,"+$1 points!"],[/^(\d+) point$/,"$1 points"],[/^(\d+) mangler$/,"$1 to go"],
+ [/^(\d+) point til (\d+) % rabat$/,"$1 points to $2% off"],[/^(\d+) % rabat for (\d+) point$/,"$1% off for $2 points"],
+ [/^(\d+) point · (\d+) kuponer$/,"$1 points · $2 coupons"],[/^(\d+) point · nyt lod i morgen$/,"$1 points · new card tomorrow"],[/^(\d+) point · 3 på stribe = 10 point$/,"$1 points · 3 in a row = 10 points"],
+ [/^Nyt lod om$/,"New card in"],[/^(\d+) gevinster i alt$/,"$1 wins in total"],
+ [/^Kode (\S+) · udløber (.+)$/,"Code $1 · expires $2"],[/^Brug din kupon: (\d+) % rabat$/,"Use your coupon: $1% off"],[/^Fra skrabekalenderen · kode (\S+)$/,"From the scratch calendar · code $1"],
+ [/^Kupon (\d+) % bruges$/,"Coupon $1% applied"],[/^Kupon \((\d+) %\)$/,"Coupon ($1%)"],[/^Kupon på (\d+) % er klar$/,"Your $1% coupon is ready"],
+ [/^Tre på stribe! \+(\d+) point$/,"Three in a row! +$1 points"],[/^(.+) · (\d+) % i dag$/,"$1 · $2% off today"]
 );
 function trCore(c){
   if(EN[c]!==undefined)return EN[c];

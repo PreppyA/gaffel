@@ -202,6 +202,24 @@ svg{display:block}
 .prog i{display:block;height:100%;background:var(--lime);border-radius:99px;transition:width .4s ease}
 .quiz{padding:30px 22px;display:grid;gap:12px}
 .quiz h2{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+.opt-card[aria-pressed="true"]{background:var(--lime);color:var(--lime-ink)}
+.q-prev{justify-self:start;margin-top:6px;padding:8px 0}
+.q-prev svg{width:18px;height:18px}
+.qres-list{padding:22px 22px 18px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.qres{background:var(--card);border:1px solid var(--frame);border-radius:22px;padding:10px;box-shadow:var(--shadow)}
+.qres-cover{display:block;width:100%}
+.qres .rcover{height:150px}
+.qres .match{position:absolute;right:8px;top:8px;background:var(--lime);color:var(--lime-ink);border-radius:9px;padding:4px 10px;font-size:14px;font-weight:800}
+.qres-body{padding:12px 6px 4px}
+.qres-h{display:flex;gap:12px;align-items:center}
+.qres-h h3{font-size:19px;font-weight:800;line-height:1.2}
+.qres-h .m{font-size:13px;color:var(--ink-2)}
+.rank{width:34px;height:34px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-weight:800;flex:none}
+.why{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+.why span{background:var(--soft);border-radius:9px;padding:5px 10px;font-size:13px;font-weight:600}
+.qres .lbl{margin:12px 0 8px;font-size:14px}
+.qres .lcard{background:var(--soft);box-shadow:none;border:0;padding:12px}
+.qres .sec-btn{margin:12px 0 4px}
 .opt-card{background:var(--card);border-radius:18px;padding:18px;text-align:left;font-weight:600;font-size:17px;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow)}
 .opt-card .em{font-size:26px}
 
@@ -372,7 +390,7 @@ const PROMOS={GAFFEL10:0.10,VELKOMMEN:0.15};
 const S={view:"home",stack:[],rid:null,itemId:null,qty:1,search:"",cat:"Alle",allCats:false,allItems:false,
   currency:"DKK",convFrom:"DKK",convAmount:"100",
   loc:null,gps:{status:"off",err:"",at:null},watchId:null,
-  cart:{rid:null,items:{}},promo:null,order:null,lastOrder:null,quiz:{i:0,a:[]}};
+  cart:{rid:null,items:{}},promo:null,order:null,lastOrder:null,quiz:{i:0,a:{}}};
 function load(){
   try{const d=JSON.parse(localStorage.getItem("gaffel2")||"null");
     if(d){for(const k of ["currency","convFrom","convAmount","cart","promo","lastOrder","order"]) if(d[k]!==undefined) S[k]=d[k];
@@ -720,27 +738,71 @@ setInterval(()=>updateTrack(false),300);
 
 /* ---------- Quiz ---------- */
 const QUIZ=[
- {q:"Hvad er du i humør til?",o:[["🥗","Noget let","let"],["🍝","Noget mættende","mæt"],["🍰","Noget sødt","sød"]]},
- {q:"Kød, fisk eller plantebaseret?",o:[["🥩","Kød","kød"],["🐟","Fisk","fisk"],["🌿","Plantebaseret","veg"],["🤷","Ligegyldigt",""]]},
- {q:"Må det være stærkt?",o:[["🌶️","Ja tak","ja"],["🙂","Helst ikke","nej"],["🤷","Ligegyldigt",""]]},
- {q:"Hvad er dit budget?",o:[["🪙",()=>`Under ${price(80)}`,"lav"],["💳",()=>`${price(80)}–${price(125)}`,"mid"],["💎",()=>`Over ${price(125)}`,"høj"]]}
+ {k:"mood",q:"Hvad er du i humør til?",o:[["🥗","Noget let","let"],["🍝","Noget mættende","mæt"],["🍰","Noget sødt","sød"],["🤷","Ved ikke helt",""]]},
+ {k:"hunger",q:"Hvor sulten er du?",o:[["🥨","Bare lidt – en snack","snack"],["🍽️","Klar til et måltid","måltid"],["🐻","Rigtig sulten","stor"]]},
+ {k:"cuisine",q:"Hvilket køkken frister?",o:[["🥢","Asiatisk","Asiatisk"],["🍕","Pizza","Pizza"],["🍔","Burger","Burger"],["🥪","Dansk smørrebrød","Dansk"],["🥙","Mellemøstligt","Mellemøstligt"],["🥗","Bowls & salater","Bowls"],["🎲","Overrask mig",""]]},
+ {k:"prot",q:"Kød, fisk eller plantebaseret?",o:[["🥩","Kød","kød"],["🐟","Fisk","fisk"],["🌿","Plantebaseret","veg"],["🤷","Ligegyldigt",""]]},
+ {k:"hot",q:"Må det være stærkt?",o:[["🌶️","Ja tak","ja"],["🙂","Helst ikke","nej"],["🤷","Ligegyldigt",""]]},
+ {k:"occ",q:"Hvem spiser du med?",o:[["🙋","Bare mig selv","alene"],["💕","En date","date"],["🎉","Venner","venner"],["👨‍👩‍👧","Familien","familie"]]},
+ {k:"speed",q:"Hvor hurtigt skal maden komme?",o:[["⚡","Så hurtigt som muligt","hurtig"],["🕒","Det må gerne tage lidt tid",""]]},
+ {k:"bud",q:"Hvad må retten koste?",o:[["🪙",()=>`Under ${price(80)}`,"lav"],["💳",()=>`${price(80)}–${price(125)}`,"mid"],["💎",()=>`Gerne over ${price(125)}`,"høj"],["🤷","Ligegyldigt",""]]}
 ];
+// Hvilke anledninger passer hvert sted til
+const OCC={bowl:["alene","date"],pho:["alene","venner"],pizza:["venner","familie","date"],burger:["alene","venner","familie"],smorrebrod:["date","familie"],sushi:["date","venner"],kebab:["venner","familie"]};
+const OCC_TXT={alene:"Godt til en aften alene",date:"Godt til en date",venner:"Godt med venner",familie:"Godt til familien"};
 function vQuiz(){
-  const i=S.quiz.i,Q=QUIZ[i];
+  const i=S.quiz.i,Q=QUIZ[i],cur=S.quiz.a[Q.k];
   return `${header({title:`Spørgsmål ${i+1}/${QUIZ.length}`,close:true,sm:true})}
     <div class="prog" role="progressbar" aria-valuenow="${i+1}" aria-valuemin="1" aria-valuemax="${QUIZ.length}"><i style="width:${(i+1)/QUIZ.length*100}%"></i></div></header>
     <section class="quiz"><h2>${esc(Q.q)}</h2>
-    ${Q.o.map((o,k)=>`<button class="opt-card" data-act="ans" data-k="${k}"><span class="em">${o[0]}</span>${esc(typeof o[1]==="function"?o[1]():o[1])}</button>`).join("")}</section>`;
+    ${Q.o.map((o,k)=>`<button class="opt-card" data-act="ans" data-k="${k}" aria-pressed="${cur!==undefined&&cur===o[2]}"><span class="em">${o[0]}</span>${esc(typeof o[1]==="function"?o[1]():o[1])}</button>`).join("")}
+    ${i?`<button class="see q-prev" data-act="quiz-prev">${IC.back} Forrige spørgsmål</button>`:""}</section>`;
 }
-function quizPick(){
-  const [mood,prot,hot,bud]=S.quiz.a;
-  const sc=it=>{let s=Math.random()*.5;const t=it.t;
-    if(t.includes(mood))s+=3; if(t.includes("drik")&&mood!=="sød")s-=6;
-    if(prot){ if(t.includes(prot))s+=3; else if(prot==="veg")s-=6; }
-    if(hot==="ja"&&t.includes("stærk"))s+=2; if(hot==="nej"&&t.includes("stærk"))s-=5;
-    const p=it.p; if((bud==="lav"&&p<80)||(bud==="mid"&&p>=80&&p<=125)||(bud==="høj"&&p>125))s+=2; else s-=1.5;
-    if(!it.r.open||!info(it.r).inRange)s-=10; return s;};
-  return ALL.slice().sort((a,b)=>sc(b)-sc(a))[0];
+// Giver hvert sted point ud fra svarene og finder stedets bedste ret
+function quizRank(){
+  const A=S.quiz.a;
+  const dishMax=(A.mood?3:0)+(A.prot?3:0)+(A.hot==="ja"?2:0)+(A.hunger?2:0)+(A.bud?2:0);
+  const dish=it=>{const t=it.t;let s=0;const why=[];
+    if(t.includes("drik")&&A.mood!=="sød") return null;
+    if(A.prot==="veg"&&!t.includes("veg")) return null;
+    if(A.hot==="nej"&&t.includes("stærk")) return null;
+    if(A.mood&&t.includes(A.mood)){s+=3;why.push({let:"Let ret",mæt:"Mættende ret",sød:"Noget sødt"}[A.mood]);}
+    if(A.prot&&t.includes(A.prot)){s+=3;why.push({kød:"Med kød",fisk:"Med fisk",veg:"Plantebaseret"}[A.prot]);}
+    if(A.hot==="ja"&&t.includes("stærk")){s+=2;why.push("Stærk");}
+    if(A.hunger==="snack"&&(it.g<=220||t.includes("let"))){s+=2;why.push("Passer til lille sult");}
+    else if(A.hunger==="stor"&&t.includes("mæt")&&it.g>=300){s+=2;why.push("Stor portion");}
+    else if(A.hunger==="måltid"&&it.g>=200&&!t.includes("drik")){s+=2;}
+    const p=it.p;
+    if((A.bud==="lav"&&p<80)||(A.bud==="mid"&&p>=80&&p<=125)||(A.bud==="høj"&&p>=110)){s+=2;why.push("Inden for budget");}
+    return {it,s,why};};
+  return RESTAURANTS.map(r=>{
+    const i=info(r),why=[];let s=0,max=dishMax;
+    if(A.cuisine){max+=4;if(r.cat===A.cuisine){s+=4;why.push(r.cat==="Bowls"?"Bowls & salater":r.cat==="Dansk"?"Dansk smørrebrød":`${r.cat} køkken`);}}
+    if(A.occ){max+=2;if(OCC[r.id].includes(A.occ)){s+=2;why.push(OCC_TXT[A.occ]);}}
+    if(A.speed==="hurtig"&&S.loc){max+=2;if(i.min<=25){s+=2;why.push(`Hurtig levering · ${i.eta}`);}else if(i.min<=35)s+=1;}
+    const best=r.menu.flatMap(m=>m.items).map(dish).filter(Boolean).sort((a,b)=>(b.s-a.s)||(a.it.p-b.it.p))[0];
+    let pct=max?Math.round((s+(best?best.s:0))/max*100):80;
+    if(!best)pct=Math.min(pct,25);
+    return {r,i,pct:Math.min(pct,99),why:why.concat(best?best.why:[]),best,ok:r.open&&i.inRange};
+  }).sort((a,b)=>(b.ok-a.ok)||(b.pct-a.pct)||(a.i.min-b.i.min));
+}
+function vQuizRes(){
+  const top=quizRank().slice(0,3),noLoc=S.quiz.a.speed==="hurtig"&&!S.loc;
+  return `${header({title:"Dine anbefalinger",close:true,sm:true})}<p class="rinfo">Ud fra dine svar passer disse steder bedst til dig lige nu.</p></header>
+   ${noLoc?`<button class="warn" data-act="gps-sheet" style="text-align:left;width:calc(100% - 44px)">Vælg din placering for at se, hvem der leverer hurtigst →</button>`:""}
+   <div class="qres-list">${top.map((x,n)=>`<article class="qres">
+     <button class="qres-cover" data-act="rest" data-r="${x.r.id}" aria-label="Se menuen hos ${esc(x.r.name)}">
+       <div class="rcover" style="background:${x.r.bg}">${IMG["r-"+x.r.id]?`<img src="${IMG["r-"+x.r.id]}" alt="" decoding="async">`:`<span aria-hidden="true">${x.r.emoji}</span>`}
+         <span class="match">${x.pct} % match</span>
+         ${!x.r.open?`<span class="closed">Lukket · åbner kl. 16</span>`:!x.i.inRange?`<span class="closed">Uden for leveringsområde</span>`:""}</div></button>
+     <div class="qres-body">
+       <div class="qres-h"><span class="rank">${n+1}</span><div><h3>${esc(x.r.name)}</h3><p class="m">${esc(x.r.tag)} · ${x.i.eta} · levering ${price(x.i.fee)}</p></div></div>
+       ${x.why.length?`<div class="why">${x.why.slice(0,5).map(w=>`<span>✓ ${esc(w)}</span>`).join("")}</div>`:""}
+       ${x.best?`<p class="lbl">Prøv den her</p>${lCard(x.best.it)}`:`<p class="lbl">Ingen af stedets retter passer helt til dine svar.</p>`}
+       <button class="sec-btn" data-act="rest" data-r="${x.r.id}">Se hele menuen</button>
+     </div></article>`).join("")}</div>
+   <button class="ghost-btn" data-act="quiz-again">Tag quizzen igen</button>
+   ${floatBtn()}`;
 }
 
 /* ---------- Valuta ---------- */
@@ -807,11 +869,12 @@ document.addEventListener("click",e=>{
     case "surprise":{const pool=ALL.filter(it=>!it.t.includes("drik")&&it.r.open&&info(it.r).inRange);
       if(!pool.length){toast("Ingen åbne restauranter leverer til dig lige nu");break;}
       go("item",{itemId:pool[Math.floor(Math.random()*pool.length)].id,qty:1});break;}
-    case "quiz":S.quiz={i:0,a:[]};go("quiz");break;
-    case "ans":S.quiz.a[S.quiz.i]=QUIZ[S.quiz.i].o[+b.dataset.k][2];
-      if(S.quiz.i<QUIZ.length-1){S.quiz.i++;render();}
-      else{const p=quizPick();S.stack.pop();S.view=S.stack.length?S.view:"home";go("item",{itemId:p.id,qty:1});S.stack=[{view:"home"}];toast("Vi tror, du vil kunne lide den her");}
-      break;
+    case "quiz":S.quiz={i:0,a:{}};go("quiz");break;
+    case "quiz-again":S.quiz={i:0,a:{}};S.view="quiz";render();window.scrollTo(0,0);break;
+    case "quiz-prev":S.quiz.i=Math.max(0,S.quiz.i-1);render();break;
+    case "ans":{const Q=QUIZ[S.quiz.i];S.quiz.a[Q.k]=Q.o[+b.dataset.k][2];
+      if(S.quiz.i<QUIZ.length-1)S.quiz.i++; else S.view="quizres";
+      render();window.scrollTo(0,0);break;}
     case "swap":{const a2=parseFloat(String(S.convAmount).replace(",",".")),to=b.dataset.c;
       if(!isNaN(a2))S.convAmount=String(+conv(a2,S.convFrom,to).toFixed(CURRENCIES[to].dec)).replace(".",",");
       S.convFrom=to;save();render();break;}
@@ -827,7 +890,8 @@ document.addEventListener("change",e=>{if(e.target.id==="from"){S.convFrom=e.tar
 /* ---------- Render ---------- */
 function render(){
   const v=$("#view");
-  const map={home:vHome,rest:vRest,item:vItem,cart:vCart,track:vTrack,quiz:vQuiz,currency:vCurrency};
+  const map={home:vHome,rest:vRest,item:vItem,cart:vCart,track:vTrack,quiz:vQuiz,quizres:vQuizRes,currency:vCurrency};
+  if((S.view==="quiz"||S.view==="quizres")&&Array.isArray(S.quiz.a))S.quiz={i:0,a:{}};
   if(S.view==="track"&&!S.order)S.view="home";
   if(S.view==="item"&&!byId(S.itemId))S.view="home";
   v.innerHTML=(map[S.view]||vHome)();

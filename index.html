@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#FFF0F5">
-<title>Gaffel – mad leveret</title>
+<title>Gaffel – find og book bord</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -583,6 +583,42 @@ body[data-ui="dark"]{--bg:#0B0A0E;--card:#16141B;--tile:#201D27;--lav:#2A2533;--
 .chatlog2 .msg{max-width:80%}
 .msg.rec{background:transparent;padding:0;display:grid;gap:6px;color:var(--ink)}
 .msg.gift{background:transparent;padding:0;color:var(--ink)}
+.giftcard.payreq{background:linear-gradient(135deg,#2f6f62,#4a9a83)}
+.bkhead{display:flex;gap:12px;align-items:center;padding:14px;margin:6px 18px 0;width:calc(100% - 36px);text-align:left}
+.bkhead .body{flex:1;display:grid;gap:2px;min-width:0}
+.bkh{font-size:15px;margin:4px 0 10px}
+.bkdays{padding:0 0 4px;margin:0}
+.chip.sm[aria-pressed="true"]{background:var(--btn);color:var(--btn-ink);border-color:var(--btn)}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.slot{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:10px 0;font-weight:700;font-size:14px;display:grid;justify-items:center;line-height:1.1}
+.slot small{font-size:10px;font-weight:600;color:var(--ink-2)}
+.slot[aria-pressed="true"]{background:var(--btn);color:var(--btn-ink);border-color:var(--btn)}
+.slot:disabled{opacity:.45;text-decoration:line-through}
+.bkppl,.bkinfo{display:flex;gap:12px;align-items:center;padding:14px}
+.bkppl .t,.bkinfo .t{flex:1;display:grid;gap:2px}.bkppl small,.bkinfo small{color:var(--ink-2);font-size:13px}
+.bknotes{padding:0 0 8px;margin:0}
+.bksub{font-weight:600;opacity:.85;margin-left:8px}
+.reshero{margin:8px 18px 0;padding:22px;display:grid;justify-items:center;gap:4px;text-align:center}
+.reshero b{font-size:22px}.reshero small{color:var(--ink-2)}
+.resic{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#2f8f6a;color:#fff;margin-bottom:6px}
+.reshero.cancelled .resic{background:var(--accent)}.reshero.seated .resic,.reshero.paid .resic{background:var(--btn)}
+.reskv{margin:12px 18px 0}
+.resnote{padding:10px 18px 0;text-align:left;font-size:13px}
+.resbtns{display:grid;gap:12px;padding:16px 18px 0}
+.resbtns .meet-inline{width:100%}
+.two-btn{display:grid;grid-template-columns:1fr 1fr;gap:10px}.two-btn .sec-btn{margin:0}
+.danger-t{color:var(--accent)}
+.rstat{font-size:11px;font-weight:700;padding:5px 10px;border-radius:999px;background:var(--lav);color:var(--btn);flex:none}
+.rstat.cancelled{background:var(--tile);color:var(--ink-2)}.rstat.paid{background:#e3f4ec;color:#2f6f62}
+.billcard{padding:16px;display:grid;gap:8px}.billcard h3{font-size:15px;margin:0 0 4px}
+.bl{display:flex;justify-content:space-between;gap:12px;font-size:14px}.bl.tot{border-top:1px solid var(--line);padding-top:8px;font-weight:700}
+.billnow{display:grid;gap:4px}.billnow small{opacity:.75}.billnow b{font-size:22px}.billnow span{font-size:14px;opacity:.85}
+.billnow .pill-btn{justify-self:start;margin-top:10px}
+.savebtn{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:0 18px;min-height:52px;font-weight:700;flex:none}
+.savebtn.on,.savepill.on{color:var(--accent)}.savebtn.on svg,.savepill.on svg,.heartbtn.on svg{fill:currentColor}
+.savepill{display:inline-flex;align-items:center;gap:6px}.savepill svg{width:16px;height:16px}
+.savepill.on{background:var(--card);border:1px solid var(--line);box-shadow:none}
+.heartbtn.on{background:var(--card);color:var(--accent);border:1px solid var(--line)}
 .giftcard{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:center;padding:14px;border-radius:18px;background:linear-gradient(135deg,var(--btn),#9a5a8c);color:#fff;min-width:230px}
 .giftcard .gic{grid-row:span 2;width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.18);display:grid;place-items:center}
 .giftcard .gt b,.giftcard .gt small,.giftcard p,.giftcard .gst,.giftcard .gcode{color:#fff}
@@ -1074,6 +1110,8 @@ const IC={
   chart:sv('<path d="M5 20V11M10 20V5M15 20v-7M20 20V8"/>',20,2),
   lock:sv('<rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>',18,1.9),
   bell:sv('<path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20.5a2 2 0 0 0 4 0"/>',20,1.8),
+  heart:sv('<path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z"/>',20,1.9),
+  cal:sv('<rect x="3.8" y="5.5" width="16.4" height="14.5" rx="2.6"/><path d="M3.8 10.2h16.4M8.5 3.5v4M15.5 3.5v4"/>',21,1.9),
   camera:sv('<path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',14,2),
   edit:sv('<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',20,1.8),
   mail:sv('<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m4 7 8 6 8-6"/>',20,1.8),
@@ -1372,10 +1410,10 @@ const S={view:"home",stack:[],rid:null,itemId:null,qty:1,search:"",cat:"Alle",al
   currency:"DKK",convFrom:"DKK",convAmount:"100",
   loc:null,gps:{status:"off",err:"",at:null},watchId:null,
   cart:{rid:null,items:{}},promo:null,order:null,lastOrder:null,quiz:{i:0,a:{}},meet:null,lang:null,
-  wallet:{cards:[],apple:true,def:"apple"},orders:[],reviews:{},user:null,prefs:{offers:true,status:true,meet:true,firstOnly:true},form:{},authTab:"in",rv:null,rvSort:"new",tables:{},safety:{name:"",phone:"",delay:20},safe:null,passport:{},badges:{},meetMode:"tables",tableTheme:-1,talkIdx:0,visits:{},mapCat:"Alle",mapSel:null,dir:null,points:0,pointsLog:[],scratch:{},vouchers:[],scratchSalt:0,cartVoucher:null,social:null,chatWith:null,fq:"",arTab:"reviews",rvStar:0,giftBal:0,gifts:[],useGift:true,gf:null};
+  wallet:{cards:[],apple:true,def:"apple"},orders:[],reviews:{},user:null,prefs:{offers:true,status:true,meet:true,firstOnly:true},form:{},authTab:"in",rv:null,rvSort:"new",tables:{},safety:{name:"",phone:"",delay:20},safe:null,passport:{},badges:{},meetMode:"tables",tableTheme:-1,talkIdx:0,visits:{},mapCat:"Alle",mapSel:null,dir:null,points:0,pointsLog:[],scratch:{},vouchers:[],scratchSalt:0,cartVoucher:null,social:null,chatWith:null,fq:"",arTab:"reviews",rvStar:0,giftBal:0,gifts:[],useGift:true,gf:null,bookings:[],bk:null,resId:null,billId:null,bill:null,saved:{}};
 function load(){
   try{const d=JSON.parse(localStorage.getItem("gaffel2")||"null");
-    if(d){for(const k of ["currency","convFrom","convAmount","cart","promo","lastOrder","order","meet","lang","wallet","orders","reviews","user","prefs","tables","safety","safe","passport","badges","visits","points","pointsLog","scratch","vouchers","scratchSalt","cartVoucher","social","giftBal","gifts","useGift"]) if(d[k]!==undefined) S[k]=d[k];
+    if(d){for(const k of ["currency","convFrom","convAmount","cart","promo","lastOrder","order","meet","lang","wallet","orders","reviews","user","prefs","tables","safety","safe","passport","badges","visits","points","pointsLog","scratch","vouchers","scratchSalt","cartVoucher","social","giftBal","gifts","useGift","bookings","saved"]) if(d[k]!==undefined) S[k]=d[k];
       if(d.manualLoc) S.loc=d.manualLoc;}
   }catch(e){}
   if(!CURRENCIES[S.currency]) S.currency="DKK";
@@ -1386,7 +1424,7 @@ function load(){
   if(S.meet && (S.meet.status==="found"||S.meet.status==="booked"||S.meet.status==="checked") && !(S.meet.match&&RESTAURANTS.some(r=>r.id===S.meet.match.rid))) S.meet=null;
 }
 function save(){
-  try{localStorage.setItem("gaffel2",JSON.stringify({currency:S.currency,convFrom:S.convFrom,convAmount:S.convAmount,cart:S.cart,promo:S.promo,lastOrder:S.lastOrder,order:S.order,meet:S.meet,lang:S.lang,wallet:S.wallet,orders:S.orders,reviews:S.reviews,user:S.user,prefs:S.prefs,tables:S.tables,safety:S.safety,safe:S.safe,passport:S.passport,badges:S.badges,visits:S.visits,points:S.points,pointsLog:S.pointsLog,scratch:S.scratch,vouchers:S.vouchers,scratchSalt:S.scratchSalt,cartVoucher:S.cartVoucher,social:S.social,giftBal:S.giftBal,gifts:S.gifts,useGift:S.useGift,
+  try{localStorage.setItem("gaffel2",JSON.stringify({currency:S.currency,convFrom:S.convFrom,convAmount:S.convAmount,cart:S.cart,promo:S.promo,lastOrder:S.lastOrder,order:S.order,meet:S.meet,lang:S.lang,wallet:S.wallet,orders:S.orders,reviews:S.reviews,user:S.user,prefs:S.prefs,tables:S.tables,safety:S.safety,safe:S.safe,passport:S.passport,badges:S.badges,visits:S.visits,points:S.points,pointsLog:S.pointsLog,scratch:S.scratch,vouchers:S.vouchers,scratchSalt:S.scratchSalt,cartVoucher:S.cartVoucher,social:S.social,giftBal:S.giftBal,gifts:S.gifts,useGift:S.useGift,bookings:S.bookings,saved:S.saved,
     manualLoc:S.loc&&S.loc.manual?S.loc:null}));}catch(e){}
 }
 
@@ -1399,9 +1437,8 @@ const price=dkk=>fmt(conv(dkk,"DKK",S.currency),S.currency);
 function dist(a,b){const R=6371,r=x=>x*Math.PI/180,dl=r(b.lat-a.lat),dn=r(b.lng-a.lng);
   const h=Math.sin(dl/2)**2+Math.cos(r(a.lat))*Math.cos(r(b.lat))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h));}
 function info(r){
-  if(!S.loc) return {km:null,min:25,eta:"20–30 min",fee:r.fee,inRange:true};
-  const km=dist(S.loc,r),m=Math.round(12+km*4);
-  return {km,min:m+5,eta:`${m}–${m+10} min`,fee:r.fee+(km>4?10:0),inRange:km<=8};
+  if(!S.loc) return {km:null,walk:null,inRange:true};
+  const km=dist(S.loc,r);return {km,walk:Math.round(km*1000/80),inRange:true};
 }
 const kmTxt=km=>km<1?`${Math.round(km*1000)} m`:`${km.toFixed(1).replace(".",DS())} km`;
 const ratingTxt=r=>r.rating.toFixed(1).replace(".",DS());
@@ -1429,7 +1466,7 @@ const tile=(it,cls,alt)=>`<span class="tile ${cls}">${imgTag(IMG[imgKey(it)],alt
 const tileR=(r,cls)=>`<span class="tile sq ${cls}">${imgTag(IMG["r-"+r.id])}</span>`;
 const sigImg=r=>IMG[imgKey(r.menu[0].items[0])]||IMG["r-"+r.id];
 function metaPills(r,i){
-  return `<span class="meta"><span class="mp">${IC.clock}${i.eta}</span><span class="mp"><span class="star">${IC.star}</span>${ratingTxt(r)} <i>(${revTxt(r.rev)})</i></span>${i.km!==null?`<span class="mp">${IC.route}${kmTxt(i.km)}</span>`:""}</span>`;
+  return `<span class="meta"><span class="mp">${IC.clock}${r.open?"Åben nu":"Lukket nu"}</span><span class="mp"><span class="star">${IC.star}</span>${ratingTxt(r)} <i>(${revTxt(r.rev)})</i></span>${i.km!==null?`<span class="mp">${IC.route}${kmTxt(i.km)}</span>`:""}</span>`;
 }
 const catTxt=c=>({Bowls:"Bowls & salater",Dansk:"Dansk smørrebrød",Pasta:"Frisk pasta",Brunch:"Brunch",Dessert:"Is & dessert"}[c]||`${c} køkken`);
 
@@ -1461,7 +1498,7 @@ function startGps(){
     const near=nearestArea(p);
     p.label=dist(p,near)<5?`Nær ${near.name}`:`${p.lat.toFixed(4)}, ${p.lng.toFixed(4)}`;
     S.loc=p;S.gps={status:"live",err:"",at:Date.now()};save();
-    if(S.view==="track") updateTrack(true); else if(!$("#sheetBg").hidden && $("#sheet").dataset.kind==="gps") gpsSheet(); else if(S.view==="map") mapUserUpdate(); else softRender();
+    if(!$("#sheetBg").hidden && $("#sheet").dataset.kind==="gps") gpsSheet(); else if(S.view==="map") mapUserUpdate(); else softRender();
   },err=>{
     stopGps(true);
     S.gps={status:"error",blocked:err.code===1&&embedded()&&gpsPolicy()!==true,err:err.code===1
@@ -1496,7 +1533,7 @@ function drawGpsSheet(){
      ${l.speed!=null&&!isNaN(l.speed)?`<dt>Hastighed</dt><dd>${(l.speed*3.6).toFixed(1).replace(".",DS())} km/t</dd>`:""}
      <dt>Opdateret</dt><dd>${new Date(g.at).toLocaleTimeString("da-DK")}</dd></dl>`
    :g.status==="seeking"?`<dl class="kv"><dt>Status</dt><dd>Søger efter GPS-signal …</dd></dl>`
-   :`<p style="color:var(--ink-2);margin-bottom:14px">Appen bruger enhedens GPS til at finde din adresse, sortere restauranter efter afstand og vise buddet på kortet.</p>`}
+   :`<p style="color:var(--ink-2);margin-bottom:14px">Appen bruger enhedens GPS til at finde din position og sortere restauranter efter afstand.</p>`}
    ${live?`<button class="sec-btn" data-act="gps-stop">Stop GPS-sporing</button>`
      :`<button class="primary center" data-act="gps-start">${IC.gps}&nbsp; ${g.status==="seeking"?"Prøv igen":"Brug enhedens GPS"}</button>`}
    ${d&&!live?`<p class="lbl" style="margin:8px 0 4px">GPS-tjek</p><dl class="kv">
@@ -1526,16 +1563,16 @@ function back(){const p=S.stack.pop();if(p)Object.assign(S,p);else S.view="home"
 function home(){S.stack=[];S.view="home";render();window.scrollTo(0,0);}
 
 /* ---------- Fælles topbjælke ---------- */
-const cartCirc=()=>{const {count}=cartData();return `<button class="circ" data-act="cart" aria-label="Kurv, ${count} varer">${IC.cart}${count?`<span class="badge">${count}</span>`:""}</button>`;};
+const cartCirc=()=>{const n=upcoming().length;return `<button class="circ" data-act="go-bookings" aria-label="Mine reservationer">${IC.cal}${n?`<span class="badge">${n}</span>`:""}</button>`;};
 function topbar({title,close,dark,cart=true}={}){
   return `<div class="top ${dark?"dark":""}"><button class="circ" data-act="back" aria-label="${close?"Luk":"Tilbage"}">${close?IC.x:IC.back}</button>
     <h1>${esc(title)}</h1>${cart?cartCirc():"<span></span>"}</div>`;
 }
 
 /* ---------- Kort ---------- */
-function nCard(r){const i=info(r),ok=r.open&&i.inRange;
-  const lab=!r.open?"Lukket":!i.inRange?"Uden for område":r.label;
-  return `<button class="card ncard ${ok?"":"dim"}" data-act="rest" data-r="${r.id}">${tileR(r,"m")}
+function nCard(r){const i=info(r);
+  const lab=!r.open?"Lukket nu":r.label;
+  return `<button class="card ncard" data-act="rest" data-r="${r.id}">${tileR(r,"m")}
     <span class="body">${lab?`<span class="label">${esc(lab)}</span>`:""}<span class="nm">${esc(r.name)}</span>
      ${r.off?`<span class="off">${pct(r.off)}%<small>RABAT</small></span>`:""}
      <span class="kw">${esc(r.kw)}</span>${metaPills(r,i)}</span></button>`;}
@@ -1543,18 +1580,18 @@ function oCard(r){
   return `<div class="card ocard"><span class="tile">${imgTag(sigImg(r))}</span>
     <div class="body"><span class="timer">${IC.timer}<span class="cd">${countdown()}</span></span>
      <span class="off">${pct(r.off)}%<small>RABAT</small></span><span class="kw">${esc(r.name)} · kun i dag</span>
-     <button class="pill-btn" data-act="rest" data-r="${r.id}">Bestil nu</button></div></div>`;}
-function dCard(it){const ok=it.r.open&&info(it.r).inRange;
+     <button class="pill-btn" data-act="book" data-r="${r.id}">Book bord</button></div></div>`;}
+function dCard(it){const sv=!!S.saved[it.id];
   return `<div class="card dcard"><button class="open" data-act="item" data-id="${it.id}">${tile(it,"d")}<span class="nm">${esc(it.n)}</span><span class="kw">${esc(it.r.name)}</span></button>
-    <div class="bot"><b>${price(it.p)}</b>${ok?`<button class="plus" data-act="quick-add" data-id="${it.id}" aria-label="Læg ${esc(it.n)} i kurven">${IC.plus}</button>`:""}</div></div>`;}
-function mCard(it,showR){const ok=it.r.open&&info(it.r).inRange;
+    <div class="bot"><b>${price(it.p)}</b><button class="plus heartbtn ${sv?"on":""}" data-act="save-dish" data-id="${it.id}" aria-pressed="${sv}" aria-label="Gem ${esc(it.n)}">${IC.heart}</button></div></div>`;}
+function mCard(it,showR){const sv=!!S.saved[it.id];
   return `<div class="card mcard"><button data-act="item" data-id="${it.id}" aria-label="Se ${esc(it.n)}">${tile(it,"s")}</button>
     <div class="body"><span class="label">${esc(showR?it.r.name:it.sec)}</span>
      <button class="nm" data-act="item" data-id="${it.id}">${esc(it.n)}</button>
      <span class="pr">${price(it.p)}</span>
-     ${ok?`<button class="pill-btn" data-act="quick-add" data-id="${it.id}">Bestil nu</button>`:`<span class="note">${!it.r.open?"Lukket lige nu":"Uden for leveringsområde"}</span>`}</div></div>`;}
-function floatBtn(){const {count,sub}=cartData();if(!count)return "";
-  return `<button class="float" data-act="cart"><span>Gå til kassen · ${count} ${count===1?"vare":"varer"}</span><span>${price(sub)}</span></button>`;}
+     <button class="pill-btn savepill ${sv?"on":""}" data-act="save-dish" data-id="${it.id}" aria-pressed="${sv}">${IC.heart}<span>${sv?"Gemt":"Gem ret"}</span></button></div></div>`;}
+function floatBtn(){const b=upcoming()[0];if(!b||b.date!==dKey(new Date()))return "";const r=RESTAURANTS.find(x=>x.id===b.rid);
+  return `<button class="float" data-act="open-res" data-b="${b.id}"><span>${b.status==="seated"?"Betal regningen":"Din reservation i dag"}</span><span translate="no">${esc(r.name)} · ${b.time}</span></button>`;}
 
 /* ---------- Forside ---------- */
 function vHome(){
@@ -1603,7 +1640,7 @@ function homeResults(){
      <button class="qa" data-act="quiz"><span class="ic">${IC.sliders}</span>Hjælp mig med at vælge</button>
      <button class="qa" data-act="surprise"><span class="ic">${IC.cloche}</span>Overrask mig</button>
    </div>
-   ${S.lastOrder&&!S.order?`<div class="again"><button class="see" data-act="repeat">${IC.repeat} Gentag sidste ordre</button></div>`:""}
+   ${lastVisit()?`<div class="again"><button class="see" data-act="repeat">${IC.repeat} <span>Book igen hos</span> <span translate="no">${esc(lastVisit().name)}</span></button></div>`:""}
    ${passBanner()}
    ${reviewPrompt()}
    ${reviewsBanner()}
@@ -1629,7 +1666,7 @@ function vRest(){
      ${sigImg(r)?`<img class="big" src="${sigImg(r)}" alt="">`:""}
    </section>
    <div class="row chips menu-chips" role="group" aria-label="Menu">${["Alle",...secs].map(s=>`<button class="chip" data-act="msec" data-s="${esc(s)}" aria-pressed="${s===cur}">${esc(s)}</button>`).join("")}</div>
-   ${!r.open?`<p class="warn">Restauranten er lukket lige nu. Du kan se menuen, men ikke bestille.</p>`:!i.inRange?`<p class="warn">Din position ligger uden for restaurantens leveringsområde (8 km).</p>`:""}
+   ${!r.open?`<p class="warn">Restauranten er lukket lige nu. Du kan stadig booke bord til en anden dag.</p>`:""}
    ${r.open?`<div style="padding:14px 18px 0"><button class="meet-inline" data-act="meet-here" data-r="${r.id}"><span class="ic">${IC.people}</span><span class="t">Spis her med en makker i aften<small>Bliv matchet med andre solospisere</small></span>${IC.arrow}</button></div>`:""}
    ${restTable(r)}
    <div style="padding:12px 18px 0"><button class="meet-inline" data-act="dir-open" data-r="${r.id}"><span class="ic">${IC.map}</span><span class="t">Rutevejledning<small>Se vejen derhen med metro, til fods eller på cykel</small></span>${IC.arrow}</button></div>
@@ -1638,159 +1675,189 @@ function vRest(){
      ?secs.map(s=>`<div class="sec-h small"><h2>${esc(s)}</h2><span class="kw">${items.filter(it=>it.sec===s).length} retter</span></div><div class="list">${items.filter(it=>it.sec===s).map(it=>mCard(it)).join("")}</div>`).join("")
      :`<div class="list" style="padding-top:14px">${items.map(it=>mCard(it)).join("")}</div>`}
    ${reviewBlock(r)}
-   ${floatBtn()}`;
+   <button class="float" data-act="book" data-r="${r.id}"><span>Book bord</span><span>${guarOf(r)?"Kort som garanti":"Gratis at booke"}</span></button>`;
 }
 
 /* ---------- Ret ---------- */
 function vItem(){
-  const it=byId(S.itemId),r=it.r,i=info(r),n=nutri(it),ok=r.open&&i.inRange;
+  const it=byId(S.itemId),r=it.r,n=nutri(it),sv=!!S.saved[it.id];
   return `${topbar({title:r.name})}
    <div class="dhero">${tile(it,"l",it.n)}</div>
    <article class="det">
      <h2>${esc(it.n)}</h2><p class="w">~${it.g} g · ${esc(r.name)}</p>
      <p class="lead">${esc(it.d)}</p>
      <div class="tags">${it.t.filter(t=>TAGS[t]).map(t=>`<span class="tag">${TAGS[t]}</span>`).join("")}</div>
-     ${r.off?`<p class="warn" style="margin:16px 0 0;width:100%">${pct(r.off)} % rabat hos ${esc(r.name)} i dag – trækkes fra i kurven.</p>`:""}
+     ${r.off?`<p class="warn" style="margin:16px 0 0;width:100%">${pct(r.off)} % rabat hos ${esc(r.name)} i dag – trækkes fra regningen, når du betaler i appen.</p>`:""}
      <div class="sep"></div>
      <p class="lbl">Næringsindhold pr. 100 g</p>
      <div class="nut"><div><b>${n[0]}</b><span>kcal</span></div><div><b>${String(n[1]).replace(".",DS())}</b><span>protein</span></div><div><b>${String(n[2]).replace(".",DS())}</b><span>fedt</span></div><div><b>${String(n[3]).replace(".",DS())}</b><span>kulhydrat</span></div></div>
      <div class="sep"></div>
      <h3>Ingredienser</h3><p class="body2">${esc(it.i)}</p>
-     <div class="sep"></div>
-     <h3>Opbevaring</h3><p class="body2">Højst et døgn ved 2–6 °C. Spises gerne med det samme.</p>
      ${S.currency!=="DKK"?`<div class="sep"></div><p class="lbl">Pris i restaurantens valuta: ${fmt(it.p,"DKK")}</p>`:""}
      <div style="height:110px"></div>
    </article>
    <div class="buybar">
-     <div class="stepper"><button data-act="q-" aria-label="Færre">${IC.minus}</button><b aria-live="polite">${S.qty}</b><button data-act="q+" aria-label="Flere">${IC.plus}</button></div>
-     <button class="primary" data-act="add" ${ok?"":"disabled"}><span>${ok?"Læg i kurv":!r.open?"Lukket":"Uden for område"}</span><span>${price(it.p*S.qty)}</span></button>
+     <button class="savebtn ${sv?"on":""}" data-act="save-dish" data-id="${it.id}" aria-pressed="${sv}">${IC.heart}<span>${sv?"Gemt":"Gem ret"}</span></button>
+     <button class="primary center" data-act="book" data-r="${r.id}">Book bord</button>
    </div>`;
 }
-function addToCart(id,q){
-  const it=byId(id);
-  if(S.cart.rid&&S.cart.rid!==it.r.id&&Object.keys(S.cart.items).length){
-    const o=RESTAURANTS.find(x=>x.id===S.cart.rid);
-    if(!confirm(tr(`Din kurv har varer fra ${o.name}. Vil du tømme den og starte en ny fra ${it.r.name}?`)))return false;
-    S.cart={rid:null,items:{}};S.promo=null;
-  }
-  S.cart.rid=it.r.id;S.cart.items[id]=(S.cart.items[id]||0)+q;save();return true;
+/* ---------- Bordbooking ----------
+   Gaffel finder restauranter, viser menuer og booker bord. Det er gratis at booke, og man betaler på restauranten
+   – eller betaler og deler regningen i appen bagefter. Nogle steder kræver et kort som garanti mod udeblivelse.
+   Demo: restauranterne er opdigtede, og bookinger gemmes kun på denne enhed. */
+const GUAR={bistro:200,sushi:150,tapas:100,smorrebrod:100,seoul:100};
+const guarOf=r=>GUAR[r.id]||0;
+const pad2=n=>String(n).padStart(2,"0");
+const dKey=d=>`${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+const bkDate=b=>new Date(`${b.date}T${b.time}:00`);
+function hoursOf(r){const m=r.hours.match(/(\d+):(\d+)\s*–\s*(\d+):(\d+)/);return m?[+m[1]*60+ +m[2],+m[3]*60+ +m[4]]:[660,1320];}
+function slotsFor(r,date){
+  const [o,c]=hoursOf(r),out=[],now=new Date(),today=date===dKey(now),nm=now.getHours()*60+now.getMinutes();
+  for(let t=Math.ceil(o/30)*30;t<=c-90;t+=30){const time=`${pad2(Math.floor(t/60))}:${pad2(t%60)}`;let h=0;for(const ch of r.id+date+time)h=(h*31+ch.charCodeAt(0))>>>0;
+    out.push({time,past:today&&t<nm+30,full:h%5===0});}
+  return out;}
+function dayLabel(key){const d=new Date(key+"T12:00:00"),tm=new Date();tm.setDate(tm.getDate()+1);
+  if(key===dKey(new Date()))return "I dag";if(key===dKey(tm))return "I morgen";
+  return d.toLocaleDateString(LOC(),{weekday:"short",day:"numeric",month:"short"});}
+const upcoming=()=>S.bookings.filter(b=>["confirmed","seated"].includes(b.status)&&bkDate(b).getTime()>Date.now()-4*3600e3).sort((a,b)=>bkDate(a)-bkDate(b));
+const bkWhen=b=>`<span>${esc(dayLabel(b.date))}</span> · <span translate="no">${b.time}</span>`;
+const lastVisit=()=>{const b=S.bookings.find(x=>x.status==="paid");return b?RESTAURANTS.find(r=>r.id===b.rid):null;};
+const BK_ST={confirmed:"Bekræftet",seated:"Ankommet",paid:"Betalt",cancelled:"Aflyst"};
+function bookStart(rid,editId){
+  const ed=editId&&S.bookings.find(b=>b.id===editId);
+  S.bk=ed?{rid:ed.rid,date:ed.date,time:ed.time,people:ed.people,note:ed.note,edit:ed.id}:{rid,date:dKey(new Date()),time:"",people:2,note:"",edit:null};
+  go("book");}
+function vBook(){
+  const f=S.bk;if(!f){S.view="home";return vHome();}
+  const r=RESTAURANTS.find(x=>x.id===f.rid),g=guarOf(r),m=payMethod();
+  const days=[...Array(14)].map((_,k)=>{const d=new Date();d.setDate(d.getDate()+k);return dKey(d);});
+  const slots=slotsFor(r,f.date).filter(x=>!x.past),free=slots.filter(x=>!x.full);
+  if(f.time&&!free.some(x=>x.time===f.time))f.time="";
+  return `${topbar({title:f.edit?"Ændr booking":"Book bord",cart:false})}
+   <section class="card bkhead">${tileR(r,"xs")}<div class="body"><span class="nm" style="padding-right:0">${esc(r.name)}</span><span class="kw">${esc(r.kw)}</span><span class="kw">Åbent ${esc(r.hours)}</span></div></section>
+   <div class="wrap">
+    <section><h3 class="bkh">Dato</h3><div class="row chips bkdays">${days.map(k=>`<button class="chip sm" data-act="bk-date" data-d="${k}" aria-pressed="${k===f.date}">${esc(dayLabel(k))}</button>`).join("")}</div></section>
+    <section><h3 class="bkh">Tidspunkt</h3>${free.length?`<div class="slots">${slots.map(x=>`<button class="slot" data-act="bk-time" data-t="${x.time}" aria-pressed="${x.time===f.time}" ${x.full?"disabled":""}><span translate="no">${x.time}</span>${x.full?`<small>Fuldt</small>`:""}</button>`).join("")}</div>`:`<p class="mutedp" style="text-align:left">Der er ingen ledige tider denne dag. Vælg en anden dato.</p>`}</section>
+    <section class="card bkppl"><span class="t"><b>Antal personer</b><small>Over 12 personer? Ring til restauranten.</small></span><div class="stepper sm"><button data-act="bk-p" data-d="-1" aria-label="Færre personer">${IC.minus}</button><b aria-live="polite">${f.people}</b><button data-act="bk-p" data-d="1" aria-label="Flere personer">${IC.plus}</button></div></section>
+    <section><h3 class="bkh">Kommentar til restauranten</h3><div class="row chips bknotes">${["Allergi","Fødselsdag","Barnestol","Kørestol","Udendørs bord"].map(t=>`<button class="chip sm" data-act="bk-tag" data-t="${t}">${t}</button>`).join("")}</div>
+      <textarea class="txtarea" id="bknote" rows="3" maxlength="300" placeholder="Fx: Én af os har nøddeallergi" aria-label="Kommentar til restauranten">${esc(f.note)}</textarea></section>
+    ${g?`<section class="card bkinfo"><span class="gic">${IC.card}</span><span class="t"><b>Kort som garanti</b><small><span>Der trækkes ingen penge nu. Kommer du ikke, eller aflyser du senere end 24 timer før, trækker restauranten</span> ${price(g)} <span>pr. person.</span></small></span></section>${payRow()}`
+       :`<section class="card bkinfo"><span class="gic">${IC.tick}</span><span class="t"><b>Gratis at booke</b><small>Du betaler på restauranten – eller i appen, når I har spist.</small></span></section>`}
+    ${firstBuy()?`<div><span class="pill">${IC.gift} 20 % på dit første besøg, når du betaler regningen i appen</span></div>`:""}
+    <button class="primary center" data-act="bk-confirm" ${f.time?"":"disabled"}>${!f.time?"Vælg et tidspunkt":g&&!m?"Tilføj kort som garanti":`<span>${f.edit?"Gem ændringer":"Bekræft booking"}</span><span class="bksub"><span>${f.people} pers.</span> · <span translate="no">${f.time}</span></span>`}</button>
+    <div style="height:10px"></div>
+   </div>`;
 }
-function changeLine(id,d){
-  S.cart.items[id]=(S.cart.items[id]||0)+d;
-  if(S.cart.items[id]<=0)delete S.cart.items[id];
-  if(!Object.keys(S.cart.items).length){S.cart={rid:null,items:{}};S.promo=null;}
-  save();render();
+function bookConfirm(){
+  const f=S.bk,r=RESTAURANTS.find(x=>x.id===f.rid),g=guarOf(r),m=payMethod();
+  if(!f.time)return;
+  if(g&&!m){paySheet();return;}
+  openSheet("paying",`<div class="paying"><div class="spin"></div><h3>Bekræfter hos restauranten …</h3><p class="intro">${esc(r.name)} · ${bkWhen(f)}</p></div>`);
+  setTimeout(()=>{closeSheet();let b;const ed=!!f.edit;
+    if(ed){b=S.bookings.find(x=>x.id===f.edit);Object.assign(b,{date:f.date,time:f.time,people:f.people,note:f.note.trim()});}
+    else{b={id:"b"+Date.now(),rid:r.id,date:f.date,time:f.time,people:f.people,note:f.note.trim(),status:"confirmed",at:Date.now(),guar:g,card:g?payLabel(m):"",code:"G"+Math.random().toString(36).slice(2,7).toUpperCase()};
+      S.bookings.unshift(b);S.bookings=S.bookings.slice(0,60);}
+    S.bk=null;save();S.stack=[{view:"home"}];S.view="res";S.resId=b.id;render();window.scrollTo(0,0);toast(ed?"Din booking er ændret":"Bordet er booket");},1200);
+}
+function vRes(){
+  const b=S.bookings.find(x=>x.id===S.resId);if(!b){S.view="bookings";return vBookings();}
+  const r=RESTAURANTS.find(x=>x.id===b.rid),st=b.status,today=b.date===dKey(new Date());
+  const head={confirmed:["Bekræftet","Bordet er reserveret til dig"],seated:["Velbekomme","Betal regningen her, når I er færdige"],paid:["Tak for besøget","Regningen er betalt"],cancelled:["Aflyst","Bookingen er aflyst"]}[st];
+  const rv=(S.reviews[r.id]||[]).length;
+  return `${topbar({title:"Din reservation",cart:false})}
+   <section class="card reshero ${st}"><span class="resic">${st==="cancelled"?IC.x:IC.tick}</span><b>${head[0]}</b><small>${head[1]}</small></section>
+   <button class="card bkhead" data-act="rest" data-r="${r.id}">${tileR(r,"xs")}<span class="body"><span class="nm" style="padding-right:0">${esc(r.name)}</span><span class="kw">${esc(r.kw)}</span></span>${IC.chev}</button>
+   <dl class="kv reskv"><dt>Dato</dt><dd>${bkWhen(b)}</dd><dt>Personer</dt><dd>${b.people}</dd><dt>Bookingnr.</dt><dd translate="no">${b.code}</dd>${b.note?`<dt>Kommentar</dt><dd>${esc(b.note)}</dd>`:""}<dt>Betaling</dt><dd>${b.guar?"Kort som garanti":"Betal på stedet eller i appen"}</dd></dl>
+   ${b.guar&&st==="confirmed"?`<p class="mutedp resnote"><span translate="no">${esc(b.card)}</span> <span>er gemt som garanti. Kommer du ikke, eller aflyser du senere end 24 timer før, trækkes</span> ${price(b.guar)} <span>pr. person.</span></p>`:""}
+   <div class="resbtns">
+    ${st==="confirmed"&&today?`<button class="primary center" data-act="res-arrive" data-b="${b.id}">Jeg er ankommet</button>`:""}
+    ${st==="seated"?`<button class="primary center" data-act="go-bill" data-b="${b.id}">Betal regningen</button>`:""}
+    ${st==="paid"&&!rv?`<button class="primary center" data-act="review-write" data-r="${r.id}">Skriv en anmeldelse</button>`:""}
+    ${st!=="cancelled"?`<button class="meet-inline" data-act="dir-open" data-r="${r.id}"><span class="ic">${IC.map}</span><span class="t">Vej til restauranten<small>Metro, til fods eller på cykel</small></span>${IC.arrow}</button>`:""}
+    <button class="meet-inline" data-act="rest" data-r="${r.id}"><span class="ic">${IC.heart}</span><span class="t">Se menuen<small>Gem de retter, du vil prøve</small></span>${IC.arrow}</button>
+    ${st==="confirmed"?`<button class="meet-inline" data-act="rec-friend" data-r="${r.id}"><span class="ic">${IC.send}</span><span class="t">Inviter en ven<small>Send stedet i en chat</small></span>${IC.arrow}</button>
+    <div class="two-btn"><button class="sec-btn" data-act="res-edit" data-b="${b.id}">Ændr booking</button><button class="sec-btn danger-t" data-act="res-cancel" data-b="${b.id}">Aflys</button></div>`:""}
+    ${st==="paid"||st==="cancelled"?`<button class="sec-btn" data-act="book" data-r="${r.id}">Book igen</button>`:""}
+   </div>
+   <p class="demo" style="margin-top:14px">Demo: restauranten er opdigtet, og bookingen gemmes kun på denne enhed.</p>`;
+}
+function bkRow(b){const r=RESTAURANTS.find(x=>x.id===b.rid);if(!r)return "";
+  return `<button class="card frow" data-act="open-res" data-b="${b.id}">${tileR(r,"xs")}<span class="body"><span class="nm" style="padding-right:0">${esc(r.name)}</span><span class="kw">${bkWhen(b)} · <span>${b.people} pers.</span></span></span><span class="rstat ${b.status}">${BK_ST[b.status]}</span></button>`;}
+function vBookings(){
+  const up=upcoming(),past=S.bookings.filter(b=>!up.includes(b));
+  return `${topbar({title:"Mine reservationer",cart:false})}
+   <div class="sec-h small"><h2>Kommende</h2></div><div class="list">${up.map(bkRow).join("")||`<p class="empty">Ingen kommende reservationer.</p>`}</div>
+   ${past.length?`<div class="sec-h small"><h2>Tidligere</h2></div><div class="list">${past.map(bkRow).join("")}</div>`:""}
+   <div style="padding:18px"><button class="ghost-btn" data-act="tab-home">Find en restaurant</button></div>`;
+}
+function vSaved(){
+  const items=Object.keys(S.saved).map(byId).filter(Boolean);
+  return `${topbar({title:"Gemte retter",cart:false})}
+   ${items.length?`<p class="intro">Retter du vil prøve. Vis dem til tjeneren, når du er der.</p><div class="list" style="padding-top:8px">${items.map(it=>mCard(it,true)).join("")}</div>`
+     :`<div class="empty" style="padding-top:50px"><div class="bigicon">${IC.heart}</div><p style="margin:0 0 20px">Du har ikke gemt nogen retter endnu. Tryk på hjertet ved en ret, du vil prøve.</p><button class="ghost-btn" data-act="tab-home">Se restauranter</button></div>`}`;
 }
 
-/* ---------- Kurv ---------- */
-function cartTotals(r,sub){
-  const i=info(r),rdisc=Math.round(sub*(r.off||0)),disc=S.promo?Math.round(sub*PROMOS[S.promo]):0,service=Math.round(sub*0.05);
-  const v=activeVoucher(r),vdisc=v?Math.round(sub*v.pct):0,fdisc=firstBuy()?Math.round(sub*FIRST_PCT):0;
-  const pre=Math.max(0,sub+i.fee+service-rdisc-disc-vdisc-fdisc),gdisc=S.useGift!==false?Math.min(S.giftBal||0,pre):0;
-  return {i,rdisc,disc,service,vdisc,v,fdisc,gdisc,total:pre-gdisc};
+/* ---------- Betal regningen ----------
+   Når man er ankommet, kan man betale regningen i appen og dele den med de andre ved bordet.
+   Demo: regningen laves ud fra antal personer og stedets menu. Rigtig betaling kræver, at restaurantens kassesystem sender regningen til appen. */
+const TIPS=[0,.05,.1,.15];
+function billItems(b){
+  const items=ALL.filter(it=>it.r.id===b.rid),drinks=items.filter(it=>it.t.includes("drik")),food=items.filter(it=>!it.t.includes("drik"));
+  let h=0;for(const ch of b.code)h=(h*31+ch.charCodeAt(0))>>>0;
+  const q={},add=it=>{if(it)q[it.id]=(q[it.id]||0)+1;};
+  for(let i=0;i<b.people;i++){add(food[(h+i*7)%food.length]);if(drinks.length)add(drinks[(h+i*3)%drinks.length]);}
+  if(b.people>1)add(food[(h+5)%food.length]);
+  return Object.entries(q).map(([id,n])=>({it:byId(id),q:n}));
 }
-function vCart(){
-  const {r,lines,sub,count}=cartData();
-  if(!count) return `${topbar({title:"Kurv",close:true,cart:false})}
-    <div class="empty" style="padding-top:60px"><div class="bigicon">${IC.bag}</div><p style="margin:0 0 20px">Kurven er tom. Find en ret, du har lyst til.</p>
-    <button class="ghost-btn" data-act="home">Se restauranter</button></div>`;
-  const {i,rdisc,disc,service,vdisc,v,fdisc,gdisc,total}=cartTotals(r,sub);
-  const live=S.gps.status==="live"&&S.loc&&!S.loc.manual;
-  return `${topbar({title:"Kurv",close:true,cart:false})}
-   <p class="intro">Fra ${esc(r.name)} · ${i.eta}</p>
+function billTotals(b){
+  const r=RESTAURANTS.find(x=>x.id===b.rid),lines=billItems(b),sub=lines.reduce((a,l)=>a+l.it.p*l.q,0),bl=S.bill||{tip:0,ways:1,split:[]};
+  const rdisc=Math.round(sub*(r.off||0)),disc=S.promo?Math.round(sub*PROMOS[S.promo]):0,v=activeVoucher(r),vdisc=v?Math.round(sub*v.pct):0,fdisc=firstBuy()?Math.round(sub*FIRST_PCT):0;
+  const tip=Math.round(sub*bl.tip),total=Math.max(0,sub-rdisc-disc-vdisc-fdisc+tip),ways=Math.max(1,bl.ways);
+  const share=Math.round(total/ways),gdisc=S.useGift!==false?Math.min(S.giftBal||0,share):0;
+  return {r,lines,sub,rdisc,disc,v,vdisc,fdisc,tip,total,ways,share,gdisc,pay:share-gdisc};
+}
+function vBill(){
+  const b=S.bookings.find(x=>x.id===S.billId);if(!b||b.status==="paid"){S.view="wallet";return vWallet();}
+  if(!S.bill||S.bill.bid!==b.id)S.bill={bid:b.id,tip:.1,ways:b.people,split:[]};
+  const bl=S.bill,t=billTotals(b),so=social(),m=payMethod();
+  return `${topbar({title:"Betal regningen",cart:false})}
+   <p class="intro"><span translate="no">${esc(t.r.name)}</span> · ${bkWhen(b)} · <span>${b.people} pers.</span></p>
    <div class="wrap">
-    ${lines.map(l=>`<div class="card ccard">${tile(l.it,"s")}<div class="body"><span class="nm" style="padding-right:0">${esc(l.it.n)}</span>
-      <span class="pr">${price(l.it.p*l.q)}</span>
-      <div class="stepper sm" style="display:inline-flex;margin-top:8px"><button data-act="l-" data-id="${l.it.id}" aria-label="Fjern én">${IC.minus}</button><b>${l.q}</b><button data-act="l+" data-id="${l.it.id}" aria-label="Tilføj én">${IC.plus}</button></div></div></div>`).join("")}
-    ${voucherRow(r)}
-    ${fdisc?`<div><span class="pill">${IC.tick} 20 % på dit første køb er trukket fra</span></div>`:""}
-    ${S.giftBal>0?`<label class="card giftuse tgl"><span class="gic">${IC.gift}</span><span class="t"><b>Brug gavekort-saldo</b><small>${price(S.giftBal)} til rådighed</small></span><input type="checkbox" id="usegift" ${S.useGift!==false?"checked":""}><i></i></label>`:""}
+    <section class="card billcard"><h3>Regningen fra restauranten</h3>${t.lines.map(l=>`<div class="bl"><span>${l.q} × <span>${esc(l.it.n)}</span></span><span>${price(l.it.p*l.q)}</span></div>`).join("")}<div class="bl tot"><span>Regning</span><span>${price(t.sub)}</span></div></section>
+    ${voucherRow(t.r)}
+    ${t.fdisc?`<div><span class="pill">${IC.tick} 20 % på dit første besøg er trukket fra</span></div>`:""}
     ${S.promo?`<div><span class="pill">${IC.tick} Rabatkode ${esc(S.promo)} bekræftet</span></div>`
       :`<div class="card promo"><input id="promo" placeholder="Rabatkode (prøv GAFFEL10)" aria-label="Rabatkode" autocapitalize="characters"><button data-act="promo">Brug</button></div>`}
-    <button class="card addr" data-act="gps-sheet"><span class="pin">${IC.pin}</span><span class="t"><b>${S.loc?esc(S.loc.label):"Ingen adresse endnu"}</b><span>${live?`Fra enhedens GPS · ±${S.loc.acc} m`:S.loc?"Valgt område · tryk for at bruge GPS":"Tryk for at bruge enhedens GPS"}</span></span>${IC.arrow}</button>
+    <section><h3 class="bkh">Drikkepenge</h3><div class="row chips">${TIPS.map(x=>`<button class="chip sm" data-act="bill-tip" data-t="${x}" aria-pressed="${x===bl.tip}">${x?pct(x)+" %":"Ingen"}</button>`).join("")}</div></section>
+    <section class="card bkppl"><span class="t"><b>Del regningen</b><small>${t.ways>1?`<span>Ligeligt mellem</span> ${t.ways}`:"Du betaler hele regningen"}</small></span><div class="stepper sm"><button data-act="bill-ways" data-d="-1" aria-label="Færre">${IC.minus}</button><b aria-live="polite">${t.ways}</b><button data-act="bill-ways" data-d="1" aria-label="Flere">${IC.plus}</button></div></section>
+    ${t.ways>1?`<section><h3 class="bkh">Send de andre deres del</h3>${so.friends.length?`<div class="gfto">${so.friends.map(id=>{const p=person(id);return `<button class="gfp" data-act="bill-friend" data-u="${id}" aria-pressed="${bl.split.includes(id)}">${avatar(p,"sm")}<span>${esc(p.name.split(" ")[0])}</span></button>`;}).join("")}</div><p class="kw" style="margin-top:6px">Valgte venner får en betalingsanmodning i chatten.</p>`:`<p class="mutedp" style="text-align:left">Tilføj venner for at sende dem deres del.</p>`}</section>`:""}
+    ${S.giftBal>0?`<label class="card giftuse tgl"><span class="gic">${IC.gift}</span><span class="t"><b>Brug gavekort-saldo</b><small>${price(S.giftBal)} til rådighed</small></span><input type="checkbox" id="usegift" ${S.useGift!==false?"checked":""}><i></i></label>`:""}
     ${payRow()}
     <div class="card sum">
-      <div><span>Varer</span><span>${price(sub)}</span></div>
-      ${rdisc?`<div><span>Dagens rabat (${pct(r.off)} %)</span><span>– ${price(rdisc)}</span></div>`:""}
-      <div><span>Levering${i.km!==null?` (${kmTxt(i.km)})`:""}</span><span>${price(i.fee)}</span></div>
-      <div><span>Servicegebyr</span><span>${price(service)}</span></div>
-      ${disc?`<div><span>Rabatkode</span><span>– ${price(disc)}</span></div>`:""}
-      ${vdisc?`<div><span>Kupon (${pct(v.pct)} %)</span><span>– ${price(vdisc)}</span></div>`:""}
-      ${fdisc?`<div><span>Første køb (20 %)</span><span>– ${price(fdisc)}</span></div>`:""}
-      ${gdisc?`<div><span>Gavekort</span><span>– ${price(gdisc)}</span></div>`:""}
-      <div class="tot"><span>I alt</span><span>${price(total)}</span></div>
+      <div><span>Regning</span><span>${price(t.sub)}</span></div>
+      ${t.rdisc?`<div><span>Dagens rabat (${pct(t.r.off)} %)</span><span>– ${price(t.rdisc)}</span></div>`:""}
+      ${t.disc?`<div><span>Rabatkode</span><span>– ${price(t.disc)}</span></div>`:""}
+      ${t.vdisc?`<div><span>Kupon (${pct(t.v.pct)} %)</span><span>– ${price(t.vdisc)}</span></div>`:""}
+      ${t.fdisc?`<div><span>Første besøg (20 %)</span><span>– ${price(t.fdisc)}</span></div>`:""}
+      ${t.tip?`<div><span>Drikkepenge (${pct(bl.tip)} %)</span><span>${price(t.tip)}</span></div>`:""}
+      <div><span>I alt for bordet</span><span>${price(t.total)}</span></div>
+      ${t.ways>1?`<div><span>Din del (1 af ${t.ways})</span><span>${price(t.share)}</span></div>`:""}
+      ${t.gdisc?`<div><span>Gavekort</span><span>– ${price(t.gdisc)}</span></div>`:""}
+      <div class="tot"><span>Du betaler</span><span>${price(t.pay)}</span></div>
     </div>
-    ${S.currency!=="DKK"?`<p class="alt">Du betaler ${fmt(total,"DKK")} – restauranten afregner i DKK</p>`:""}
-    ${payButton(r,i,total)}
-    ${!S.user?`<button class="see" style="justify-self:center" data-act="tab-profile">Log ind for at gemme dine ordrer og kort ${IC.arrow}</button>`:""}
-   </div>`;
+    ${m==="apple"?`<button class="applepay-btn" data-act="pay"><span>Betal med</span><b translate="no">Apple Pay</b><span>· ${price(t.pay)}</span></button>`
+      :`<button class="primary center" data-act="pay">${m?`Betal ${price(t.pay)} · ${esc(payLabel(m))}`:"Vælg betaling"}</button>`}
+    <div style="height:10px"></div>
+   </div>
+   <p class="demo">Demo: regningen er et eksempel ud fra antal personer, og der trækkes ingen penge.</p>`;
 }
-
-/* ---------- Følg ordre ---------- */
-const STAGES=[{t:5,txt:"Restauranten har modtaget din ordre"},{t:11,txt:"Din mad bliver lavet lige nu"},{t:27,txt:"Din ordre er på vej til dig!"},{t:Infinity,txt:"Leveret – velbekomme!"}];
-function stage(){const s=(Date.now()-S.order.started)/1000;return STAGES.findIndex(x=>s<x.t);}
-function geo(){
-  const r=RESTAURANTS.find(x=>x.id===S.order.rid);
-  const u=S.loc||{lat:r.lat-0.008,lng:r.lng+0.012};
-  const lat0=(r.lat+u.lat)/2,lng0=(r.lng+u.lng)/2,k=Math.cos(lat0*Math.PI/180);
-  const P=p=>({x:(p.lng-lng0)*k*111320,y:-(p.lat-lat0)*110540});
-  let A=P(r),B=P(u);
-  if(Math.hypot(B.x-A.x,B.y-A.y)<150){A={x:B.x-250,y:B.y+350};}
-  const W=400,H=560,cx=(A.x+B.x)/2,cy=(A.y+B.y)/2;
-  const s=Math.min((W-120)/Math.max(Math.abs(B.x-A.x),1),(H-230)/Math.max(Math.abs(B.y-A.y),1),0.6);
-  const T=p=>({x:W/2+(p.x-cx)*s,y:H/2+40+(p.y-cy)*s});
-  const a=T(A),b=T(B),dx=b.x-a.x,dy=b.y-a.y;
-  const pts=[a,{x:a.x+dx*.08,y:a.y+dy*.32},{x:a.x+dx*.5,y:a.y+dy*.38},{x:a.x+dx*.58,y:a.y+dy*.72},{x:a.x+dx*.94,y:a.y+dy*.78},b];
-  return {r,a,b,pts,W,H};
+function billSection(){
+  const up=upcoming(),open=up.find(b=>b.status==="seated")||up.find(b=>b.date===dKey(new Date()));
+  if(open){const r=RESTAURANTS.find(x=>x.id===open.rid),seated=open.status==="seated";
+    return `<section class="wcard billnow"><small>${seated?"Du er her nu":"I dag"}</small><b translate="no">${esc(r.name)}</b><span>${bkWhen(open)} · <span>${open.people} pers.</span></span>
+      <button class="pill-btn" data-act="${seated?"go-bill":"res-arrive"}" data-b="${open.id}">${seated?"Betal regningen":"Jeg er ankommet"}</button></section>`;}
+  return `<section class="wcard billnow"><small>Betal regningen</small><b>Ingen åben regning</b><span>Når du har booket bord og er ankommet, kan du betale og dele regningen her.</span></section>`;
 }
-function along(pts,t){
-  const seg=[];let L=0;for(let i=1;i<pts.length;i++){const l=Math.hypot(pts[i].x-pts[i-1].x,pts[i].y-pts[i-1].y);seg.push(l);L+=l;}
-  let d=Math.max(0,Math.min(1,t))*L;
-  for(let i=0;i<seg.length;i++){if(d<=seg[i]||i===seg.length-1){const f=seg[i]?d/seg[i]:0;return {x:pts[i].x+(pts[i+1].x-pts[i].x)*f,y:pts[i].y+(pts[i+1].y-pts[i].y)*f};}d-=seg[i];}
-}
-function courierT(){const s=(Date.now()-S.order.started)/1000;return s<11?0:s>=27?1:(s-11)/16;}
-function vTrack(){
-  const g=geo(),live=S.gps.status==="live"&&S.loc&&!S.loc.manual,src=IMG["r-"+g.r.id];
-  let streets="";
-  for(let i=-14;i<26;i++){const w=i%5===0?16:i%2?7:9;streets+=`<line x1="-500" y1="${i*44}" x2="900" y2="${i*44}" stroke-width="${w}"/>`;}
-  for(let i=-14;i<26;i++){const w=i%4===0?15:7;streets+=`<line x1="${i*52}" y1="-500" x2="${i*52+60}" y2="1100" stroke-width="${w}"/>`;}
-  let blocks="";for(let i=0;i<14;i++){const x=(i*97)%380,y=(i*151)%520;blocks+=`<rect x="${x}" y="${y}" width="${30+(i*13)%40}" height="${22+(i*7)%30}" rx="4"/>`;}
-  const c=along(g.pts,courierT());
-  const path="M"+g.pts.map(p=>`${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(" L");
-  return `<div class="map">
-    <div class="top"><button class="circ" data-act="home" aria-label="Tilbage">${IC.back}</button><h1>Din ordre</h1><span></span></div>
-    <button class="gps-pill" data-act="gps-sheet"><i class="dot ${live?"live":""}"></i>${live?`GPS ±${S.loc.acc} m`:"GPS slået fra"}</button>
-    <svg viewBox="0 0 ${g.W} ${g.H}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Kort over leveringen fra ${esc(g.r.name)} til din position">
-      <g fill="var(--block)" transform="rotate(-28 200 280)">${blocks}</g>
-      <g stroke="var(--street)" stroke-linecap="round" transform="rotate(-28 200 280)">${streets}</g>
-      <path d="${path}" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
-      <g transform="translate(${g.a.x} ${g.a.y})"><circle r="18" fill="var(--accent)" stroke="var(--card)" stroke-width="4"/>${src?`<clipPath id="rclip"><circle r="15"/></clipPath><image href="${src}" x="-15" y="-15" width="30" height="30" preserveAspectRatio="xMidYMid slice" clip-path="url(#rclip)"/>`:""}</g>
-      <g id="home-pin" transform="translate(${g.b.x} ${g.b.y})">
-        ${live?`<circle r="${Math.min(60,Math.max(24,S.loc.acc/4))}" fill="var(--accent)" opacity=".12"/>`:""}
-        <circle r="19" fill="var(--card)" stroke="var(--ink)" stroke-width="5"/>
-        <path d="M-7 1 0-6 7 1V8H2V3h-4v5h-5z" fill="var(--ink)"/></g>
-      <circle id="courier" cx="${c.x}" cy="${c.y}" r="11" fill="var(--ink)" stroke="var(--card)" stroke-width="4"/>
-    </svg></div>
-   <section class="tpanel" id="tpanel">${trackPanel()}</section>`;
-}
-function trackPanel(){
-  const st=stage(),eta=new Date(S.order.started+S.order.min*60000).toLocaleTimeString("da-DK",{hour:"2-digit",minute:"2-digit"});
-  const icons=[IC.receipt,IC.pot,IC.bike,IC.check];
-  return `<div class="tp-top"><b>${st>=3?"Leveret kl. "+new Date().toLocaleTimeString("da-DK",{hour:"2-digit",minute:"2-digit"}):"Forventet levering kl. "+eta}</b><p>${STAGES[st].txt}</p></div>
-   <div class="tsteps" aria-label="Ordrestatus: trin ${st+1} af 4">${icons.map((ic,i)=>`${i?`<i class="${i<=st?"on":""}"></i>`:""}<span class="ts ${i<=st?"on":""}">${ic}</span>`).join("")}</div>
-   <div class="courier"><div class="avatar" aria-hidden="true">MK</div><div class="t"><b>Mikkel Kragh</b><span>Bud · cykel</span></div>
-     <button class="round" data-act="call" aria-label="Ring til buddet">${IC.phone}</button>
-     <button class="round" data-act="chat" aria-label="Skriv til buddet">${IC.chat}<i class="nd"></i></button></div>
-   ${st>=3?`<button class="done-btn" data-act="review-write" data-r="${S.order.rid}">Anmeld ${esc(RESTAURANTS.find(x=>x.id===S.order.rid).name)}</button><button class="done-btn ghost" data-act="finish">Tilbage til forsiden</button>`:""}`;
-}
-function updateTrack(full){
-  if(S.view!=="track"||!S.order)return;
-  if(full){const y=window.scrollY;$("#view").innerHTML=vTrack();window.scrollTo(0,y);return;}
-  const g=geo(),c=along(g.pts,courierT()),el=$("#courier");
-  if(el){el.setAttribute("cx",c.x);el.setAttribute("cy",c.y);}
-  const st=stage();if(st!==updateTrack.last){updateTrack.last=st;$("#tpanel").innerHTML=trackPanel();}
-}
-setInterval(()=>updateTrack(false),300);
 
 /* ---------- Quiz ---------- */
 const QUIZ=[
@@ -1800,7 +1867,7 @@ const QUIZ=[
  {k:"prot",q:"Kød, fisk eller plantebaseret?",o:[["Kød","kød"],["Fisk","fisk"],["Plantebaseret","veg"],["Ligegyldigt",""]]},
  {k:"hot",q:"Må det være stærkt?",o:[["Ja tak","ja"],["Helst ikke","nej"],["Ligegyldigt",""]]},
  {k:"occ",q:"Hvem spiser du med?",o:[["Bare mig selv","alene"],["En date","date"],["Venner","venner"],["Familien","familie"]]},
- {k:"speed",q:"Hvor hurtigt skal maden komme?",o:[["Så hurtigt som muligt","hurtig"],["Det må gerne tage lidt tid",""]]},
+ {k:"near",q:"Hvor langt vil du gå?",o:[["Tæt på – højst 15 min. gang","naer"],["Gerne længere væk",""]]},
  {k:"bud",q:"Hvad må retten koste?",o:[[()=>`Under ${price(80)}`,"lav"],[()=>`${price(80)}–${price(125)}`,"mid"],[()=>`Gerne over ${price(125)}`,"høj"],["Ligegyldigt",""]]}
 ];
 // Hvilke anledninger passer hvert sted til
@@ -1837,23 +1904,23 @@ function quizRank(){
     const i=info(r),why=[];let s=0,max=dishMax;
     if(A.cuisine){max+=4;if(r.cat===A.cuisine){s+=4;why.push(catTxt(r.cat));}}
     if(A.occ){max+=2;if(OCC[r.id].includes(A.occ)){s+=2;why.push(OCC_TXT[A.occ]);}}
-    if(A.speed==="hurtig"&&S.loc){max+=2;if(i.min<=25){s+=2;why.push(`Hurtig levering · ${i.eta}`);}else if(i.min<=35)s+=1;}
+    if(A.near==="naer"&&S.loc){max+=2;if(i.walk<=15){s+=2;why.push(`${i.walk} min. gang herfra`);}else if(i.walk<=25)s+=1;}
     const best=r.menu.flatMap(m=>m.items).map(dish).filter(Boolean).sort((a,b)=>(b.s-a.s)||(a.it.p-b.it.p))[0];
     let p=max?Math.round((s+(best?best.s:0))/max*100):80;
     if(!best)p=Math.min(p,25);
     if(r.off)why.push(`${pct(r.off)} % rabat i dag`);
-    return {r,i,pct:Math.min(p,99),why:why.concat(best?best.why:[]),best,ok:r.open&&i.inRange};
-  }).sort((a,b)=>(b.ok-a.ok)||(b.pct-a.pct)||(b.r.off-a.r.off)||(a.i.min-b.i.min));
+    return {r,i,pct:Math.min(p,99),why:why.concat(best?best.why:[]),best,ok:r.open};
+  }).sort((a,b)=>(b.ok-a.ok)||(b.pct-a.pct)||(b.r.off-a.r.off)||((a.i.km||0)-(b.i.km||0)));
 }
 function vQuizRes(){
-  const top=quizRank().slice(0,3),noLoc=S.quiz.a.speed==="hurtig"&&!S.loc;
+  const top=quizRank().slice(0,3),noLoc=S.quiz.a.near==="naer"&&!S.loc;
   return `${topbar({title:"Dine anbefalinger",close:true})}
    <p class="intro">Ud fra dine svar passer disse steder bedst til dig lige nu.</p>
-   ${noLoc?`<button class="warn" data-act="gps-sheet">Vælg din placering for at se, hvem der leverer hurtigst</button>`:""}
+   ${noLoc?`<button class="warn" data-act="gps-sheet">Vælg din placering for at se, hvad der ligger tættest på</button>`:""}
    ${S.quiz.a.occ==="alene"?meetCta(true):""}
    <div class="list" style="padding-top:16px">${top.map((x,n)=>`<article class="card qres">
      <button class="ncard ${x.ok?"":"dim"}" data-act="rest" data-r="${x.r.id}">${tileR(x.r,"m")}
-       <span class="body"><span class="label">${!x.r.open?"Lukket":!x.i.inRange?"Uden for område":`Nr. ${n+1}`}</span><span class="nm">${esc(x.r.name)}</span>
+       <span class="body"><span class="label">${!x.r.open?"Lukket nu":`Nr. ${n+1}`}</span><span class="nm">${esc(x.r.name)}</span>
         <span class="off">${x.pct}%<small>MATCH</small></span><span class="kw">${esc(x.r.kw)}</span>${metaPills(x.r,x.i)}</span></button>
      ${x.why.length?`<div class="why">${x.why.slice(0,5).map(w=>`<span>${IC.tick}${esc(w)}</span>`).join("")}</div>`:""}
      ${x.best?`<p class="lbl">Prøv den her</p>${mCard(x.best.it)}`:`<p class="lbl">Ingen af stedets retter passer helt til dine svar.</p>`}
@@ -2073,7 +2140,7 @@ document.addEventListener("click",e=>{
   switch(a){
     case "back":back();break;
     case "home":home();break;
-    case "cart":go("cart");break;
+    case "cart":case "go-bookings":go("bookings");break;
     case "gps-sheet":gpsSheet();break;
     case "gps-start":closeSheet();startGps();toast("Henter position fra enhedens GPS …");break;
     case "gps-stop":stopGps();closeSheet();toast("GPS-sporing stoppet");break;
@@ -2087,24 +2154,15 @@ document.addEventListener("click",e=>{
     case "rest":go("rest",{rid:b.dataset.r,msec:"Alle"});break;
     case "msec":{S.msec=b.dataset.s;const y=window.scrollY;render();window.scrollTo(0,y);break;}
     case "item":go("item",{itemId:id,qty:1});break;
-    case "quick-add":if(addToCart(id,1)){toast(`${byId(id).n} lagt i kurven`);const y=window.scrollY;render();window.scrollTo(0,y);}break;
-    case "q-":S.qty=Math.max(1,S.qty-1);render();break;
-    case "q+":S.qty=Math.min(20,S.qty+1);render();break;
-    case "add":if(addToCart(S.itemId,S.qty)){toast(`${S.qty} × ${byId(S.itemId).n} lagt i kurven`);back();}break;
-    case "l-":changeLine(id,-1);break;
-    case "l+":changeLine(id,1);break;
+    case "save-dish":{const k=b.dataset.id;if(S.saved[k])delete S.saved[k];else S.saved[k]=Date.now();save();keepScroll();toast(S.saved[k]?"Retten er gemt":"Fjernet fra gemte retter");break;}
     case "promo":{const v=($("#promo").value||"").trim().toUpperCase();if(PASS_CODES[v]&&stampCount()<PASS_CODES[v]){toast("Koden låses op i dit madpas");break;}if(PROMOS[v]){S.promo=v;save();render();toast(`${Math.round(PROMOS[v]*100)} % rabat lagt på`);}else toast("Koden findes ikke. Tjek stavningen.");break;}
     case "pay":payNow();break;
-    case "track":S.view="track";render();break;
+    case "track":{const x=upcoming()[0];if(x)go("res",{resId:x.id});break;}
     case "finish":S.order=null;save();home();break;
-    case "call":toast("Opkald til buddet er ikke aktivt i demoen");break;
-    case "chat":toast("Chat med buddet er ikke aktivt i demoen");break;
     case "repeat":
-      if(S.order){S.view="track";render();break;}
-      if(!S.lastOrder){toast("Du har ikke bestilt noget endnu");break;}
-      S.cart={rid:S.lastOrder.rid,items:{...S.lastOrder.items}};S.promo=null;save();go("cart");break;
-    case "surprise":{const pool=ALL.filter(it=>!it.t.includes("drik")&&it.r.open&&info(it.r).inRange);
-      if(!pool.length){toast("Ingen åbne restauranter leverer til dig lige nu");break;}
+      {const r=lastVisit();if(r)bookStart(r.id);break;}
+    case "surprise":{const pool=ALL.filter(it=>!it.t.includes("drik")&&it.r.open);
+      if(!pool.length){toast("Ingen restauranter har åbent lige nu");break;}
       go("item",{itemId:pool[Math.floor(Math.random()*pool.length)].id,qty:1});break;}
     case "quiz":S.quiz={i:0,a:{}};go("quiz");break;
     case "quiz-again":S.quiz={i:0,a:{}};S.view="quiz";render();window.scrollTo(0,0);break;
@@ -2158,8 +2216,7 @@ document.addEventListener("click",e=>{
     case "delete-account":if(confirm(tr("Vil du slette din profil? Det kan ikke fortrydes."))){const all=accounts();delete all[S.user];saveAccounts(all);S.user=null;save();render();window.scrollTo(0,0);toast("Din profil er slettet");}break;
     case "go-editprofile":{const a=me();S.form={fname:a.fname,lname:a.lname,phone:a.phone||""};S.authErr={};S.showPw=false;go("editprofile");break;}
     case "go-myreviews":go("myreviews");break;
-    case "reorder":{const o=S.orders.find(x=>x.id===b.dataset.o);if(!o)break;if(S.cart.rid&&S.cart.rid!==o.rid&&Object.keys(S.cart.items).length&&!confirm(tr("Vil du erstatte din nuværende kurv?")))break;
-      S.cart={rid:o.rid,items:{...o.items}};S.promo=null;save();go("cart");break;}
+    case "reorder":{const o=S.orders.find(x=>x.id===b.dataset.o);if(o)bookStart(o.rid);break;}
     /* Betaling */
     case "go-addcard":S.cf=null;S.cfErr={};go("addcard");break;
     case "go-addcard-sheet":closeSheet();S.cf=null;S.cfErr={};go("addcard");break;
@@ -2240,6 +2297,22 @@ document.addEventListener("click",e=>{
     /* Venner og chat */
     case "go-friends":S.fq="";go("friends");break;
     case "go-gifts":go("gifts");break;
+    case "go-saved":go("saved");break;
+    case "book":bookStart(b.dataset.r);break;
+    case "bk-date":S.bk.date=b.dataset.d;keepScroll();break;
+    case "bk-time":S.bk.time=b.dataset.t;keepScroll();break;
+    case "bk-p":S.bk.people=Math.max(1,Math.min(12,S.bk.people+ +b.dataset.d));keepScroll();break;
+    case "bk-tag":{const n=S.bk.note.trim();S.bk.note=(n?n+", ":"")+tr(b.dataset.t)+": ";keepScroll();setTimeout(()=>{const t=$("#bknote");if(t){t.focus();t.setSelectionRange(t.value.length,t.value.length);}},0);break;}
+    case "bk-confirm":bookConfirm();break;
+    case "open-res":go("res",{resId:b.dataset.b});break;
+    case "res-arrive":{const x=S.bookings.find(y=>y.id===b.dataset.b);if(!x)break;x.status="seated";save();keepScroll();toast("Velkommen! Betal regningen i appen, når I er færdige");break;}
+    case "res-edit":bookStart(null,b.dataset.b);break;
+    case "res-cancel":{const x=S.bookings.find(y=>y.id===b.dataset.b);if(!x)break;const late=bkDate(x)-Date.now()<24*3600e3;
+      if(confirm(tr(x.guar&&late?"Du aflyser senere end 24 timer før, så restauranten kan trække gebyret. Vil du stadig aflyse?":"Vil du aflyse bookingen?"))){x.status="cancelled";save();keepScroll();toast("Bookingen er aflyst");}break;}
+    case "go-bill":go("bill",{billId:b.dataset.b});break;
+    case "bill-tip":S.bill.tip=+b.dataset.t;keepScroll();break;
+    case "bill-ways":S.bill.ways=Math.max(1,Math.min(12,S.bill.ways+ +b.dataset.d));S.bill.split=S.bill.split.slice(0,S.bill.ways-1);keepScroll();break;
+    case "bill-friend":{const sp=S.bill.split,k=sp.indexOf(b.dataset.u);if(k>=0)sp.splice(k,1);else{sp.push(b.dataset.u);if(sp.length>S.bill.ways-1)S.bill.ways=sp.length+1;}keepScroll();break;}
     case "gift-sheet":giftSheet(b.dataset.u||(S.view==="chat"?S.chatWith:null));break;
     case "gf-to":S.gf.to=b.dataset.u;giftSheetDraw();break;
     case "gf-amt":S.gf.amt=+b.dataset.a;giftSheetDraw();break;
@@ -2274,7 +2347,7 @@ document.addEventListener("click",e=>{
       S.points-=cost;S.vouchers.unshift({id:"v"+Date.now(),code,pct:p,rid:b.dataset.r,at:Date.now(),exp:Date.now()+30*86400e3,used:null});
       S.pointsLog.unshift({at:Date.now(),pts:-cost,txt:`${tr("Kupon")} ${pct(p)} % · ${RESTAURANTS.find(x=>x.id===b.dataset.r).name}`});
       save();closeSheet();keepScroll();toast(`Kupon på ${pct(p)} % er klar`);break;}
-    case "voucher-go":{const v=S.vouchers.find(x=>x.id===b.dataset.v);S.cartVoucher=v.id;save();go("rest",{rid:v.rid,msec:"Alle"});toast("Kuponen bliver brugt i kurven");break;}
+    case "voucher-go":{const v=S.vouchers.find(x=>x.id===b.dataset.v);S.cartVoucher=v.id;save();go("rest",{rid:v.rid,msec:"Alle"});toast("Kuponen trækkes fra regningen, når du betaler i appen");break;}
     case "voucher-use":S.cartVoucher=b.dataset.v;save();keepScroll();break;
     case "voucher-off":S.cartVoucher=null;save();keepScroll();break;
     /* Madpas */
@@ -2293,6 +2366,7 @@ document.addEventListener("input",e=>{
   if(e.target.id==="q"){S.search=e.target.value;$("#results").innerHTML=homeResults();addOrderBanner();}
   if(e.target.id==="meetname"&&S.meet){S.meet.name=e.target.value.trim();save();}
   if(e.target.id==="giftnote"&&S.gf)S.gf.note=e.target.value;
+  if(e.target.id==="bknote"&&S.bk)S.bk.note=e.target.value;
   if(e.target.id==="fq"){S.fq=e.target.value;const so=social(),q=S.fq.trim().toLowerCase(),others=PEOPLE.filter(p=>!so.friends.includes(p.id)&&!so.req.some(r=>r.id===p.id));$("#fresults").innerHTML=friendResults(q?others.filter(p=>(p.name+" "+p.handle).toLowerCase().includes(q)):others.slice(0,4),q);}
   const el=e.target;
   if(el.dataset.f){S.form[el.dataset.f]=el.type==="checkbox"?el.checked:el.value;
@@ -2321,19 +2395,17 @@ document.addEventListener("scroll",e=>{
 
 /* ---------- Visning ---------- */
 function addOrderBanner(){
-  if(S.view==="home"&&S.order&&$("#results")) $("#results").insertAdjacentHTML("afterbegin",`<div style="padding:16px 18px 0"><button class="primary" style="width:100%" data-act="track"><span>Følg din ordre</span><span>${IC.bike}</span></button></div>`);
 }
 function render(){
   const v=$("#view");
-  const map={home:vHome,rest:vRest,item:vItem,cart:vCart,track:vTrack,quiz:vQuiz,quizres:vQuizRes,currency:vCurrency,meet:vMeet,table:vTable,passport:vPassport,map:vMap,scratch:vScratch,friends:vFriends,chat:vChat,gifts:vGifts,allreviews:vAllReviews,visited:vVisited,wallet:vWallet,addcard:vAddCard,profile:vProfile,orders:vOrders,editprofile:vEditProfile,myreviews:vMyReviews,review:vReview,reviews:vReviews};
-  if(S.view==="track"&&!S.order)S.view="home";
+  const map={home:vHome,rest:vRest,item:vItem,book:vBook,res:vRes,bookings:vBookings,bill:vBill,saved:vSaved,quiz:vQuiz,quizres:vQuizRes,currency:vCurrency,meet:vMeet,table:vTable,passport:vPassport,map:vMap,scratch:vScratch,friends:vFriends,chat:vChat,gifts:vGifts,allreviews:vAllReviews,visited:vVisited,wallet:vWallet,addcard:vAddCard,profile:vProfile,orders:vOrders,editprofile:vEditProfile,myreviews:vMyReviews,review:vReview,reviews:vReviews};
+  if(S.view==="track"||S.view==="cart")S.view="home";
   if(S.view==="item"&&!byId(S.itemId))S.view="home";
   if(S.view==="rest"&&!RESTAURANTS.find(r=>r.id===S.rid))S.view="home";
   if(S.view!=="map")destroyMap();
   v.innerHTML=(map[S.view]||vHome)();
   if(S.view==="map")setTimeout(initMap,0);
   if(S.view==="scratch")setTimeout(initScratch,0);
-  updateTrack.last=undefined;
   addOrderBanner();
   updateChrome();
 }
@@ -2345,7 +2417,7 @@ function softRender(){
 }
 
 /* ---------- Fanebjælke ---------- */
-const TABS=[["home","Hjem","home"],["meet","Spis sammen","people"],["map","Kort","map"],["wallet","Betaling","card"],["profile","Profil","user"]];
+const TABS=[["home","Hjem","home"],["meet","Spis sammen","people"],["map","Kort","map"],["wallet","Regning","card"],["profile","Profil","user"]];
 const TAB_VIEWS=TABS.map(t=>t[0]);
 function updateChrome(){
   const tb=$("#tabbar"),show=TAB_VIEWS.includes(S.view)&&!(S.view==="meet"&&S.meet&&S.meet.status==="searching");
@@ -2463,21 +2535,23 @@ function vProfile(){
   const nRev=Object.values(S.reviews).flat().length,m=payMethod();
   return `<header class="phead"><h1 class="ptitle">Profil</h1></header>
    <section class="card pcard"><label class="avpick" aria-label="Skift profilbillede">${meAv("big")}<span class="avcam">${IC.camera}</span><input type="file" id="avfile" accept="image/*" hidden></label><div class="body"><span class="pname">${esc(a.fname+" "+a.lname)}</span><span class="kw">${esc(a.email)}</span><span class="kw">Medlem siden ${new Date(a.created).toLocaleDateString(LOC(),{month:"long",year:"numeric"})}</span>${a.photo?`<button class="see" style="justify-self:start;padding:4px 0 0" data-act="photo-remove">Fjern billede</button>`:`<span class="kw" style="color:var(--btn);font-weight:700">Tryk på billedet for at tilføje et foto</span>`}</div></section>
-   <div class="stats"><div class="stat"><b>${S.orders.length}</b><small>Ordrer</small></div><div class="stat"><b>${nRev}</b><small>Anmeldelser</small></div><div class="stat"><b>${S.wallet.cards.length}</b><small>Gemte kort</small></div></div>
+   <div class="stats"><div class="stat"><b>${S.bookings.filter(b=>b.status!=="cancelled").length}</b><small>Bookinger</small></div><div class="stat"><b>${nRev}</b><small>Anmeldelser</small></div><div class="stat"><b>${S.wallet.cards.length}</b><small>Gemte kort</small></div></div>
    <section class="card mlist"><h3>Konto</h3>
      ${prow(IC.people,"Venner",`${social().friends.length} venner`,"go-friends")}
      ${prow(IC.gift,"Gavekort",`Saldo ${price(S.giftBal||0)} · giv en gave til en ven`,"go-gifts")}
      ${prow(IC.gift,"Point og kuponer",`${S.points} point · ${S.vouchers.filter(v=>!v.used).length} kuponer`,"go-scratch")}
      ${prow(IC.stamp,"Madpas",`${stampCount()}/${CUISINES.length} køkkener`,"go-passport")}
      ${prow(IC.edit,"Personlige oplysninger",esc(a.email),"go-editprofile")}
-     ${prow(IC.receipt.replace('width="28" height="28"','width="20" height="20"'),"Ordrehistorik",`${S.orders.length} ordrer`,"tab-orders")}
+     ${prow(IC.cal,"Mine reservationer",`${upcoming().length} kommende`,"go-bookings")}
+     ${prow(IC.heart,"Gemte retter",`${Object.keys(S.saved).length} retter`,"go-saved")}
+     ${prow(IC.receipt.replace('width="28" height="28"','width="20" height="20"'),"Besøg og regninger",`${S.orders.length} betalt i appen`,"tab-orders")}
      ${prow(IC.star,"Mine anmeldelser",`${nRev} anmeldelser`,"go-myreviews")}
      ${prow(IC.pin,"Steder du har spist",`${placesEaten().length} steder`,"go-visited")}
      ${prow(IC.card,"Betaling",m?esc(payLabel(m)):"Ingen betalingsmetode","tab-wallet")}
      ${prow(IC.pin,"Standardområde",S.loc?esc(S.loc.label):"Ikke valgt","gps-sheet")}
      ${prow(IC.globe,"Sprog",`<span translate="no">${LANGS[S.lang]}</span>`,"lang-sheet")}
    </section>
-   <section class="card mlist"><h3>Notifikationer</h3>${tgl("offers","Tilbud og rabatter")}${tgl("status","Status på mine ordrer")}${tgl("meet","Nye match i Spis sammen")}</section>
+   <section class="card mlist"><h3>Notifikationer</h3>${tgl("offers","Tilbud og rabatter")}${tgl("status","Påmindelser om mine bookinger")}${tgl("meet","Nye match i Spis sammen")}</section>
    <section class="card mlist"><h3>Tryghed</h3>${prow(IC.shield,"Tryghedskontakt",S.safety.name?esc(S.safety.name+" · "+S.safety.phone):"Ikke valgt","safety-sheet")}${prow(IC.bell,"Test tryghedstjek","Se hvordan det virker","safe-test")}</section>
    <section class="card mlist"><h3>Privatliv</h3>${tgl("firstOnly","Vis kun mit fornavn for andre")}</section>
    <div style="height:16px"></div>
@@ -2501,14 +2575,14 @@ function vEditProfile(){
 
 /* ---------- Ordrehistorik ---------- */
 function vOrders(){
-  return `${topbar({title:"Ordrehistorik",cart:false})}
+  return `${topbar({title:"Besøg og regninger",cart:false})}
    ${S.orders.length?`<div class="list" style="padding-top:8px">${S.orders.map(o=>{const r=RESTAURANTS.find(x=>x.id===o.rid);if(!r)return "";
      const lines=Object.entries(o.items).map(([id,q])=>{const it=byId(id);return it?`${q} × <span>${esc(it.n)}</span>`:"";}).filter(Boolean);
      const rv=(S.reviews[r.id]||[]).find(x=>x.order===o.id);
      return `<article class="card ordcard"><div class="ordtop">${tileR(r,"xs")}<div class="body"><span class="nm" style="padding-right:0">${esc(r.name)}</span><span class="kw">${when(o.at)} · ${esc(o.pay||"")}</span></div><b class="amt">${price(o.total)}</b></div>
        <p class="orditems">${lines.join(", ")}</p>
-       <div class="ordbtns"><button data-act="reorder" data-o="${o.id}">${IC.repeat} Bestil igen</button>${rv?`<button disabled>${IC.star} Anmeldt</button>`:`<button class="dark" data-act="review-write" data-r="${r.id}" data-o="${o.id}">${IC.star} Anmeld</button>`}</div></article>`;}).join("")}</div>`
-   :`<div class="empty" style="padding-top:50px"><div class="bigicon">${IC.bag}</div><p style="margin:0 0 20px">Du har ingen ordrer endnu.</p><button class="ghost-btn" data-act="tab-home">Find noget lækkert</button></div>`}`;
+       <div class="ordbtns"><button data-act="reorder" data-o="${o.id}">${IC.repeat} Book igen</button>${rv?`<button disabled>${IC.star} Anmeldt</button>`:`<button class="dark" data-act="review-write" data-r="${r.id}" data-o="${o.id}">${IC.star} Anmeld</button>`}</div></article>`;}).join("")}</div>`
+   :`<div class="empty" style="padding-top:50px"><div class="bigicon">${IC.bag}</div><p style="margin:0 0 20px">Du har ikke betalt nogen regninger i appen endnu.</p><button class="ghost-btn" data-act="tab-home">Find noget lækkert</button></div>`}`;
 }
 
 /* ---------- Betaling: kort og Apple Pay ----------
@@ -2559,7 +2633,9 @@ function walletActs(c){const w=S.wallet;
 function vWallet(){
   const w=S.wallet,cards=w.cards,i=Math.min(S.cardIdx||0,Math.max(0,cards.length-1)),sp=spendWeek(),saved=S.orders.reduce((a,o)=>a+(o.saved||0),0);
   const diff=sp.last?Math.round((sp.total-sp.last)/sp.last*100):null;
-  return `<header class="whead"><h1>Mine kort</h1><button class="circ" data-act="go-addcard" aria-label="Tilføj kort">${IC.plus}</button><button class="circ" data-act="tab-orders" aria-label="Ordrehistorik">${IC.chart}</button></header>
+  return `<header class="whead"><h1>Betaling</h1><button class="circ" data-act="go-addcard" aria-label="Tilføj kort">${IC.plus}</button><button class="circ" data-act="tab-orders" aria-label="Besøg og regninger">${IC.chart}</button></header>
+   ${billSection()}
+   <div class="sec-h small"><h2>Mine kort</h2></div>
    ${cards.length?`<div class="cards-row" id="cardsRow">${cards.map((c,k)=>`<div class="cslot" data-i="${k}">${cardVis(c)}</div>`).join("")}<button class="cslot addslot" data-act="go-addcard"><span class="ic">${IC.plus}</span><span>Tilføj kort</span></button></div>
      <div class="dots" id="cdots">${cards.map((c,k)=>`<i class="${k===i?"on":""}"></i>`).join("")}</div>
      <div class="wacts" id="wacts">${walletActs(cards[i])}</div>`
@@ -2568,7 +2644,7 @@ function vWallet(){
      <button class="pillsm ${w.def==="apple"?"on":""}" data-act="apple-default">${w.def==="apple"?"Standard":"Brug som standard"}</button></section>
    <section class="wcard spend"><div class="sh"><span><small>Brugt denne uge</small><b class="big">${price(sp.total)}</b></span>${diff!==null?`<span class="trend">${diff>=0?"+":""}${diff} % mod sidste uge</span>`:""}</div>
      ${chartSvg(sp.days)}<div class="daylbl">${DAYS.map((d,k)=>`<span class="${k===sp.today?"on":""}">${d}</span>`).join("")}</div></section>
-   <div class="wtiles"><div class="wcard tile2"><small>Ordrer i alt</small><b>${S.orders.length}</b></div><div class="wcard tile2"><small>Sparet med rabatter</small><b>${price(saved)}</b></div></div>
+   <div class="wtiles"><div class="wcard tile2"><small>Betalte regninger</small><b>${S.orders.length}</b></div><div class="wcard tile2"><small>Sparet med rabatter</small><b>${price(saved)}</b></div></div>
    <div class="sec-h small"><h2>Seneste aktivitet</h2>${S.orders.length?`<button class="see" data-act="tab-orders">Se alle ${IC.arrow}</button>`:""}</div>
    <div class="list">${S.orders.slice(0,4).map(o=>{const r=RESTAURANTS.find(x=>x.id===o.rid);return r?`<div class="card arow">${tileR(r,"xs")}<div class="body"><span class="nm" style="padding-right:0">${esc(r.name)}</span><span class="kw">${esc(o.pay||"")} · ${when(o.at)}</span></div><b class="amt">– ${price(o.total)}</b></div>`:"";}).join("")||`<p class="empty">Ingen betalinger endnu.</p>`}</div>
    <p class="demo" style="margin-top:16px">Demo: betalinger er simulerede, og der trækkes ingen penge. Kun de sidste 4 cifre og udløbsdatoen gemmes.</p>`;
@@ -2612,7 +2688,7 @@ function saveCard(){
   const w=S.wallet,c={id:"c"+Date.now(),brand:b,last4:d.slice(-4),exp:f.exp,name:f.name.trim().toUpperCase(),frozen:false,color:w.cards.length%4};
   w.cards.push(c);if(f.def||w.cards.length===1)w.def=c.id;
   S.cf=null;S.cfErr={};S.cardIdx=w.cards.length-1;save();
-  if(S.stack.length&&S.stack[S.stack.length-1].view==="cart"){S.payWith=c.id;back();}else{S.stack=[];S.view="wallet";render();window.scrollTo(0,0);}
+  if(S.stack.length&&["book","bill"].includes(S.stack[S.stack.length-1].view)){S.payWith=c.id;back();}else{S.stack=[];S.view="wallet";render();window.scrollTo(0,0);}
   toast("Kortet er gemt");
 }
 function payRow(){const m=payMethod();
@@ -2629,47 +2705,50 @@ function paySheet(){const w=S.wallet,m=payMethod();
     ${w.cards.map(c=>`<button class="opt" data-act="paywith" data-m="${c.id}" ${c.frozen?"disabled":""}><span>${esc(payLabel(c.id))}<span class="muted">${c.frozen?"Frosset":"Udløber "+c.exp}</span></span><span>${m===c.id?IC.tick:""}</span></button>`).join("")}
     <button class="sec-btn" style="margin-top:14px" data-act="go-addcard-sheet">Tilføj betalingskort</button>`);}
 function payNow(){
-  if(!S.loc){gpsSheet();return;}
+  const b=S.bookings.find(x=>x.id===S.billId);if(!b)return;
   const m=payMethod();if(!m){paySheet();return;}
-  const {r,sub}=cartData(),{total}=cartTotals(r,sub);
-  if(m==="apple"){applePaySheet(total);return;}
+  const t=billTotals(b);
+  if(m==="apple"){applePaySheet(t.pay);return;}
   const c=S.wallet.cards.find(x=>x.id===m);if(!c){paySheet();return;}
   if(c.frozen){toast("Kortet er frosset – lås det op eller vælg et andet");return;}
-  openSheet("paying",`<div class="paying"><div class="spin"></div><h3>Godkender betaling …</h3><p class="intro">${esc(payLabel(m))} · ${price(total)}</p></div>`);
+  openSheet("paying",`<div class="paying"><div class="spin"></div><h3>Godkender betaling …</h3><p class="intro">${esc(payLabel(m))} · ${price(t.pay)}</p></div>`);
   setTimeout(()=>{closeSheet();placeOrder(payLabel(m));},1400);
 }
 function applePaySheet(total){
-  const {r}=cartData(),c=S.wallet.cards.find(x=>x.id===S.wallet.def&&!x.frozen)||S.wallet.cards.find(x=>!x.frozen);
+  const b=S.bookings.find(x=>x.id===S.billId),r=RESTAURANTS.find(x=>x.id===b.rid),c=S.wallet.cards.find(x=>x.id===S.wallet.def&&!x.frozen)||S.wallet.cards.find(x=>!x.frozen);
   openSheet("apple",`<div class="aph"><span class="aplogo" translate="no">Apple Pay</span><button class="circ sm" data-act="sheet-close" aria-label="Luk">${IC.x}</button></div>
-    <dl class="kv"><dt>Modtager</dt><dd>Gaffel · ${esc(r.name)}</dd><dt>Betalingskort</dt><dd>${c?esc(payLabel(c.id)):"Kort i Wallet"}</dd><dt>Levering</dt><dd>${esc(S.loc.label)}</dd></dl>
+    <dl class="kv"><dt>Modtager</dt><dd>Gaffel · ${esc(r.name)}</dd><dt>Betalingskort</dt><dd>${c?esc(payLabel(c.id)):"Kort i Wallet"}</dd><dt>Bord</dt><dd>${bkWhen(b)}</dd></dl>
     <div class="aptot"><span>I alt</span><b>${price(total)}</b></div>
     <button class="apconfirm" data-act="apple-confirm">${IC.face}<span>Bekræft med Face ID</span></button>
     <p class="demo">Demo: Apple Pay er simuleret. Rigtig Apple Pay kræver et Apple Pay-merchant-ID og en betalingsudbyder.</p>`);
 }
 function placeOrder(payLbl){
-  const {r,sub}=cartData(),t=cartTotals(r,sub);
-  S.lastOrder={rid:S.cart.rid,items:{...S.cart.items}};
-  S.orders.unshift({id:"o"+Date.now(),rid:r.id,items:{...S.cart.items},sub,total:t.total,saved:t.rdisc+t.disc+t.vdisc+t.fdisc,gift:t.gdisc,at:Date.now(),pay:payLbl});
+  const b=S.bookings.find(x=>x.id===S.billId);if(!b)return;
+  const t=billTotals(b),split=(S.bill&&S.bill.split)||[],items={};t.lines.forEach(l=>items[l.it.id]=l.q);
+  S.orders.unshift({id:"o"+Date.now(),rid:b.rid,bid:b.id,items,sub:t.sub,total:t.pay,bill:t.total,ways:t.ways,saved:t.rdisc+t.disc+t.vdisc+t.fdisc,gift:t.gdisc,at:Date.now(),pay:payLbl});
   S.orders=S.orders.slice(0,50);
-  if(t.v){t.v.used=Date.now();}S.cartVoucher=null;if(t.gdisc)S.giftBal=Math.max(0,S.giftBal-t.gdisc);
-  S.order={rid:r.id,started:Date.now(),min:info(r).min};S.cart={rid:null,items:{}};S.promo=null;S.payWith=null;save();
-  stamp(r.id);
-  S.stack=[];S.view="track";render();window.scrollTo(0,0);toast(t.fdisc?"Betalingen er gennemført – du sparede 20 % på dit første køb":"Betalingen er gennemført");
+  if(t.v)t.v.used=Date.now();S.cartVoucher=null;if(t.gdisc)S.giftBal=Math.max(0,S.giftBal-t.gdisc);
+  S.promo=null;S.payWith=null;b.status="paid";S.bill=null;save();
+  split.forEach((id,k)=>{const at=Date.now()+k;pushMsg(id,{from:"me",type:"payreq",amt:t.share,rid:b.rid,at});
+    setTimeout(()=>{const m=(social().chats[id]||[]).find(x=>x.type==="payreq"&&x.at===at);if(m)m.paid=Date.now();pushMsg(id,{from:id,type:"text",t:tr("Betalt – tak for i aften!")});},2500+k*1500);});
+  stamp(b.rid);
+  S.stack=[];S.view="res";S.resId=b.id;render();window.scrollTo(0,0);
+  toast(t.fdisc?"Betalt – du sparede 20 % på dit første besøg":split.length?"Betalt – dine venner har fået deres del":"Regningen er betalt");
 }
 
 /* ---------- Anmeldelser ----------
    Man kan anmelde et sted, når man har bestilt derfra eller spist der via Spis sammen. Egne anmeldelser gemmes på enheden.
    Eksempelanmeldelserne er tydeligt mærket, fordi restauranterne er opdigtede. */
 const RV_NAMES=["Maria","Jonas","Sara","Ahmed","Line","Peter","Nina","Kasper","Ida","Omar","Emil","Freja","Lucas","Sofie","Ali","Clara"];
-const RV_TEXTS=["Rigtig god mad, og den kom stadig varm frem. Kommer igen!","Store portioner og venlig service. Lidt lang leveringstid i fredags.","Smagte præcis som på restauranten og var pænt pakket ind.","Vi delte flere retter, og alle var gode – især desserten.","Fin mad til prisen, men lidt for salt for min smag.","Min nye favorit i byen. Frisk og velsmagende."];
-const RV_TAGS=["Lækker mad","Hurtig levering","God portion","Varm ved levering","Pæn emballage","Fair pris"];
+const RV_TEXTS=["Rigtig god mad og hyggelig stemning. Kommer igen!","Store portioner og venlig service. Lidt lang ventetid på maden i fredags.","Flot anrettet, og tjeneren havde gode vinforslag.","Vi delte flere retter, og alle var gode – især desserten.","Fin mad til prisen, men lidt for salt for min smag.","Min nye favorit i byen. Frisk og velsmagende."];
+const RV_TAGS=["Lækker mad","God service","God portion","Hyggelig stemning","Flot anrettet","Fair pris"];
 const RV_LBL=["","Dårlig","Under middel","Okay","Rigtig god","Fremragende"];
 // Eksempelanmeldelser: 8 pr. sted med 1–5 stjerner fordelt efter stedets bedømmelse. Teksten passer til antallet af stjerner.
-const RV_BY={5:["Rigtig god mad, og den kom stadig varm frem. Kommer igen!","Min nye favorit i byen. Frisk og velsmagende.","Vi delte flere retter, og alle var gode – især desserten.","Fantastisk oplevelse fra start til slut. Søde folk og perfekt mad."],
- 4:["Store portioner og venlig service. Lidt lang leveringstid i fredags.","Smagte præcis som på restauranten og var pænt pakket ind.","Rigtig god mad, men lidt dyrt for størrelsen."],
+const RV_BY={5:["Rigtig god mad og hyggelig stemning. Kommer igen!","Min nye favorit i byen. Frisk og velsmagende.","Vi delte flere retter, og alle var gode – især desserten.","Fantastisk oplevelse fra start til slut. Søde folk og perfekt mad."],
+ 4:["Store portioner og venlig service. Lidt lang ventetid på maden i fredags.","Flot anrettet, og tjeneren havde gode vinforslag.","Rigtig god mad, men lidt dyrt for størrelsen."],
  3:["Fin mad til prisen, men lidt for salt for min smag.","Okay oplevelse. Maden var god, men ventetiden var lang.","Helt fin, men ikke noget, jeg ville gå langt for."],
- 2:["Maden var lunken, da den kom, og der manglede en sauce.","Skuffende i forhold til billederne. Små portioner."],
- 1:["Bestillingen var forkert, og ingen svarede, da jeg ringede.","Kold mad og over en time forsinket. Desværre ikke godt nok."]};
+ 2:["Maden var lunken, da den kom på bordet, og der manglede en sauce.","Skuffende i forhold til billederne. Små portioner."],
+ 1:["Vores booking var væk, og vi måtte vente 40 minutter på et bord.","Kold mad og over en time mellem forret og hovedret. Desværre ikke godt nok."]};
 function sampleReviews(r){
   const k=RESTAURANTS.indexOf(r),w=[1,2,3,4,5].map(s=>Math.exp(-((s-r.rating)**2)/2.2)),tot=w.reduce((a,b)=>a+b,0);
   const cnt=w.map(x=>x/tot*8),fl=cnt.map(Math.floor);let rem=8-fl.reduce((a,b)=>a+b,0);
@@ -2741,7 +2820,7 @@ function vReview(){
       <p class="starlbl">${f.stars?RV_LBL[f.stars]:"Tryk på en stjerne"}</p></section>
     <section><h3>Hvad var godt?</h3><div class="wrapchips">${RV_TAGS.map(t=>`<button class="chip" data-act="rv-tag" data-v="${esc(t)}" aria-pressed="${f.tags.includes(t)}">${esc(t)}</button>`).join("")}</div></section>
     ${dishes.length?`<section><h3>Hvad spiste du?</h3><div class="wrapchips">${dishes.map(d=>`<button class="chip" data-act="rv-dish" data-v="${esc(d)}" aria-pressed="${f.dish===d}">${esc(d)}</button>`).join("")}</div></section>`:""}
-    <section><h3>Din anmeldelse</h3><textarea class="txtarea" id="rvtext" maxlength="500" rows="5" placeholder="Fortæl om maden, portionen og leveringen …" aria-label="Din anmeldelse">${esc(f.text)}</textarea>
+    <section><h3>Din anmeldelse</h3><textarea class="txtarea" id="rvtext" maxlength="500" rows="5" placeholder="Fortæl om maden, servicen og stemningen …" aria-label="Din anmeldelse">${esc(f.text)}</textarea>
       <p class="note"><span id="rvcount">${f.text.length}</span><span>/500 · mindst 10 tegn</span></p></section>
     <label class="tgl"><span>${a?`Vis mit fornavn (${esc(a.fname)})`:"Vis mig som gæst"}</span><input type="checkbox" data-rvname ${f.showName?"checked":""}><i></i></label>
     <button class="primary center" data-act="rv-submit" id="rvsubmit" ${ok?"":"disabled"}>${f.edit?"Gem ændringer":"Del anmeldelse"}</button>
@@ -2872,7 +2951,7 @@ function fakeCall(){
 /* ---------- Madpas ----------
    Et stempel for hvert køkken, man prøver – første gang man bestiller derfra eller spiser der. Stempler låser belønninger op. */
 const CUISINES=[...new Set(RESTAURANTS.map(r=>r.cat))];
-const REWARDS=[{n:3,t:"Smagsprøver",d:"Dit første badge – du er godt i gang"},{n:5,t:"10 % rabat",d:"Brug koden på en valgfri ordre",code:"PAS10"},{n:10,t:"15 % rabat",d:"Brug koden på en valgfri ordre",code:"PAS15"},{n:15,t:"Verdensborger",d:"Invitation til Gaffels smagsaften (demo)"}];
+const REWARDS=[{n:3,t:"Smagsprøver",d:"Dit første badge – du er godt i gang"},{n:5,t:"10 % rabat",d:"Brug koden på en valgfri regning",code:"PAS10"},{n:10,t:"15 % rabat",d:"Brug koden på en valgfri regning",code:"PAS15"},{n:15,t:"Verdensborger",d:"Invitation til Gaffels smagsaften (demo)"}];
 const PASS_CODES={PAS10:5,PAS15:10};
 PROMOS.PAS10=0.10;PROMOS.PAS15=0.15;
 const stampCount=()=>Object.keys(S.passport).filter(c=>CUISINES.includes(c)).length;
@@ -2887,7 +2966,7 @@ function passBanner(){const n=stampCount(),tot=CUISINES.length;
   return `<div style="padding:12px 18px 0"><button class="card passbanner" data-act="go-passport"><span class="ic">${IC.stamp}</span><span class="t"><b>Madpas · ${n}/${tot} køkkener</b><i class="bar"><b style="width:${n/tot*100}%"></b></i></span>${IC.arrow}</button></div>`;}
 function vPassport(){
   const n=stampCount(),tot=CUISINES.length,next=REWARDS.find(x=>x.n>n),a=me(),nRev=Object.values(S.reviews).flat().length;
-  const badges=[["Første ordre",S.orders.length>0],["Første fællesbord",!!S.badges.table],["Første spisemakker",!!S.badges.buddy],["Anmelder",nRev>0]];
+  const badges=[["Første besøg",S.orders.length>0],["Første fællesbord",!!S.badges.table],["Første spisemakker",!!S.badges.buddy],["Anmelder",nRev>0]];
   return `${topbar({title:"Madpas",cart:false})}
    <section class="passcover"><span class="eyebrow" translate="no">Gaffel</span><h2>Madpas</h2><span class="pown">${a?esc(a.fname+" "+a.lname):"Gæst"}</span>
      <div class="passprog"><b>${n}</b><span>/${tot} køkkener</span></div><i class="bar"><b style="width:${n/tot*100}%"></b></i>
@@ -2904,7 +2983,7 @@ function vPassport(){
 /* ---------- Steder du har spist (til anmeldelser) ---------- */
 function placesEaten(){
   const m={};
-  for(const o of S.orders)if(!m[o.rid]||m[o.rid].at<o.at)m[o.rid]={rid:o.rid,at:o.at,how:"Bestilt"};
+  for(const o of S.orders)if(!m[o.rid]||m[o.rid].at<o.at)m[o.rid]={rid:o.rid,at:o.at,how:"Betalt i appen"};
   for(const [rid,v] of Object.entries(S.visits||{}))if(!m[rid]||m[rid].at<v.at)m[rid]={rid,at:v.at,how:v.how};
   return Object.values(m).filter(x=>RESTAURANTS.some(r=>r.id===x.rid)).sort((a,b)=>b.at-a.at);
 }
@@ -3164,7 +3243,7 @@ function scratchCal(){
     cells+=`<span class="calc ${cls}" ${day===today&&!s?'data-act="scratch-scroll" role="button"':""}><b>${day}</b><small>${sub}</small></span>`;}
   return `<section class="card calcard"><div class="calt"><b>${d.toLocaleDateString(LOC(),{month:"long",year:"numeric"})}</b><span class="kw">${Object.values(S.scratch).filter(x=>x.pts).length} gevinster i alt</span></div><div class="calg">${head}${cells}</div></section>`;
 }
-const ADS=[{rid:"sushi",cta:"Bestil nu"},{rid:"pizza",cta:"Se menuen"},{house:"tables"},{rid:"gelato",cta:"Se menuen"},{rid:"bistro",cta:"Se menuen"}];
+const ADS=[{rid:"sushi",cta:"Book bord"},{rid:"pizza",cta:"Se menuen"},{house:"tables"},{rid:"gelato",cta:"Se menuen"},{rid:"bistro",cta:"Se menuen"}];
 function adsHtml(){
   return `<div class="sec-h small"><div><span class="eyebrow">Annoncer</span><h2>Tilbud fra vores partnere</h2></div></div>
    <div class="ads">${ADS.map(a=>{
@@ -3232,7 +3311,7 @@ function finishScratch(){
 }
 function redeemSheet(cost){
   const p=TIERS.find(t=>t[0]===cost)[1];
-  openSheet("redeem",`<h3>${pct(p)} % rabat for ${cost} point</h3><p class="mutedp" style="text-align:left">Vælg det sted, hvor du vil bruge rabatten. Kuponen gælder i 30 dage på én ordre.</p>
+  openSheet("redeem",`<h3>${pct(p)} % rabat for ${cost} point</h3><p class="mutedp" style="text-align:left">Vælg det sted, hvor du vil bruge rabatten. Kuponen gælder i 30 dage på én regning.</p>
     ${RESTAURANTS.filter(r=>r.open).map(r=>`<button class="opt" data-act="tier-confirm" data-c="${cost}" data-r="${r.id}"><span>${esc(r.name)}<span class="muted">${esc(r.tag)}</span></span>${IC.chev}</button>`).join("")}`);
 }
 setInterval(()=>{const t=countdown();document.querySelectorAll(".cd2").forEach(e=>e.textContent=t);},1000);
@@ -3249,14 +3328,14 @@ const REPLIES=["Haha, helt enig!","Det lyder godt – hvornår?","Jeg er klar i 
 function social(){
   if(!S.social)S.social={friends:["u1"],req:[{id:"u2",at:Date.now()-3600e3},{id:"u5",at:Date.now()-7200e3}],sent:[],
     chats:{u1:[{from:"u1",type:"text",t:"Hej! Godt at se dig på Gaffel.",at:Date.now()-5400e3},{from:"u1",type:"rec",rid:"ramen",t:"Har du prøvet Ramen Kō? Deres tonkotsu er vildt god!",at:Date.now()-5300e3}]},unread:{u1:2}};
-  if(!S.social.giftSeed){S.social.giftSeed=1;(S.social.chats.u1=S.social.chats.u1||[]).push({from:"u1",type:"gift",amt:50,code:giftCode(),t:"Lidt til din første bestilling!",at:Date.now()-5200e3});S.social.unread.u1=(S.social.unread.u1||0)+1;}
+  if(!S.social.giftSeed){S.social.giftSeed=1;(S.social.chats.u1=S.social.chats.u1||[]).push({from:"u1",type:"gift",amt:50,code:giftCode(),t:"Lidt til dit første besøg!",at:Date.now()-5200e3});S.social.unread.u1=(S.social.unread.u1||0)+1;}
   return S.social;
 }
 const myHandle=()=>{const a=me();return a?a.email.split("@")[0].replace(/[^a-z0-9._]/gi,"").toLowerCase():"gaest";};
 const unreadTotal=()=>Object.values(social().unread||{}).reduce((a,b)=>a+b,0);
 const avatar=(p,cls="")=>`<span class="av ${cls}" style="--h:${(p.id.charCodeAt(1)*47)%360}" aria-hidden="true">${esc(p.name[0])}</span>`;
 function friendsCirc(){const n=unreadTotal()+social().req.length;return `<button class="circ" data-act="go-friends" aria-label="Venner">${IC.chat}${n?`<span class="badge">${n}</span>`:""}</button>`;}
-function lastMsg(id){const c=(social().chats[id]||[]);const m=c[c.length-1];if(!m)return "Sig hej";if(m.type==="gift")return m.from==="me"?`Du sendte et gavekort på ${price(m.amt)}`:`Sendte dig et gavekort på ${price(m.amt)}`;return m.type==="rec"?`Anbefalede ${RESTAURANTS.find(r=>r.id===m.rid).name}`:m.t;}
+function lastMsg(id){const c=(social().chats[id]||[]);const m=c[c.length-1];if(!m)return "Sig hej";if(m.type==="payreq")return `Betalingsanmodning på ${price(m.amt)}`;if(m.type==="gift")return m.from==="me"?`Du sendte et gavekort på ${price(m.amt)}`:`Sendte dig et gavekort på ${price(m.amt)}`;return m.type==="rec"?`Anbefalede ${RESTAURANTS.find(r=>r.id===m.rid).name}`:m.t;}
 function vFriends(){
   const so=social(),q=(S.fq||"").trim().toLowerCase();
   const others=PEOPLE.filter(p=>!so.friends.includes(p.id)&&!so.req.some(r=>r.id===p.id));
@@ -3283,6 +3362,9 @@ function msgHtml(m,p){
   const mine=m.from==="me";
   if(m.type==="rec"){const r=RESTAURANTS.find(x=>x.id===m.rid);
     return `<div class="msg rec ${mine?"me":""}">${m.t?`<span class="rect">${esc(m.t)}</span>`:""}<button class="reccard" data-act="rest" data-r="${r.id}">${tileR(r,"xs")}<span class="body"><span class="nm" style="padding-right:0">${esc(r.name)}</span><span class="kw">${esc(r.kw)}</span>${starsHtml(r.rating)}</span></button></div>`;}
+  if(m.type==="payreq"){const r=RESTAURANTS.find(x=>x.id===m.rid);
+    return `<div class="msg gift ${mine?"me":""}"><div class="giftcard payreq"><span class="gic">${IC.card}</span><span class="gt"><small>Betalingsanmodning</small><b>${price(m.amt)}</b></span><span class="gcode" translate="no">${esc(r?r.name:"")}</span>
+      ${mine?`<span class="gst">${m.paid?`${IC.tick} <span>${esc(p.name.split(" ")[0])} har betalt</span>`:"Venter på betaling"}</span>`:""}</div></div>`;}
   if(m.type==="gift")return `<div class="msg gift ${mine?"me":""}"><div class="giftcard"><span class="gic">${IC.gift}</span><span class="gt"><small>Gavekort · Gaffel</small><b>${price(m.amt)}</b></span><span class="gcode" translate="no">${esc(m.code)}</span>${m.t?`<p>${esc(m.t)}</p>`:""}
     ${mine?`<span class="gst">Sendt til ${esc(p.name.split(" ")[0])}</span>`:m.redeemed?`<span class="gst">${IC.tick} Lagt på din saldo</span>`:`<button class="pillsm on" data-act="gift-redeem" data-u="${p.id}" data-at="${m.at}">Indløs gavekort</button>`}</div></div>`;
   if(m.type==="call")return `<div class="msg sys">${IC.phone}<span>${m.t}</span></div>`;
@@ -3314,7 +3396,7 @@ function recSheet(rid){const so=social();
 const FIRST_PCT=0.2;
 const firstBuy=()=>!S.orders.length;
 function firstBanner(){if(!firstBuy())return "";
-  return `<div style="padding:14px 18px 0"><div class="card firstbanner"><span class="fpct" translate="no">–20 %</span><span class="t"><b>20 % rabat på dit første køb</b><small>Trækkes automatisk fra i kurven – ingen kode</small></span></div></div>`;}
+  return `<div style="padding:14px 18px 0"><div class="card firstbanner"><span class="fpct" translate="no">–20 %</span><span class="t"><b>20 % rabat på dit første besøg</b><small>Når du betaler regningen i appen – ingen kode</small></span></div></div>`;}
 
 /* ---------- Gavekort til venner ----------
    Man køber et gavekort med sin betalingsmetode – pengene går til Gaffel – og vennen får det i chatten
@@ -3349,7 +3431,7 @@ function redeemGift(id,at){const m=(social().chats[id]||[]).find(x=>x.type==="gi
 function vGifts(){const so=social();
   const rx=Object.entries(so.chats).flatMap(([id,c])=>c.filter(m=>m.type==="gift"&&m.from!=="me").map(m=>({...m,id}))).sort((a,b)=>b.at-a.at);
   return `${topbar({title:"Gavekort",cart:false})}
-   <section class="card giftbal"><small>Din gavekort-saldo</small><b>${price(S.giftBal||0)}</b><span>Trækkes automatisk fra ved din næste bestilling</span></section>
+   <section class="card giftbal"><small>Din gavekort-saldo</small><b>${price(S.giftBal||0)}</b><span>Trækkes fra, når du betaler din næste regning i appen</span></section>
    <div style="padding:14px 18px 0"><button class="primary center" data-act="gift-sheet">${IC.gift.replace("<svg",'<svg style="display:inline;vertical-align:-5px;margin-right:6px"')}Køb et gavekort til en ven</button></div>
    <div class="sec-h small"><h2>Modtaget</h2></div>
    <div class="list">${rx.map(m=>{const p=person(m.id);return `<div class="card frow">${avatar(p)}<div class="body"><span class="nm" style="padding-right:0">${price(m.amt)} fra ${esc(p.name.split(" ")[0])}</span><span class="kw"><span>${m.redeemed?"Lagt på din saldo":"Ikke indløst endnu"}</span> · <span>${when(m.at)}</span></span></div>${m.redeemed?IC.tick:`<button class="pillsm on" data-act="gift-redeem" data-u="${m.id}" data-at="${m.at}">Indløs</button>`}</div>`;}).join("")||`<p class="empty">Du har ikke fået gavekort endnu.</p>`}</div>
@@ -3434,7 +3516,7 @@ const EN={
  "Hvor hurtigt skal maden komme?":"How fast should the food arrive?","Så hurtigt som muligt":"As fast as possible","Det må gerne tage lidt tid":"It can take a while",
  "Hvad må retten koste?":"What can the dish cost?","Forrige spørgsmål":"Previous question",
  "Dine anbefalinger":"Your recommendations","Ud fra dine svar passer disse steder bedst til dig lige nu.":"Based on your answers, these places suit you best right now.",
- "Vælg din placering for at se, hvem der leverer hurtigst":"Choose your location to see who delivers fastest",
+ "Vælg din placering for at se, hvad der ligger tættest på":"Choose your location to see what's closest",
  "Godt til en aften alene":"Good for an evening alone","Godt til en date":"Good for a date","Godt med venner":"Good with friends","Godt til familien":"Good for families",
  "Let ret":"Light dish","Mættende ret":"Filling dish","Med kød":"With meat","Med fisk":"With fish","Passer til lille sult":"Good for a small appetite","Stor portion":"Large portion","Inden for budget":"Within budget",
  "Prøv den her":"Try this one","Ingen af stedets retter passer helt til dine svar.":"None of this place's dishes fully match your answers.","Se hele menuen":"See the full menu","Tag quizzen igen":"Take the quiz again",
@@ -3445,7 +3527,7 @@ const EN={
  "Danske kroner":"Danish kroner","Euro":"Euro","Amerikanske dollar":"US dollars","Britiske pund":"British pounds","Svenske kroner":"Swedish kronor","Norske kroner":"Norwegian kroner",
  "Schweiziske franc":"Swiss francs","Polske złoty":"Polish złoty","Islandske kroner":"Icelandic krónur","Japanske yen":"Japanese yen","Tyrkiske lira":"Turkish lira","Thailandske baht":"Thai baht",
  "Din lokation":"Your location","Status":"Status","GPS sporer live":"GPS tracking live","Område":"Area","Breddegrad":"Latitude","Længdegrad":"Longitude","Nøjagtighed":"Accuracy","Hastighed":"Speed","Opdateret":"Updated",
- "Søger efter GPS-signal …":"Searching for GPS signal …","Appen bruger enhedens GPS til at finde din adresse, sortere restauranter efter afstand og vise buddet på kortet.":"The app uses your device's GPS to find your address, sort restaurants by distance and show the courier on the map.",
+ "Søger efter GPS-signal …":"Searching for GPS signal …","Appen bruger enhedens GPS til at finde din position og sortere restauranter efter afstand.":"The app uses your device's GPS to find your position and sort restaurants by distance.",
  "Stop GPS-sporing":"Stop GPS tracking","Prøv igen":"Try again","Brug enhedens GPS":"Use device GPS","GPS-tjek":"GPS check","Sikker forbindelse (https)":"Secure connection (https)","Browseren har GPS":"Browser has GPS",
  "Siden må bruge GPS":"Page may use GPS","Din tilladelse":"Your permission","Vises":"Shown","Eller vælg et område":"Or choose an area","Ja":"Yes","Nej":"No","Ukendt":"Unknown","Givet":"Granted","Ikke spurgt endnu":"Not asked yet","Afvist":"Denied",
  "Inde i en anden side":"Inside another page","I egen fane":"In its own tab",
@@ -3457,7 +3539,7 @@ const EN={
  // Beskeder
  "Henter position fra enhedens GPS …":"Getting position from your device's GPS …","GPS-sporing stoppet":"GPS tracking stopped","Koden findes ikke. Tjek stavningen.":"That code doesn't exist. Check the spelling.",
  "Opkald til buddet er ikke aktivt i demoen":"Calling the courier isn't active in the demo","Chat med buddet er ikke aktivt i demoen":"Chatting with the courier isn't active in the demo",
- "Du har ikke bestilt noget endnu":"You haven't ordered anything yet","Ingen åbne restauranter leverer til dig lige nu":"No open restaurants deliver to you right now",
+ "Du har ikke bestilt noget endnu":"You haven't ordered anything yet","Ingen restauranter har åbent lige nu":"No restaurants are open right now",
  // Spis sammen
  "1. Hvor vil du spise?":"1. Where do you want to eat?","Vælg sted":"Choose place","En bestemt restaurant":"A specific restaurant","Et område":"An area",
  "3. Hvor mange vil du spise med?":"3. How many do you want to eat with?","Gruppestørrelse":"Group size","Kun os to":"Just the two of us","Lille bord (3–4)":"Small table (3–4)",
@@ -3617,7 +3699,7 @@ const EN_RX=[
  [/^Bestil for (.+)$/,"Order for $1"],
  [/^Forventet levering kl\. (.+)$/,"Expected delivery at $1"],[/^Leveret kl\. (.+)$/,"Delivered at $1"],
  [/^Spørgsmål (\d+) af (\d+)$/,"Question $1 of $2"],[/^Nr\. (\d+)$/,"No. $1"],
- [/^Hurtig levering · (.+)$/,"Fast delivery · $1"],
+ [/^God service · (.+)$/,"Fast delivery · $1"],
  [/^(\S+) køkken$/,(m,c)=>`${trW(c)} cuisine`],
  [/^Gerne over (.+)$/,"Over $1 is fine"],
  [/^Vis appens priser i (\S+)$/,"Show app prices in $1"],[/^Valuta: (\S+)$/,"Currency: $1"],
@@ -3665,15 +3747,15 @@ Object.assign(EN,{
  "Du er logget ud":"You're signed out","Din profil er slettet":"Your profile has been deleted","Vil du slette din profil? Det kan ikke fortrydes.":"Delete your profile? This can't be undone.",
  "Ordrer":"Orders","Anmeldelser":"Reviews","Konto":"Account","Personlige oplysninger":"Personal details","Ordrehistorik":"Order history","Mine anmeldelser":"My reviews","Betaling":"Payment",
  "Ingen betalingsmetode":"No payment method","Standardområde":"Default area","Ikke valgt":"Not chosen","Sprog":"Language","Notifikationer":"Notifications","Tilbud og rabatter":"Offers and discounts",
- "Status på mine ordrer":"Status of my orders","Nye match i Spis sammen":"New matches in Eat together","Privatliv":"Privacy","Vis kun mit fornavn for andre":"Only show my first name to others",
+ "Påmindelser om mine bookinger":"Reminders about my bookings","Nye match i Spis sammen":"New matches in Eat together","Privatliv":"Privacy","Vis kun mit fornavn for andre":"Only show my first name to others",
  "Log ud":"Sign out","Slet profil":"Delete profile","Demo: din profil gemmes kun på denne enhed.":"Demo: your profile is only stored on this device.","Indstillingen er gemt":"Setting saved",
  "Skift adgangskode":"Change password","Nuværende adgangskode":"Current password","Ny adgangskode":"New password","Gem ændringer":"Save changes",
- "Bestil igen":"Order again","Anmeld":"Review","Anmeldt":"Reviewed","Du har ingen ordrer endnu.":"You have no orders yet.","Find noget lækkert":"Find something tasty","Vil du erstatte din nuværende kurv?":"Replace your current cart?",
+ "Bestil igen":"Order again","Anmeld":"Review","Anmeldt":"Reviewed","Du har ikke betalt nogen regninger i appen endnu.":"You haven't paid any bills in the app yet.","Find noget lækkert":"Find something tasty","Vil du erstatte din nuværende kurv?":"Replace your current cart?",
  "Mine kort":"My cards","Tilføj kort":"Add card","Tilføj dit første kort":"Add your first card","Visa, Mastercard, Dankort eller American Express":"Visa, Mastercard, Dankort or American Express",
  "Kortholder":"Cardholder","Udløber":"Expires","Frosset":"Frozen","Frys":"Freeze","Lås op":"Unfreeze","Standard":"Default","Gør standard":"Make default","Fjern":"Remove",
  "Tilgængelig på denne enhed":"Available on this device","Simuleret i demoen":"Simulated in the demo","Brug som standard":"Use as default","Brugt denne uge":"Spent this week",
  "Søn":"Sun","Man":"Mon","Tir":"Tue","Ons":"Wed","Tor":"Thu","Fre":"Fri","Lør":"Sat","Forbrug pr. dag denne uge":"Spending per day this week",
- "Ordrer i alt":"Total orders","Sparet med rabatter":"Saved with discounts","Seneste aktivitet":"Recent activity","Ingen betalinger endnu.":"No payments yet.",
+ "Betalte regninger":"Bills paid","Sparet med rabatter":"Saved with discounts","Seneste aktivitet":"Recent activity","Ingen betalinger endnu.":"No payments yet.",
  "Demo: betalinger er simulerede, og der trækkes ingen penge. Kun de sidste 4 cifre og udløbsdatoen gemmes.":"Demo: payments are simulated and no money is charged. Only the last 4 digits and the expiry date are stored.",
  "Kortnummer":"Card number","Navn på kortet":"Name on card","Som det står på kortet":"As shown on the card","Udløbsdato":"Expiry date","MM/ÅÅ":"MM/YY","CVC":"CVC","Gør til standardkort":"Make default card","Gem kort":"Save card",
  "Kortnummer og CVC gemmes aldrig – kun de sidste 4 cifre":"Card number and CVC are never stored – only the last 4 digits","Brug testkortet 4242 4242 4242 4242 i demoen":"Use the test card 4242 4242 4242 4242 in the demo",
@@ -3688,13 +3770,13 @@ Object.assign(EN,{
  "Du kan skrive en anmeldelse, når du har bestilt eller spist her.":"You can write a review once you've ordered or eaten here.","Du kan anmelde, når du har bestilt eller spist her":"You can review once you've ordered or eaten here",
  "Sortér":"Sort","Nyeste":"Newest","Højeste":"Highest","Laveste":"Lowest","Du har ikke skrevet nogen anmeldelser endnu. Når du har bestilt fra et sted, kan du anmelde det.":"You haven't written any reviews yet. Once you've ordered from a place, you can review it.",
  "Skriv anmeldelse":"Write review","Ret anmeldelse":"Edit review","Hvordan var det?":"How was it?","Antal stjerner":"Number of stars","Tryk på en stjerne":"Tap a star","Hvad var godt?":"What was good?","Hvad spiste du?":"What did you eat?",
- "Din anmeldelse":"Your review","Fortæl om maden, portionen og leveringen …":"Tell us about the food, the portion and the delivery …","/500 · mindst 10 tegn":"/500 · at least 10 characters","Vis mig som gæst":"Show me as a guest",
+ "Din anmeldelse":"Your review","Fortæl om maden, servicen og stemningen …":"Tell us about the food, the service and the atmosphere …","/500 · mindst 10 tegn":"/500 · at least 10 characters","Vis mig som gæst":"Show me as a guest",
  "Del anmeldelse":"Post review","Din anmeldelse gemmes på denne enhed (demo).":"Your review is stored on this device (demo).","Anmeldelsen er opdateret":"Review updated","Tak for din anmeldelse!":"Thanks for your review!",
  "Vil du slette din anmeldelse?":"Delete your review?","Anmeldelsen er slettet":"Review deleted",
  "Dårlig":"Poor","Under middel":"Below average","Okay":"Okay","Rigtig god":"Very good","Fremragende":"Excellent",
- "Lækker mad":"Tasty food","Hurtig levering":"Fast delivery","God portion":"Good portion","Varm ved levering":"Hot on arrival","Pæn emballage":"Nice packaging","Fair pris":"Fair price",
- "Rigtig god mad, og den kom stadig varm frem. Kommer igen!":"Really good food, and it was still hot when it arrived. Will order again!","Store portioner og venlig service. Lidt lang leveringstid i fredags.":"Big portions and friendly service. Delivery was a bit slow last Friday.",
- "Smagte præcis som på restauranten og var pænt pakket ind.":"Tasted exactly like at the restaurant and was nicely packed.","Vi delte flere retter, og alle var gode – især desserten.":"We shared several dishes and they were all good – especially the dessert.",
+ "Lækker mad":"Tasty food","God service":"Great service","God portion":"Good portion","Hyggelig stemning":"Cosy atmosphere","Flot anrettet":"Beautifully plated","Fair pris":"Fair price",
+ "Rigtig god mad og hyggelig stemning. Kommer igen!":"Really good food and a cosy atmosphere. We'll be back!","Store portioner og venlig service. Lidt lang ventetid på maden i fredags.":"Big portions and friendly service. A bit of a wait for the food last Friday.",
+ "Flot anrettet, og tjeneren havde gode vinforslag.":"Beautifully plated, and the waiter had great wine suggestions.","Vi delte flere retter, og alle var gode – især desserten.":"We shared several dishes and they were all good – especially the dessert.",
  "Fin mad til prisen, men lidt for salt for min smag.":"Good food for the price, but a bit too salty for my taste.","Min nye favorit i byen. Frisk og velsmagende.":"My new favourite in town. Fresh and tasty.",
  "Gæst":"Guest","Anonym":"Anonymous","I går":"Yesterday"
 });
@@ -3744,8 +3826,8 @@ Object.assign(EN,{
  "Tryghedskontakten er gemt":"Safety contact saved","Godt at høre – hav en god aften!":"Glad to hear it – have a great evening!","Tryghedstjek udsat 15 minutter":"Safety check snoozed 15 minutes","Tryghedstjek er stoppet":"Safety check stopped",
  "Mor":"Mum","Mobil · ringer …":"Mobile · calling …","Afvis":"Decline","Besvar":"Answer","Læg på":"Hang up",
  "Madpas":"Food passport","Du har prøvet alle køkkener!":"You've tried every cuisine!","Belønninger":"Rewards","Badges":"Badges","Smagsprøver":"Taster","Dit første badge – du er godt i gang":"Your first badge – you're off to a good start",
- "10 % rabat":"10% off","15 % rabat":"15% off","Brug koden på en valgfri ordre":"Use the code on any order","Verdensborger":"World citizen","Invitation til Gaffels smagsaften (demo)":"Invitation to Gaffel's tasting evening (demo)",
- "Koden er kopieret":"Code copied","Første ordre":"First order","Første fællesbord":"First shared table","Første spisemakker":"First dining buddy","Anmelder":"Reviewer",
+ "10 % rabat":"10% off","15 % rabat":"15% off","Brug koden på en valgfri regning":"Use the code on any bill","Verdensborger":"World citizen","Invitation til Gaffels smagsaften (demo)":"Invitation to Gaffel's tasting evening (demo)",
+ "Koden er kopieret":"Code copied","Første besøg":"First visit","Første fællesbord":"First shared table","Første spisemakker":"First dining buddy","Anmelder":"Reviewer",
  "Du får et stempel, første gang du bestiller fra et køkken eller spiser der via Spis sammen eller et fællesbord.":"You get a stamp the first time you order from a cuisine or eat there via Eat together or a shared table.",
  "Koden låses op i dit madpas":"This code is unlocked in your food passport"
 });
@@ -3804,8 +3886,8 @@ Object.assign(EN,{
  "Ingen tre på stribe i dag":"No three in a row today","Pointene er lagt på din konto.":"The points have been added to your account.","Prøv igen i morgen – der kommer et nyt lod hver dag.":"Try again tomorrow – there's a new card every day.",
  "Kalender":"Calendar","Din måned":"Your month","Indløs point":"Redeem points","Rabat på et valgfrit sted":"Discount at a place of your choice","rabat":"off","Valgfrit sted · gælder 30 dage":"Any place · valid 30 days","Indløs":"Redeem",
  "Klar til brug":"Ready to use","Dine kuponer":"Your coupons","Brug":"Use","Pointhistorik":"Points history","Dine point":"Your points","Du kan indløse den største rabat":"You can redeem the biggest discount",
- "Vælg det sted, hvor du vil bruge rabatten. Kuponen gælder i 30 dage på én ordre.":"Choose the place where you want to use the discount. The coupon is valid for 30 days on one order.",
- "Kuponen bliver brugt i kurven":"The coupon will be applied in the cart","Point og kuponer":"Points and coupons","Fjern kupon":"Remove coupon","Skrabelod":"Scratch card","Kupon":"Coupon",
+ "Vælg det sted, hvor du vil bruge rabatten. Kuponen gælder i 30 dage på én regning.":"Choose the place where you want to use the discount. The coupon is valid for 30 days on one order.",
+ "Kuponen trækkes fra regningen, når du betaler i appen":"The coupon is taken off the bill when you pay in the app","Point og kuponer":"Points and coupons","Fjern kupon":"Remove coupon","Skrabelod":"Scratch card","Kupon":"Coupon",
  "Ingen tre på stribe i dag – prøv igen i morgen":"No three in a row today – try again tomorrow",
  "Annoncer":"Ads","Tilbud fra vores partnere":"Offers from our partners","Annonce":"Ad","Annonce · Gaffel":"Ad · Gaffel","Spis ikke alene i aften":"Don't eat alone tonight",
  "Tag en plads ved et fællesbord og mød nye mennesker over god mad.":"Take a seat at a shared table and meet new people over good food.","Se fællesborde":"See shared tables",
@@ -3824,14 +3906,14 @@ EN_RX.push(
 );
 // Anmeldelser rangeret og venner
 Object.assign(EN,{
- "Gaffel – mad leveret":"Gaffel – food delivered","5 → 1 stjerne":"5 → 1 stars","1 → 5 stjerner":"1 → 5 stars","Alle anmeldelser":"All reviews","Restauranter rangeret":"Restaurants ranked",
+ "Gaffel – find og book bord":"Gaffel – find and book a table","5 → 1 stjerne":"5 → 1 stars","1 → 5 stjerner":"1 → 5 stars","Alle anmeldelser":"All reviews","Restauranter rangeret":"Restaurants ranked",
  "Bedste først":"Best first","Dårligste først":"Worst first","Visning":"View","Ingen anmeldelser med dette antal stjerner.":"No reviews with this many stars.",
  "Se de bedste og dårligste steder – rangeret efter stjerner":"See the best and worst places – ranked by stars",
  "Fantastisk oplevelse fra start til slut. Søde folk og perfekt mad.":"A fantastic experience from start to finish. Lovely people and perfect food.",
  "Rigtig god mad, men lidt dyrt for størrelsen.":"Really good food, but a bit pricey for the size.","Okay oplevelse. Maden var god, men ventetiden var lang.":"An okay experience. The food was good, but the wait was long.",
- "Helt fin, men ikke noget, jeg ville gå langt for.":"Perfectly fine, but not something I'd go out of my way for.","Maden var lunken, da den kom, og der manglede en sauce.":"The food was lukewarm when it arrived, and a sauce was missing.",
- "Skuffende i forhold til billederne. Små portioner.":"Disappointing compared to the photos. Small portions.","Bestillingen var forkert, og ingen svarede, da jeg ringede.":"The order was wrong, and nobody answered when I called.",
- "Kold mad og over en time forsinket. Desværre ikke godt nok.":"Cold food and over an hour late. Sadly not good enough.",
+ "Helt fin, men ikke noget, jeg ville gå langt for.":"Perfectly fine, but not something I'd go out of my way for.","Maden var lunken, da den kom på bordet, og der manglede en sauce.":"The food was lukewarm when it reached the table, and a sauce was missing.",
+ "Skuffende i forhold til billederne. Små portioner.":"Disappointing compared to the photos. Small portions.","Vores booking var væk, og vi måtte vente 40 minutter på et bord.":"Our booking was lost, and we had to wait 40 minutes for a table.",
+ "Kold mad og over en time mellem forret og hovedret. Desværre ikke godt nok.":"Cold food and over an hour between starter and main. Sadly not good enough.",
  "Venner":"Friends","Dit brugernavn – del det, så andre kan finde dig":"Your username – share it so others can find you","Del":"Share","Find venner via navn eller brugernavn":"Find friends by name or username",
  "Find venner":"Find friends","Venneanmodninger":"Friend requests","Accepter":"Accept","Dine venner":"Your friends","Du har ingen venner endnu. Find nogen ovenfor.":"You don't have any friends yet. Find someone above.",
  "Anbefalet af venner":"Recommended by friends","Demo: de andre brugere er opdigtede og svarer automatisk. Rigtig chat og opkald kræver en server.":"Demo: the other users are fictional and reply automatically. Real chat and calls require a server.",
@@ -3854,7 +3936,7 @@ EN_RX.push(
 /* Flere sprog: oversættelser fra engelsk til fransk, russisk, spansk, tysk, svensk og kinesisk.
    Dækker menuer, knapper og overskrifter. Længere tekster (fx ingredienser) vises på engelsk, hvis de ikke står her. */
 Object.assign(EN,{
- "20 % rabat på dit første køb":"20% off your first order","Trækkes automatisk fra i kurven – ingen kode":"Taken off automatically in the cart – no code needed",
+ "20 % rabat på dit første besøg":"20% off your first visit","Når du betaler regningen i appen – ingen kode":"When you pay the bill in the app – no code needed",
  "20 % på dit første køb er trukket fra":"20% off your first order has been applied","Første køb (20 %)":"First order (20%)","Gavekort":"Gift card",
  "Brug gavekort-saldo":"Use gift card balance","Betalingen er gennemført – du sparede 20 % på dit første køb":"Payment complete – you saved 20% on your first order",
  "Giv et gavekort":"Give a gift card","Køb en rabat til en ven – den sendes i jeres chat":"Buy a discount for a friend – it's sent in your chat",
@@ -3862,11 +3944,11 @@ Object.assign(EN,{
  "Til":"To","Beløb":"Amount","Hilsen (valgfri)":"Message (optional)","Fx: Tillykke – spis noget godt!":"E.g. Congrats – eat something nice!","Du betaler":"You pay",
  "Tilføj betalingskort":"Add payment card","Demo: der trækkes ingen rigtige penge.":"Demo: no real money is charged.","Gavekort · Gaffel":"Gift card · Gaffel",
  "Indløs gavekort":"Redeem gift card","Indløs":"Redeem","Lagt på din saldo":"Added to your balance","Ikke indløst endnu":"Not redeemed yet","Send gavekort":"Send gift card",
- "Din gavekort-saldo":"Your gift card balance","Trækkes automatisk fra ved din næste bestilling":"Taken off automatically on your next order",
+ "Din gavekort-saldo":"Your gift card balance","Trækkes fra, når du betaler din næste regning i appen":"Taken off when you pay your next bill in the app",
  "Køb et gavekort til en ven":"Buy a gift card for a friend","Modtaget":"Received","Sendt":"Sent","Du har ikke fået gavekort endnu.":"You haven't received any gift cards yet.",
  "Du har ikke sendt gavekort endnu.":"You haven't sent any gift cards yet.","Tilføj en ven først":"Add a friend first",
  "Pengene for et gavekort går til Gaffel, som betaler restauranten, når din ven bruger det. Demo: der trækkes ingen rigtige penge.":"The money for a gift card goes to Gaffel, which pays the restaurant when your friend uses it. Demo: no real money is charged.",
- "Lidt til din første bestilling!":"A little something for your first order!","Tusind tak for gavekortet! Det bruger jeg i aften.":"Thank you so much for the gift card! I'll use it tonight.",
+ "Lidt til dit første besøg!":"A little something for your first visit!","Tusind tak for gavekortet! Det bruger jeg i aften.":"Thank you so much for the gift card! I'll use it tonight.",
  "Skift profilbillede":"Change profile picture","Fjern billede":"Remove picture","Tryk på billedet for at tilføje et foto":"Tap the picture to add a photo",
  "Profilbilledet er gemt":"Profile picture saved","Profilbilledet er fjernet":"Profile picture removed","Vælg en billedfil":"Choose an image file",
  "Billedet er for stort (højst 15 MB)":"The image is too large (max 15 MB)","Billedet kunne ikke læses":"The image couldn't be read"
@@ -3877,6 +3959,45 @@ EN_RX.push(
  [/^Du sendte et gavekort på (.+)$/,"You sent a gift card worth $1"],[/^Sendte dig et gavekort på (.+)$/,"Sent you a gift card worth $1"],
  [/^Sendt til (.+)$/,"Sent to $1"],[/^([^ ]*\d[^ ]*(?: [^ ]+)?) fra (\S+)$/,"$1 from $2"],[/^([^ ]*\d[^ ]*(?: [^ ]+)?) til (\S+)$/,"$1 to $2"],[/^(.+) til rådighed$/,"$1 available"],
  [/^Betalingen går til Gaffel · (.+)$/,(m,a)=>`Payment goes to Gaffel · ${a==="ingen betalingsmetode"?"no payment method":a}`]
+);
+Object.assign(EN,{
+ "Book bord":"Book a table","Der trækkes ingen penge nu. Kommer du ikke, eller aflyser du senere end 24 timer før, trækker restauranten":"No money is charged now. If you don't show up, or cancel less than 24 hours before, the restaurant charges","Book igen":"Book again","Book igen hos":"Book again at","Ændr booking":"Change booking","Mine reservationer":"My reservations","Din reservation":"Your reservation",
+ "Din reservation i dag":"Your reservation today","Kort som garanti":"Card as guarantee","Gratis at booke":"Free to book","Dato":"Date","Tidspunkt":"Time","Fuldt":"Full",
+ "I dag":"Today","I morgen":"Tomorrow","Antal personer":"Number of people","Personer":"People","Over 12 personer? Ring til restauranten.":"More than 12 people? Call the restaurant.",
+ "Færre personer":"Fewer people","Flere personer":"More people","Kommentar til restauranten":"Note for the restaurant","Allergi":"Allergy","Fødselsdag":"Birthday","Barnestol":"High chair","Kørestol":"Wheelchair","Udendørs bord":"Outdoor table",
+ "Fx: Én af os har nøddeallergi":"E.g. One of us has a nut allergy","Der er ingen ledige tider denne dag. Vælg en anden dato.":"There are no free times this day. Pick another date.",
+ "Du betaler på restauranten – eller i appen, når I har spist.":"You pay at the restaurant – or in the app after you've eaten.",
+ "20 % på dit første besøg, når du betaler regningen i appen":"20% off your first visit when you pay the bill in the app",
+ "Vælg et tidspunkt":"Choose a time","Tilføj kort som garanti":"Add a card as guarantee","Bekræft booking":"Confirm booking","Gem ændringer":"Save changes",
+ "Bekræfter hos restauranten …":"Confirming with the restaurant …","Bordet er booket":"Your table is booked","Din booking er ændret":"Your booking has been changed",
+ "Bekræftet":"Confirmed","Bordet er reserveret til dig":"The table is reserved for you","Velbekomme":"Enjoy your meal","Betal regningen her, når I er færdige":"Pay the bill here when you're done",
+ "Tak for besøget":"Thanks for your visit","Regningen er betalt":"The bill has been paid","Aflyst":"Cancelled","Bookingen er aflyst":"The booking has been cancelled","Ankommet":"Arrived","Betalt":"Paid",
+ "Bookingnr.":"Booking no.","Kommentar":"Note","Betal på stedet eller i appen":"Pay on site or in the app","er gemt som garanti. Kommer du ikke, eller aflyser du senere end 24 timer før, trækkes":"is saved as a guarantee. If you don't show up or cancel less than 24 hours before, we charge","pr. person.":"per person.",
+ "Jeg er ankommet":"I've arrived","Betal regningen":"Pay the bill","Skriv en anmeldelse":"Write a review","Vej til restauranten":"Directions to the restaurant","Metro, til fods eller på cykel":"Metro, on foot or by bike",
+ "Se menuen":"See the menu","Gem de retter, du vil prøve":"Save the dishes you want to try","Inviter en ven":"Invite a friend","Send stedet i en chat":"Send the place in a chat","Aflys":"Cancel",
+ "Demo: restauranten er opdigtet, og bookingen gemmes kun på denne enhed.":"Demo: the restaurant is fictional, and the booking is only saved on this device.",
+ "Kommende":"Upcoming","Tidligere":"Earlier","Ingen kommende reservationer.":"No upcoming reservations.","Find en restaurant":"Find a restaurant",
+ "Gemte retter":"Saved dishes","Gem ret":"Save dish","Gemt":"Saved","Retten er gemt":"Dish saved","Fjernet fra gemte retter":"Removed from saved dishes",
+ "Retter du vil prøve. Vis dem til tjeneren, når du er der.":"Dishes you want to try. Show them to the waiter when you're there.",
+ "Du har ikke gemt nogen retter endnu. Tryk på hjertet ved en ret, du vil prøve.":"You haven't saved any dishes yet. Tap the heart on a dish you want to try.",
+ "Regningen fra restauranten":"The bill from the restaurant","Regning":"Bill","Drikkepenge":"Tip","Ingen":"None","Del regningen":"Split the bill","Ligeligt mellem":"Split equally between","Du betaler hele regningen":"You pay the whole bill",
+ "Send de andre deres del":"Send the others their share","Valgte venner får en betalingsanmodning i chatten.":"Selected friends get a payment request in the chat.","Tilføj venner for at sende dem deres del.":"Add friends to send them their share.",
+ "I alt for bordet":"Total for the table","20 % på dit første besøg er trukket fra":"20% off your first visit has been applied","Første besøg (20 %)":"First visit (20%)",
+ "Demo: regningen er et eksempel ud fra antal personer, og der trækkes ingen penge.":"Demo: the bill is an example based on the number of people, and no money is charged.",
+ "Du er her nu":"You're here now","Ingen åben regning":"No open bill","Når du har booket bord og er ankommet, kan du betale og dele regningen her.":"Once you've booked a table and arrived, you can pay and split the bill here.",
+ "Bord":"Table","Betalingsanmodning":"Payment request","Venter på betaling":"Waiting for payment","Betalt – tak for i aften!":"Paid – thanks for tonight!",
+ "Betalt – du sparede 20 % på dit første besøg":"Paid – you saved 20% on your first visit","Betalt – dine venner har fået deres del":"Paid – your friends have received their share",
+ "Velkommen! Betal regningen i appen, når I er færdige":"Welcome! Pay the bill in the app when you're done","Vil du aflyse bookingen?":"Do you want to cancel the booking?",
+ "Du aflyser senere end 24 timer før, så restauranten kan trække gebyret. Vil du stadig aflyse?":"You're cancelling less than 24 hours before, so the restaurant may charge the fee. Cancel anyway?",
+ "Åben nu":"Open now","Lukket nu":"Closed now","Restauranten er lukket lige nu. Du kan stadig booke bord til en anden dag.":"The restaurant is closed right now. You can still book a table for another day.",
+ "Hvor langt vil du gå?":"How far do you want to walk?","Tæt på – højst 15 min. gang":"Close by – at most a 15-minute walk","Gerne længere væk":"Further away is fine",
+ "Besøg og regninger":"Visits and bills","Bookinger":"Bookings","Regning ":"Bill","Betalt i appen":"Paid in the app"
+});
+EN_RX.push(
+ [/^(\d+) pers\.$/,"$1 people"],[/^Åbent (.+)$/,"Open $1"],[/^Din del \(1 af (\d+)\)$/,"Your share (1 of $1)"],[/^Drikkepenge \((\d+) %\)$/,"Tip ($1%)"],
+ [/^(\S+) har betalt$/,"$1 has paid"],[/^Betalingsanmodning på (.+)$/,"Payment request for $1"],[/^(\d+) kommende$/,"$1 upcoming"],[/^(\d+) betalt i appen$/,"$1 paid in the app"],
+ [/^(\d+) min\. gang herfra$/,"$1-minute walk from here"],
+ [/^(\d+) % rabat hos (.+) i dag – trækkes fra regningen, når du betaler i appen\.$/,"$1% off at $2 today – taken off the bill when you pay in the app."]
 );
 const LX_ROWS=`Home|Accueil|Главная|Inicio|Start|Hem|首页
 Eat together|Manger ensemble|Едим вместе|Comer juntos|Zusammen essen|Ät tillsammans|一起吃饭
@@ -4050,7 +4171,7 @@ Best first|Meilleurs d'abord|Сначала лучшие|Mejores primero|Beste z
 Worst first|Moins bons d'abord|Сначала худшие|Peores primero|Schlechteste zuerst|Sämst först|最差优先
 Example|Exemple|Пример|Ejemplo|Beispiel|Exempel|示例
 Directions|Itinéraire|Маршрут|Cómo llegar|Route|Vägbeskrivning|路线
-Gaffel – food delivered|Gaffel – livraison de repas|Gaffel – доставка еды|Gaffel – comida a domicilio|Gaffel – Essen geliefert|Gaffel – mat levererad|Gaffel – 美食外送
+Gaffel – find and book a table|Gaffel – trouver et restaurant et réserver|Gaffel – найди и забронируй столик|Gaffel – encuentra y reserva mesa|Gaffel – finden und Tisch reservieren|Gaffel – hitta och boka bord|Gaffel – 发现餐厅并订座
 20% off your first order|20 % de réduction sur votre première commande|Скидка 20 % на первый заказ|20 % de descuento en tu primer pedido|20 % Rabatt auf deine erste Bestellung|20 % rabatt på ditt första köp|首单立减 20%
 Taken off automatically in the cart – no code needed|Déduit automatiquement dans le panier – sans code|Вычитается автоматически в корзине – без кода|Se descuenta automáticamente en el carrito, sin código|Wird automatisch im Warenkorb abgezogen – kein Code nötig|Dras av automatiskt i varukorgen – ingen kod|在购物车中自动扣减，无需优惠码
 20% off your first order has been applied|La réduction de 20 % sur votre première commande est appliquée|Скидка 20 % на первый заказ применена|Se ha aplicado el 20 % de descuento en tu primer pedido|20 % Rabatt auf deine erste Bestellung wurden abgezogen|20 % rabatt på ditt första köp har dragits av|已减免首单 20%
@@ -4079,7 +4200,50 @@ Sent|Envoyées|Отправлено|Enviadas|Gesendet|Skickade|已发送
 Profile picture saved|Photo de profil enregistrée|Фото профиля сохранено|Foto de perfil guardada|Profilbild gespeichert|Profilbilden har sparats|头像已保存
 Remove picture|Supprimer la photo|Удалить фото|Quitar foto|Bild entfernen|Ta bort bild|移除头像
 Tap the picture to add a photo|Touchez l'image pour ajouter une photo|Нажмите на изображение, чтобы добавить фото|Toca la imagen para añadir una foto|Tippe auf das Bild, um ein Foto hinzuzufügen|Tryck på bilden för att lägga till ett foto|点击头像添加照片
-Change profile picture|Changer la photo de profil|Сменить фото профиля|Cambiar foto de perfil|Profilbild ändern|Byt profilbild|更换头像`;
+Change profile picture|Changer la photo de profil|Сменить фото профиля|Cambiar foto de perfil|Profilbild ändern|Byt profilbild|更换头像
+Book a table|Réserver une table|Забронировать столик|Reservar mesa|Tisch reservieren|Boka bord|预订餐桌
+Book again|Réserver à nouveau|Забронировать снова|Reservar de nuevo|Erneut reservieren|Boka igen|再次预订
+My reservations|Mes réservations|Мои бронирования|Mis reservas|Meine Reservierungen|Mina bokningar|我的预订
+Your reservation|Votre réservation|Ваше бронирование|Tu reserva|Deine Reservierung|Din bokning|您的预订
+Your reservation today|Votre réservation aujourd'hui|Ваше бронирование сегодня|Tu reserva de hoy|Deine Reservierung heute|Din bokning idag|今天的预订
+Card as guarantee|Carte en garantie|Карта как гарантия|Tarjeta como garantía|Karte als Garantie|Kort som garanti|银行卡担保
+Free to book|Réservation gratuite|Бесплатное бронирование|Reserva gratis|Kostenlos reservieren|Gratis att boka|免费预订
+Date|Date|Дата|Fecha|Datum|Datum|日期
+Time|Heure|Время|Hora|Uhrzeit|Tid|时间
+Full|Complet|Занято|Completo|Ausgebucht|Fullt|已满
+Today|Aujourd'hui|Сегодня|Hoy|Heute|Idag|今天
+Tomorrow|Demain|Завтра|Mañana|Morgen|I morgon|明天
+Number of people|Nombre de personnes|Количество гостей|Número de personas|Anzahl Personen|Antal personer|人数
+Note for the restaurant|Note pour le restaurant|Комментарий для ресторана|Nota para el restaurante|Notiz für das Restaurant|Kommentar till restaurangen|给餐厅的备注
+Allergy|Allergie|Аллергия|Alergia|Allergie|Allergi|过敏
+Birthday|Anniversaire|День рождения|Cumpleaños|Geburtstag|Födelsedag|生日
+High chair|Chaise haute|Детский стул|Trona|Kinderstuhl|Barnstol|儿童椅
+Choose a time|Choisissez une heure|Выберите время|Elige una hora|Uhrzeit wählen|Välj en tid|选择时间
+Confirm booking|Confirmer la réservation|Подтвердить бронь|Confirmar reserva|Reservierung bestätigen|Bekräfta bokning|确认预订
+Your table is booked|Votre table est réservée|Столик забронирован|Tu mesa está reservada|Dein Tisch ist reserviert|Ditt bord är bokat|餐桌已预订
+Confirmed|Confirmée|Подтверждено|Confirmada|Bestätigt|Bekräftad|已确认
+Cancelled|Annulée|Отменено|Cancelada|Storniert|Avbokad|已取消
+Paid|Payé|Оплачено|Pagado|Bezahlt|Betald|已支付
+I've arrived|Je suis arrivé|Я пришёл|He llegado|Ich bin da|Jag har kommit|我已到店
+Pay the bill|Payer l'addition|Оплатить счёт|Pagar la cuenta|Rechnung bezahlen|Betala notan|支付账单
+Directions to the restaurant|Itinéraire vers le restaurant|Маршрут до ресторана|Cómo llegar al restaurante|Weg zum Restaurant|Vägen till restaurangen|前往餐厅的路线
+See the menu|Voir le menu|Посмотреть меню|Ver el menú|Speisekarte ansehen|Se menyn|查看菜单
+Invite a friend|Inviter un ami|Пригласить друга|Invitar a un amigo|Freund einladen|Bjud in en vän|邀请好友
+Cancel|Annuler|Отменить|Cancelar|Stornieren|Avboka|取消
+Saved dishes|Plats enregistrés|Сохранённые блюда|Platos guardados|Gespeicherte Gerichte|Sparade rätter|收藏的菜品
+Save dish|Enregistrer|Сохранить блюдо|Guardar plato|Gericht merken|Spara rätt|收藏菜品
+Saved|Enregistré|Сохранено|Guardado|Gemerkt|Sparad|已收藏
+Bill|Addition|Счёт|Cuenta|Rechnung|Nota|账单
+Tip|Pourboire|Чаевые|Propina|Trinkgeld|Dricks|小费
+Split the bill|Partager l'addition|Разделить счёт|Dividir la cuenta|Rechnung teilen|Dela notan|分摊账单
+Total for the table|Total pour la table|Итого за столик|Total de la mesa|Summe für den Tisch|Totalt för bordet|整桌合计
+No open bill|Aucune addition ouverte|Нет открытого счёта|No hay cuenta abierta|Keine offene Rechnung|Ingen öppen nota|暂无待付账单
+Payment request|Demande de paiement|Запрос на оплату|Solicitud de pago|Zahlungsanfrage|Betalningsförfrågan|付款请求
+Open now|Ouvert|Открыто|Abierto|Jetzt geöffnet|Öppet nu|营业中
+Closed now|Fermé|Закрыто|Cerrado|Jetzt geschlossen|Stängt nu|已打烊
+Visits and bills|Visites et additions|Визиты и счета|Visitas y cuentas|Besuche und Rechnungen|Besök och notor|到访与账单
+20% off your first visit|20 % de réduction sur votre première visite|Скидка 20 % на первый визит|20 % de descuento en tu primera visita|20 % Rabatt auf deinen ersten Besuch|20 % rabatt på ditt första besök|首次到店立减 20%
+When you pay the bill in the app – no code needed|En payant l'addition dans l'app – sans code|При оплате счёта в приложении – без кода|Al pagar la cuenta en la app, sin código|Wenn du die Rechnung in der App bezahlst – kein Code nötig|När du betalar notan i appen – ingen kod|在应用内支付账单时生效，无需优惠码`;
 const LX={fr:{},ru:{},es:{},de:{},sv:{},zh:{}};
 for(const row of LX_ROWS.split("\n")){const p=row.split("|");if(p.length!==7)continue;["fr","ru","es","de","sv","zh"].forEach((l,i)=>LX[l][p[0]]=p[i+1]);}
 function trCore(c){
@@ -4111,7 +4275,7 @@ const trObserver=new MutationObserver(ms=>{if(S.lang==="da")return;for(const m o
 function setLang(l){
   S.lang=LANGS[l]?l:"da";save();
   document.documentElement.lang=S.lang;
-  document.title=S.lang==="da"?"Gaffel – mad leveret":tr("Gaffel – mad leveret");
+  document.title=S.lang==="da"?"Gaffel – find og book bord":tr("Gaffel – find og book bord");
   render();
 }
 
@@ -4123,7 +4287,7 @@ S.orders.forEach(o=>stamp(o.rid,true));
 {const d=new Date(),key=`-${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;for(const k of Object.keys(S.tables))if(!k.endsWith(key))delete S.tables[k];}
 ["view","sheet","toast","tabbar"].forEach(id=>trObserver.observe(document.getElementById(id),{childList:true,subtree:true}));
 document.documentElement.lang=S.lang;
-if(S.lang!=="da")document.title=tr("Gaffel – mad leveret");
+if(S.lang!=="da")document.title=tr("Gaffel – find og book bord");
 if(gpsPolicy()===false) S.gps={status:"off",err:"",blocked:true};
 render();
 // Start GPS automatisk, hvis brugeren allerede har givet tilladelse

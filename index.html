@@ -1474,7 +1474,7 @@ const catTxt=c=>({Bowls:"Bowls & salater",Dansk:"Dansk smørrebrød",Pasta:"Fris
 function nearestArea(p){return AREAS.slice().sort((a,b)=>dist(p,a)-dist(p,b))[0];}
 function gpsPolicy(){try{const p=document.permissionsPolicy||document.featurePolicy;if(p&&p.allowsFeature)return p.allowsFeature("geolocation");}catch(e){}return null;}
 function embedded(){try{return window.self!==window.top;}catch(e){return true;}}
-const BLOCKED_MSG="GPS'en er spærret i denne visning, fordi appen vises inde i en anden side. Åbn appen i sin egen fane på https://preppya.github.io/gaffel/, så virker GPS'en. Indtil da kan du vælge dit område nedenfor.";
+const BLOCKED_MSG="GPS'en er spærret i denne visning, fordi appen vises inde i en anden side. Åbn appen i sin egen fane på https://preppya.github.io/seated/, så virker GPS'en. Indtil da kan du vælge dit område nedenfor.";
 const DENIED_MSG="Adgang til lokation blev afvist. Tillad placering for browseren i telefonens indstillinger (iPhone: Anonymitet og sikkerhed → Lokalitetstjenester → Safari-websteder; Android: Indstillinger → Placering → Chrome) og for siden i browseren. Prøv så igen.";
 async function gpsDiag(){
   const d={secure:window.isSecureContext,api:"geolocation" in navigator,policy:gpsPolicy(),embedded:embedded(),perm:"ukendt"};
@@ -3187,7 +3187,7 @@ function svgMap(){
   for(const r of RESTAURANTS.filter(x=>S.mapCat==="Alle"||x.cat===S.mapCat)){const [x,y]=P(r.lat,r.lng),sel=S.mapSel===r.id||(S.dir&&S.dir.rid===r.id);
     s+=`<g class="svgpin" data-act="map-sel" data-r="${r.id}" role="button" aria-label="${esc(r.name)}"><circle cx="${x}" cy="${y}" r="${sel?11:8}" fill="${sel?"var(--accent)":"var(--btn)"}" stroke="#fff" stroke-width="3"/>${sel?`<text x="${x}" y="${+y-16}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">${esc(r.name)}</text>`:""}</g>`;}
   if(S.loc){const [x,y]=P(S.loc.lat,S.loc.lng);s+=`<circle cx="${x}" cy="${y}" r="7" fill="#2E7DF6" stroke="#fff" stroke-width="3"/>`;}
-  return s+`</svg><p class="svgnote">Kortfliserne kunne ikke hentes her. Viser en skitse – åbn appen på preppya.github.io/gaffel for det fulde kort.</p>`;
+  return s+`</svg><p class="svgnote">Kortfliserne kunne ikke hentes her. Viser en skitse – åbn appen på preppya.github.io/seated for det fulde kort.</p>`;
 }
 
 /* ---------- Skrabekalender, point og kuponer ----------
@@ -3531,7 +3531,7 @@ const EN={
  "Stop GPS-sporing":"Stop GPS tracking","Prøv igen":"Try again","Brug enhedens GPS":"Use device GPS","GPS-tjek":"GPS check","Sikker forbindelse (https)":"Secure connection (https)","Browseren har GPS":"Browser has GPS",
  "Siden må bruge GPS":"Page may use GPS","Din tilladelse":"Your permission","Vises":"Shown","Eller vælg et område":"Or choose an area","Ja":"Yes","Nej":"No","Ukendt":"Unknown","Givet":"Granted","Ikke spurgt endnu":"Not asked yet","Afvist":"Denied",
  "Inde i en anden side":"Inside another page","I egen fane":"In its own tab",
- "GPS'en er spærret i denne visning, fordi appen vises inde i en anden side. Åbn appen i sin egen fane på https://preppya.github.io/gaffel/, så virker GPS'en. Indtil da kan du vælge dit område nedenfor.":"GPS is blocked in this view because the app is shown inside another page. Open the app in its own tab at https://preppya.github.io/gaffel/ and GPS will work. Until then you can choose your area below.",
+ "GPS'en er spærret i denne visning, fordi appen vises inde i en anden side. Åbn appen i sin egen fane på https://preppya.github.io/seated/, så virker GPS'en. Indtil da kan du vælge dit område nedenfor.":"GPS is blocked in this view because the app is shown inside another page. Open the app in its own tab at https://preppya.github.io/seated/ and GPS will work. Until then you can choose your area below.",
  "Adgang til lokation blev afvist. Tillad placering for browseren i telefonens indstillinger (iPhone: Anonymitet og sikkerhed → Lokalitetstjenester → Safari-websteder; Android: Indstillinger → Placering → Chrome) og for siden i browseren. Prøv så igen.":"Location access was denied. Allow location for your browser in the phone's settings (iPhone: Privacy & Security → Location Services → Safari Websites; Android: Settings → Location → Chrome) and for this page in the browser. Then try again.",
  "GPS'en svarede ikke i tide. Gå evt. udendørs eller tæt på et vindue, og prøv igen.":"GPS didn't respond in time. Try going outside or near a window, and try again.",
  "Positionen kunne ikke bestemmes. Tjek at lokationstjenester er slået til på enheden.":"Your position could not be determined. Check that location services are turned on.",
@@ -3866,7 +3866,7 @@ Object.assign(EN,{
  "Estimat i fugleflugt – henter rute …":"Straight-line estimate – fetching route …","Gårute fra OpenStreetMap.":"Walking route from OpenStreetMap.","Cykelrute fra OpenStreetMap ad cykelstier, hvor det er muligt.":"Cycling route from OpenStreetMap, using bike lanes where possible.",
  "Åbn i Google Maps":"Open in Google Maps","Åbn i Apple Maps":"Open in Apple Maps","Metroen kører ca. hvert 3.–6. minut.":"The metro runs roughly every 3–6 minutes.",
  "mod Vestamager eller Lufthavnen":"towards Vestamager or the Airport","Skitse af København med restauranter og metrolinjer":"Sketch of Copenhagen with restaurants and metro lines",
- "Kortfliserne kunne ikke hentes her. Viser en skitse – åbn appen på preppya.github.io/gaffel for det fulde kort.":"The map tiles couldn't be loaded here. Showing a sketch – open the app at preppya.github.io/gaffel for the full map."
+ "Kortfliserne kunne ikke hentes her. Viser en skitse – åbn appen på preppya.github.io/seated for det fulde kort.":"The map tiles couldn't be loaded here. Showing a sketch – open the app at preppya.github.io/seated for the full map."
 });
 EN_RX.push(
  [/^(\d+) steder$/,"$1 places"],[/^(\d+) m til restauranten$/,"$1 m to the restaurant"],[/^Køkkener$/,"Cuisines"],[/^· (.+)$/,(m,x)=>"· "+trCore(x)],[/^Hvordan var (.+)\?$/,"How was $1?"],

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#FFF0F5">
+<meta name="theme-color" content="#F7F5F8">
 <title>Seated – find og book bord</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,10 +12,10 @@
 <style>
 /* Visuel identitet: lavender blush som baggrund, lavendel som flader, dyb blomme til tekst og knapper */
 :root{
-  --bg:#FFF0F5; --card:#FFFFFF; --tile:#F3F0FB; --lav:#E6E6FA; --ink:#2A2140; --ink-2:#776C8C; --line:#EADFEA;
-  --btn:#4B3B6B; --btn-ink:#FFFFFF; --accent:#A23E72; --accent-soft:#FBE4EE; --hero:#3D2F5A;
-  --map:#EFEAF7; --block:#E3DCF0; --street:#FFFFFF;
-  --shadow:0 1px 2px rgba(75,59,107,.04),0 10px 26px rgba(75,59,107,.07);
+  --bg:#F7F5F8; --card:#FFFFFF; --tile:#F1EEF4; --lav:#ECE7F3; --ink:#1C1626; --ink-2:#6E6680; --line:#E5E0EA;
+  --btn:#2E2342; --btn-ink:#FFFFFF; --accent:#8E3B62; --accent-soft:#F4E9EF; --hero:#2A2038;
+  --map:#EFEAF4; --block:#E2DCEB; --street:#FFFFFF;
+  --shadow:0 1px 2px rgba(28,22,38,.04),0 6px 18px rgba(28,22,38,.05);
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
@@ -364,7 +364,7 @@ body.has-tabs .float{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 .sec-h.small h2{font-size:19px}
 
 /* Mørkt betalingsdesign (kort, Apple Pay) */
-body[data-ui="dark"]{--bg:#0B0A0E;--card:#16141B;--tile:#201D27;--lav:#2A2533;--ink:#F3F1F7;--ink-2:#8D8898;--line:#2A2631;--btn:#F3F1F7;--btn-ink:#111015;--accent:#FF5A36;--accent-soft:#33190F;--shadow:none;color-scheme:dark}
+body[data-ui="dark"]{--bg:#1A1027;--card:#24183A;--tile:#2E2148;--lav:#382A55;--ink:#F4EFFB;--ink-2:#B3A6CC;--line:#3B2D57;--btn:#EDE6FA;--btn-ink:#1E1430;--accent:#E7A6CC;--accent-soft:#3A2240;--shadow:none;color-scheme:dark}
 .whead{display:flex;align-items:center;gap:10px;padding:20px 18px 12px}
 .whead h1{font-size:27px;font-weight:600;margin-right:auto;letter-spacing:-.01em}
 .cards-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 18px 10px;scrollbar-width:none}
@@ -855,6 +855,48 @@ body.on-map .app{padding-bottom:0}
 .badge.on span{background:linear-gradient(140deg,#F5A524,#E07B39);color:#fff}
 
 @media (prefers-reduced-motion:reduce){.dot.live,.dot.seek{animation:none}.prog i{transition:none}.radar::before,.radar::after{animation:none;opacity:.25;transform:scale(.9)}.spin{animation-duration:3s}}
+
+/* ---------- Formelt udtryk ----------
+   Roligere farver, mindre runde hjørner, serif-overskrifter og tynde linjer i stedet for farveforløb. */
+body{font-weight:450;letter-spacing:.005em}
+.top h1,.whead h1{font:600 20px/1.2 "Playfair Display",Georgia,serif;letter-spacing:.01em}
+.whead h1{font-size:28px}
+.sec-h h2,.ptitle,.mh{letter-spacing:.005em}
+.eyebrow{letter-spacing:.18em;font-size:10.5px}
+.hello{letter-spacing:.02em}
+.card{border-radius:14px}
+.chip{border-radius:8px;padding:9px 16px;box-shadow:none;font-size:13.5px;letter-spacing:.01em}
+.chip[aria-pressed="true"]{background:var(--btn);color:var(--btn-ink);border-color:var(--btn)}
+.qa{border-radius:12px;box-shadow:none}
+.pill-btn,.primary,.ghost-btn,.sec-btn,.float,.search,.langbtn,.cur-btn,.danger,.applepay-btn{border-radius:10px}
+.pill{border-radius:8px}
+.pillsm{border-radius:8px}
+.filter{border-radius:10px}
+.pill-btn{box-shadow:none;letter-spacing:.01em}
+.primary,.ghost-btn,.float{letter-spacing:.02em}
+.float{box-shadow:0 10px 30px rgba(28,22,38,.22)}
+.meet-inline{border-radius:12px;background:var(--card)}
+.meet-inline .ic{border-radius:10px;background:var(--tile)}
+.stepper{border-radius:10px}.stepper button{border-radius:8px}
+.slot{border-radius:8px}
+.wcard,.ccv,.addslot,.emptycard{border-radius:16px}
+.wact{border-radius:10px}
+.giftcard{border-radius:14px}
+.meet-cta{border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.talkcard,.vchip{background:var(--card)}
+.savepill{background:var(--card);color:var(--ink);border:1px solid var(--line);box-shadow:none;padding:8px 14px}
+.scbanner{background:linear-gradient(135deg,#2E2342,#5B2E4C)}
+.firstbanner{background:var(--card);border:1px solid var(--line)}
+.fpct{border-radius:8px;font-family:"Playfair Display",Georgia,serif}
+.gic{border-radius:10px}
+.tabbar button span{letter-spacing:.02em}
+
+/* Regning: mørkelilla baggrund med et blødt lysskær */
+body[data-ui="dark"]{background:radial-gradient(110% 55% at 88% -8%,rgba(196,150,255,.55),transparent 62%),radial-gradient(90% 45% at -12% 34%,rgba(186,80,140,.40),transparent 60%),radial-gradient(80% 40% at 60% 105%,rgba(120,90,200,.22),transparent 65%),#1A1027;background-attachment:fixed}
+body[data-ui="dark"] .wcard{background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.025));border-color:rgba(255,255,255,.12);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+body[data-ui="dark"] .billnow{box-shadow:0 0 0 1px rgba(214,180,255,.18),0 18px 50px rgba(150,100,240,.28)}
+body[data-ui="dark"] .tabbar{background:rgba(26,16,39,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top-color:rgba(255,255,255,.08)}
+body[data-ui="dark"] .whead .circ{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14)}
 </style>
 </head>
 <body>
@@ -2425,7 +2467,7 @@ function updateChrome(){
   document.body.classList.toggle("on-map",S.view==="map");
   const dark=["wallet","addcard"].includes(S.view);
   document.body.dataset.ui=dark?"dark":"";
-  const tc=document.querySelector('meta[name="theme-color"]');if(tc)tc.content=dark?"#0B0A0E":"#FFF0F5";
+  const tc=document.querySelector('meta[name="theme-color"]');if(tc)tc.content=dark?"#1A1027":"#F7F5F8";
   tb.hidden=!show;
   if(show)tb.innerHTML=TABS.map(([v,l,ic])=>`<button data-act="tab-${v}" aria-current="${S.view===v?"page":"false"}">${IC[ic]}<span>${l}</span></button>`).join("");
 }

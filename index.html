@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#FFF0F5">
-<title>Gaffel – find og book bord</title>
+<title>Seated – find og book bord</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%234B3B6B'/%3E%3Cpath d='M15.5 9.5v6.7a3.2 3.2 0 0 0 2.6 3.1V30a1.9 1.9 0 0 0 3.8 0V19.3a3.2 3.2 0 0 0 2.6-3.1V9.5M18.7 9.5v6.2M21.3 9.5v6.2' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%234B3B6B'/%3E%3Cpath d='M15.2 9.6c-.7 4.1-.7 8.3.1 12.4h10.6M15.9 22l-1.2 8.4M25.2 22l1.2 8.4M16.3 26.4h8.6' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 /* Visuel identitet: lavender blush som baggrund, lavendel som flader, dyb blomme til tekst og knapper */
 :root{
@@ -1130,8 +1130,8 @@ const IC={
 const LOCALES={da:"da-DK",en:"en-GB",fr:"fr-FR",ru:"ru-RU",es:"es-ES",de:"de-DE",sv:"sv-SE",zh:"zh-CN"};
 const LOC=()=>LOCALES[S.lang]||"da-DK";
 const DS=()=>S.lang==="en"||S.lang==="zh"?".":",";
-// Logo: en gaffel i en tallerken
-const LOGO=`<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.6" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="20" cy="20" r="14.4" fill="none" stroke="currentColor" stroke-width=".8" opacity=".55"/><path d="M15.5 9.5v6.7a3.2 3.2 0 0 0 2.6 3.1V30a1.9 1.9 0 0 0 3.8 0V19.3a3.2 3.2 0 0 0 2.6-3.1V9.5M18.7 9.5v6.2M21.3 9.5v6.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+// Logo: en stol i en tallerken – Seated
+const LOGO=`<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.6" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="20" cy="20" r="14.4" fill="none" stroke="currentColor" stroke-width=".8" opacity=".55"/><path d="M15.2 9.6c-.7 4.1-.7 8.3.1 12.4h10.6M15.9 22l-1.2 8.4M25.2 22l1.2 8.4M16.3 26.4h8.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
 /* ---------- Data ---------- */
 const CURRENCIES={
@@ -1596,7 +1596,7 @@ function floatBtn(){const b=upcoming()[0];if(!b||b.date!==dKey(new Date()))retur
 /* ---------- Forside ---------- */
 function vHome(){
   const st=S.gps.status, live=st==="live"&&S.loc&&!S.loc.manual;
-  return `<header class="hhead"><h1 class="logo" aria-label="Gaffel" translate="no">${LOGO}<span>Gaffel</span></h1><button class="langbtn" data-act="lang-sheet" aria-label="Skift sprog">${IC.globe}<span translate="no">${S.lang.toUpperCase()}</span></button>${friendsCirc()}${cartCirc()}</header>
+  return `<header class="hhead"><h1 class="logo" aria-label="Seated" translate="no">${LOGO}<span>Seated</span></h1><button class="langbtn" data-act="lang-sheet" aria-label="Skift sprog">${IC.globe}<span translate="no">${S.lang.toUpperCase()}</span></button>${friendsCirc()}${cartCirc()}</header>
    <p class="hello">${greet()} · Restauranter i København</p>
    <div class="locrow">
      <button class="loc-btn" data-act="gps-sheet"><i class="dot ${live?"live":st==="seeking"?"seek":""}"></i><span>${esc(gpsLabel())}${live?` · ±${S.loc.acc} m`:""}</span></button>
@@ -1702,7 +1702,7 @@ function vItem(){
    </div>`;
 }
 /* ---------- Bordbooking ----------
-   Gaffel finder restauranter, viser menuer og booker bord. Det er gratis at booke, og man betaler på restauranten
+   Seated finder restauranter, viser menuer og booker bord. Det er gratis at booke, og man betaler på restauranten
    – eller betaler og deler regningen i appen bagefter. Nogle steder kræver et kort som garanti mod udeblivelse.
    Demo: restauranterne er opdigtede, og bookinger gemmes kun på denne enhed. */
 const GUAR={bistro:200,sushi:150,tapas:100,smorrebrod:100,seoul:100};
@@ -2256,7 +2256,7 @@ document.addEventListener("click",e=>{
     case "table-checkin":{const t=tablesToday().find(x=>x.id===b.dataset.t);S.visits[t.rid]={at:Date.now(),how:"Fællesbord"};S.tables[t.id].status="checked";S.badges.table=S.badges.table||Date.now();S.talkIdx=Math.floor(Math.random()*TALK_CARDS.length);
       stamp(t.rid);armSafety({type:"table",rid:t.rid,names:listNames(t.guests.slice(0,3).map(g=>g.name))});save();render();window.scrollTo(0,0);break;}
     case "table-rate":S.tables[b.dataset.t].status="done";S.safe=null;save();render();window.scrollTo(0,0);toast(b.dataset.v==="1"?"Tak! Vi glæder os til at se dig igen":"Tak for svaret – vi finder et bedre bord næste gang");break;
-    case "table-share":{const t=tablesToday().find(x=>x.id===b.dataset.t),r=RESTAURANTS.find(x=>x.id===t.rid),txt=tr(`Jeg spiser ved et fællesbord på ${r.name} kl. ${t.slot} ${t.day} (via Gaffel).`);
+    case "table-share":{const t=tablesToday().find(x=>x.id===b.dataset.t),r=RESTAURANTS.find(x=>x.id===t.rid),txt=tr(`Jeg spiser ved et fællesbord på ${r.name} kl. ${t.slot} ${t.day} (via Seated).`);
       if(navigator.share)navigator.share({text:txt}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>toast("Kopieret – send det til en ven"),()=>toast(txt));break;}
     case "talk-next":S.talkIdx=(S.talkIdx+1)%TALK_CARDS.length;keepScroll();break;
     /* Tryghedstjek */
@@ -2320,7 +2320,7 @@ document.addEventListener("click",e=>{
     case "gift-redeem":redeemGift(b.dataset.u,b.dataset.at);if(S.view==="gifts")keepScroll();break;
     case "photo-remove":{const all=accounts(),a=me();if(a){delete all[a.email].photo;saveAccounts(all);keepScroll();toast("Profilbilledet er fjernet");}break;}
     case "go-friends-sheet":closeSheet();S.fq="";go("friends");break;
-    case "share-handle":{const txt=tr(`Find mig på Gaffel: @${myHandle()}`);if(navigator.share)navigator.share({text:txt}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>toast("Kopieret – send det til en ven"),()=>toast(txt));break;}
+    case "share-handle":{const txt=tr(`Find mig på Seated: @${myHandle()}`);if(navigator.share)navigator.share({text:txt}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>toast("Kopieret – send det til en ven"),()=>toast(txt));break;}
     case "fr-add":{const id=b.dataset.u,so=social();if(so.sent.includes(id))break;so.sent.push(id);save();
       const fr=$("#fresults");if(fr){b.textContent=tr("Sendt");b.disabled=true;b.classList.remove("on");}toast("Venneanmodning sendt");
       setTimeout(()=>{const s2=social();if(!s2.sent.includes(id))return;s2.sent=s2.sent.filter(x=>x!==id);if(!s2.friends.includes(id))s2.friends.push(id);save();
@@ -2354,7 +2354,7 @@ document.addEventListener("click",e=>{
     case "go-passport":go("passport");break;
     case "copy-code":{const v=b.dataset.v;if(navigator.clipboard)navigator.clipboard.writeText(v).then(()=>toast("Koden er kopieret"),()=>toast(v));else toast(v);break;}
     case "meet-share":{const m=S.meet,r=RESTAURANTS.find(x=>x.id===m.match.rid);
-      const txt=`Jeg spiser på ${r.name} kl. ${m.match.slot} ${m.day} med ${listNames(m.match.people.map(p=>p.name))} (aftalt via Gaffel).`;
+      const txt=`Jeg spiser på ${r.name} kl. ${m.match.slot} ${m.day} med ${listNames(m.match.people.map(p=>p.name))} (aftalt via Seated).`;
       if(navigator.share)navigator.share({text:tr(txt)}).catch(()=>{});
       else if(navigator.clipboard)navigator.clipboard.writeText(tr(txt)).then(()=>toast("Kopieret – send det til en ven"),()=>toast(txt));
       else toast(txt);break;}
@@ -2507,8 +2507,8 @@ function authView(){
   const up=S.authTab==="up",e=S.authErr||{};
   return `<div class="auth">
     <div class="alogo">${LOGO}</div>
-    <h1 class="mh">Velkommen til Gaffel</h1>
-    <p class="intro">Gem dine ordrer, betalingskort og anmeldelser – og find spisemakkere med din profil.</p>
+    <h1 class="mh">Velkommen til Seated</h1>
+    <p class="intro">Gem dine bookinger, betalingskort og anmeldelser – og find spisemakkere med din profil.</p>
     <div class="seg" role="group" aria-label="Log ind eller opret"><button data-act="auth-tab" data-v="in" aria-pressed="${!up}">Log ind</button><button data-act="auth-tab" data-v="up" aria-pressed="${up}">Opret profil</button></div>
     <form class="aform" data-form="${up?"up":"in"}" novalidate>
       ${e.form?`<div class="errbox">${esc(e.form)}</div>`:""}
@@ -2601,7 +2601,7 @@ function payMethod(){const w=S.wallet;
   const c=w.cards.find(x=>x.id===w.def)||w.cards[0];return c?c.id:(w.apple?"apple":null);}
 function cardVis(c,id){
   return `<div class="ccv v${(c.color||0)%4} ${c.frozen?"frozen":""}" ${id?`id="${id}"`:""} role="img" aria-label="${esc(BRAND[c.brand]||"Kort")} ${c.last4?"•••• "+c.last4:""}">
-    <span class="cbrand" translate="no">Gaffel</span><span class="nfc">${IC.nfc}</span><span class="cchip"></span>
+    <span class="cbrand" translate="no">Seated</span><span class="nfc">${IC.nfc}</span><span class="cchip"></span>
     <span class="cnum" data-cv="num" translate="no">${esc(c.numDisp||"•••• •••• •••• "+(c.last4||"••••"))}</span>
     <span class="cmeta"><span><small>Kortholder</small><b data-cv="name" translate="no">${esc(c.name||"")||"—"}</b></span><span><small>Udløber</small><b data-cv="exp" translate="no">${esc(c.exp||"MM/ÅÅ")}</b></span></span>
     <span class="cnet" data-cv="net">${netLogo(c.brand)}</span>
@@ -2717,7 +2717,7 @@ function payNow(){
 function applePaySheet(total){
   const b=S.bookings.find(x=>x.id===S.billId),r=RESTAURANTS.find(x=>x.id===b.rid),c=S.wallet.cards.find(x=>x.id===S.wallet.def&&!x.frozen)||S.wallet.cards.find(x=>!x.frozen);
   openSheet("apple",`<div class="aph"><span class="aplogo" translate="no">Apple Pay</span><button class="circ sm" data-act="sheet-close" aria-label="Luk">${IC.x}</button></div>
-    <dl class="kv"><dt>Modtager</dt><dd>Gaffel · ${esc(r.name)}</dd><dt>Betalingskort</dt><dd>${c?esc(payLabel(c.id)):"Kort i Wallet"}</dd><dt>Bord</dt><dd>${bkWhen(b)}</dd></dl>
+    <dl class="kv"><dt>Modtager</dt><dd>Seated · ${esc(r.name)}</dd><dt>Betalingskort</dt><dd>${c?esc(payLabel(c.id)):"Kort i Wallet"}</dd><dt>Bord</dt><dd>${bkWhen(b)}</dd></dl>
     <div class="aptot"><span>I alt</span><b>${price(total)}</b></div>
     <button class="apconfirm" data-act="apple-confirm">${IC.face}<span>Bekræft med Face ID</span></button>
     <p class="demo">Demo: Apple Pay er simuleret. Rigtig Apple Pay kræver et Apple Pay-merchant-ID og en betalingsudbyder.</p>`);
@@ -2796,7 +2796,7 @@ function rvCard(x,showRest){
     ${x.own?`<div class="rvown"><button class="see" data-act="review-edit" data-r="${x.rid}" data-id="${x.id}">${IC.edit} Rediger</button><button class="see" data-act="review-del" data-r="${x.rid}" data-id="${x.id}">${IC.trash} Slet</button></div>`:""}</article>`;}
 function rvCta(r){const mine=(S.reviews[r.id]||[]).length;
   return canReview(r)?`<button class="primary center" data-act="review-write" data-r="${r.id}">${IC.star}&nbsp; ${mine?"Skriv en ny anmeldelse":"Skriv en anmeldelse"}</button>`
-    :`<button class="sec-btn" style="margin:0" data-act="review-visit" data-r="${r.id}">${IC.star}&nbsp; Jeg har spist her – skriv en anmeldelse</button><p class="note" style="text-align:center;margin:0">Har du spist her uden at bestille via Gaffel? Du kan stadig dele din oplevelse.</p>`;}
+    :`<button class="sec-btn" style="margin:0" data-act="review-visit" data-r="${r.id}">${IC.star}&nbsp; Jeg har spist her – skriv en anmeldelse</button><p class="note" style="text-align:center;margin:0">Har du spist her uden at booke via Seated? Du kan stadig dele din oplevelse.</p>`;}
 function reviewBlock(r){const {n}=ratingOf(r),list=reviewsFor(r).sort((a,b)=>b.at-a.at).slice(0,2);
   return `<div class="sec-h"><div><span class="eyebrow">${revTxt(n)} bedømmelser</span><h2>Anmeldelser</h2></div><button class="see" data-act="reviews-all" data-r="${r.id}">Se alle ${IC.arrow}</button></div>
    ${rvSummary(r)}<div class="list" style="padding-top:12px">${list.map(x=>rvCard(x)).join("")}${rvCta(r)}</div>`;}
@@ -2877,7 +2877,7 @@ function vTable(){
   const t=tablesToday().find(x=>x.id===S.tableId);if(!t){S.view="meet";return vMeet();}
   const r=RESTAURANTS.find(x=>x.id===t.rid),th=THEMES[t.theme],bk=S.tables[t.id],free=t.seats-t.taken,a=me();
   let tail;
-  if(!bk) tail=`<ul class="safe">${["Du betaler kun for din egen mad – direkte i appen","Bordet står klar i Gaffels navn, når du kommer","Meld afbud senest kl. 16, så en anden kan få pladsen","Tryghedstjek starter, når du tjekker ind"].map(x=>`<li>${IC.shield}<span>${x}</span></li>`).join("")}</ul>
+  if(!bk) tail=`<ul class="safe">${["Du betaler kun for din egen mad – direkte i appen","Bordet står klar i dit navn, når du kommer","Meld afbud senest kl. 16, så en anden kan få pladsen","Tryghedstjek starter, når du tjekker ind"].map(x=>`<li>${IC.shield}<span>${x}</span></li>`).join("")}</ul>
     ${free?`<button class="primary center" data-act="table-book" data-t="${t.id}">${IC.people}&nbsp; Tag en plads</button>`:`<button class="primary center" disabled>Bordet er fuldt</button>`}`;
   else if(bk.status==="booked") tail=`<div class="acts"><button class="card act" data-act="table-share" data-t="${t.id}"><span class="ic">${IC.share}</span>Del med en ven</button><button class="card act" data-act="table-checkin" data-t="${t.id}"><span class="ic">${IC.door}</span>Jeg er ankommet</button></div>
     ${S.safety.phone?"":`<button class="warn" data-act="safety-sheet">Tilføj en tryghedskontakt, før du går – det tager 20 sekunder.</button>`}
@@ -2913,7 +2913,7 @@ function safetyBanner(){
 }
 function safetyHelp(){
   const s=S.safety,c=S.safe&&S.safe.ctx||{},place=c.rid?RESTAURANTS.find(x=>x.id===c.rid).name:"";
-  const msg=tr(`Hej, jeg har brug for hjælp. Jeg er på ${place||"en restaurant"} (sendt fra Gaffel).`);
+  const msg=tr(`Hej, jeg har brug for hjælp. Jeg er på ${place||"en restaurant"} (sendt fra Seated).`);
   return `<a class="primary center" href="tel:112">Ring 112</a>
     ${s.phone?`<a class="sec-btn" href="sms:${s.phone.replace(/[^\d+]/g,"")}?&body=${encodeURIComponent(msg)}">Send besked til ${esc(s.name||s.phone)}</a><a class="sec-btn" href="tel:${s.phone.replace(/[^\d+]/g,"")}">Ring til ${esc(s.name||s.phone)}</a>`
       :`<button class="sec-btn" data-act="safety-sheet">Tilføj en tryghedskontakt</button>`}
@@ -2951,7 +2951,7 @@ function fakeCall(){
 /* ---------- Madpas ----------
    Et stempel for hvert køkken, man prøver – første gang man bestiller derfra eller spiser der. Stempler låser belønninger op. */
 const CUISINES=[...new Set(RESTAURANTS.map(r=>r.cat))];
-const REWARDS=[{n:3,t:"Smagsprøver",d:"Dit første badge – du er godt i gang"},{n:5,t:"10 % rabat",d:"Brug koden på en valgfri regning",code:"PAS10"},{n:10,t:"15 % rabat",d:"Brug koden på en valgfri regning",code:"PAS15"},{n:15,t:"Verdensborger",d:"Invitation til Gaffels smagsaften (demo)"}];
+const REWARDS=[{n:3,t:"Smagsprøver",d:"Dit første badge – du er godt i gang"},{n:5,t:"10 % rabat",d:"Brug koden på en valgfri regning",code:"PAS10"},{n:10,t:"15 % rabat",d:"Brug koden på en valgfri regning",code:"PAS15"},{n:15,t:"Verdensborger",d:"Invitation til Seateds smagsaften (demo)"}];
 const PASS_CODES={PAS10:5,PAS15:10};
 PROMOS.PAS10=0.10;PROMOS.PAS15=0.15;
 const stampCount=()=>Object.keys(S.passport).filter(c=>CUISINES.includes(c)).length;
@@ -2968,7 +2968,7 @@ function vPassport(){
   const n=stampCount(),tot=CUISINES.length,next=REWARDS.find(x=>x.n>n),a=me(),nRev=Object.values(S.reviews).flat().length;
   const badges=[["Første besøg",S.orders.length>0],["Første fællesbord",!!S.badges.table],["Første spisemakker",!!S.badges.buddy],["Anmelder",nRev>0]];
   return `${topbar({title:"Madpas",cart:false})}
-   <section class="passcover"><span class="eyebrow" translate="no">Gaffel</span><h2>Madpas</h2><span class="pown">${a?esc(a.fname+" "+a.lname):"Gæst"}</span>
+   <section class="passcover"><span class="eyebrow" translate="no">Seated</span><h2>Madpas</h2><span class="pown">${a?esc(a.fname+" "+a.lname):"Gæst"}</span>
      <div class="passprog"><b>${n}</b><span>/${tot} køkkener</span></div><i class="bar"><b style="width:${n/tot*100}%"></b></i>
      <small>${next?`${next.n-n} stempler til: ${next.t}`:"Du har prøvet alle køkkener!"}</small></section>
    <div class="stampgrid">${CUISINES.map((c,i)=>{const s=S.passport[c];return `<div class="stamp ${s?"on":""}" style="--rot:${(i*37%22)-11}deg"><span>${esc(c)}</span><small>${s?new Date(s.at).toLocaleDateString(LOC(),{day:"numeric",month:"short"}):"?"}</small></div>`;}).join("")}</div>
@@ -3247,7 +3247,7 @@ const ADS=[{rid:"sushi",cta:"Book bord"},{rid:"pizza",cta:"Se menuen"},{house:"t
 function adsHtml(){
   return `<div class="sec-h small"><div><span class="eyebrow">Annoncer</span><h2>Tilbud fra vores partnere</h2></div></div>
    <div class="ads">${ADS.map(a=>{
-     if(a.house)return `<article class="ad house"><span class="adtag">Annonce · Gaffel</span><h3>Spis ikke alene i aften</h3><p>Tag en plads ved et fællesbord og mød nye mennesker over god mad.</p><button class="pill-btn" data-act="go-tables">Se fællesborde</button></article>`;
+     if(a.house)return `<article class="ad house"><span class="adtag">Annonce · Seated</span><h3>Spis ikke alene i aften</h3><p>Tag en plads ved et fællesbord og mød nye mennesker over god mad.</p><button class="pill-btn" data-act="go-tables">Se fællesborde</button></article>`;
      const r=RESTAURANTS.find(x=>x.id===a.rid);
      return `<article class="ad" style="--adimg:url('${IMG["r-"+r.id]}')"><span class="adtag">Annonce</span><h3>${esc(r.name)}${r.off?` · ${pct(r.off)} % i dag`:""}</h3><p>${esc(r.desc)}</p><button class="pill-btn" data-act="rest" data-r="${r.id}">${a.cta}</button></article>`;}).join("")}</div>
    <p class="demo" style="margin-top:10px">Annoncerne er eksempler for appens opdigtede restauranter.</p>`;
@@ -3327,7 +3327,7 @@ const person=id=>PEOPLE.find(p=>p.id===id);
 const REPLIES=["Haha, helt enig!","Det lyder godt – hvornår?","Jeg er klar i aften, hvis du er?","Fedt! Sig til, når du har bestilt.","Det må vi prøve snart."];
 function social(){
   if(!S.social)S.social={friends:["u1"],req:[{id:"u2",at:Date.now()-3600e3},{id:"u5",at:Date.now()-7200e3}],sent:[],
-    chats:{u1:[{from:"u1",type:"text",t:"Hej! Godt at se dig på Gaffel.",at:Date.now()-5400e3},{from:"u1",type:"rec",rid:"ramen",t:"Har du prøvet Ramen Kō? Deres tonkotsu er vildt god!",at:Date.now()-5300e3}]},unread:{u1:2}};
+    chats:{u1:[{from:"u1",type:"text",t:"Hej! Godt at se dig på Seated.",at:Date.now()-5400e3},{from:"u1",type:"rec",rid:"ramen",t:"Har du prøvet Ramen Kō? Deres tonkotsu er vildt god!",at:Date.now()-5300e3}]},unread:{u1:2}};
   if(!S.social.giftSeed){S.social.giftSeed=1;(S.social.chats.u1=S.social.chats.u1||[]).push({from:"u1",type:"gift",amt:50,code:giftCode(),t:"Lidt til dit første besøg!",at:Date.now()-5200e3});S.social.unread.u1=(S.social.unread.u1||0)+1;}
   return S.social;
 }
@@ -3365,7 +3365,7 @@ function msgHtml(m,p){
   if(m.type==="payreq"){const r=RESTAURANTS.find(x=>x.id===m.rid);
     return `<div class="msg gift ${mine?"me":""}"><div class="giftcard payreq"><span class="gic">${IC.card}</span><span class="gt"><small>Betalingsanmodning</small><b>${price(m.amt)}</b></span><span class="gcode" translate="no">${esc(r?r.name:"")}</span>
       ${mine?`<span class="gst">${m.paid?`${IC.tick} <span>${esc(p.name.split(" ")[0])} har betalt</span>`:"Venter på betaling"}</span>`:""}</div></div>`;}
-  if(m.type==="gift")return `<div class="msg gift ${mine?"me":""}"><div class="giftcard"><span class="gic">${IC.gift}</span><span class="gt"><small>Gavekort · Gaffel</small><b>${price(m.amt)}</b></span><span class="gcode" translate="no">${esc(m.code)}</span>${m.t?`<p>${esc(m.t)}</p>`:""}
+  if(m.type==="gift")return `<div class="msg gift ${mine?"me":""}"><div class="giftcard"><span class="gic">${IC.gift}</span><span class="gt"><small>Gavekort · Seated</small><b>${price(m.amt)}</b></span><span class="gcode" translate="no">${esc(m.code)}</span>${m.t?`<p>${esc(m.t)}</p>`:""}
     ${mine?`<span class="gst">Sendt til ${esc(p.name.split(" ")[0])}</span>`:m.redeemed?`<span class="gst">${IC.tick} Lagt på din saldo</span>`:`<button class="pillsm on" data-act="gift-redeem" data-u="${p.id}" data-at="${m.at}">Indløs gavekort</button>`}</div></div>`;
   if(m.type==="call")return `<div class="msg sys">${IC.phone}<span>${m.t}</span></div>`;
   return `<div class="msg ${mine?"me":""}">${esc(m.t)}</div>`;
@@ -3399,21 +3399,21 @@ function firstBanner(){if(!firstBuy())return "";
   return `<div style="padding:14px 18px 0"><div class="card firstbanner"><span class="fpct" translate="no">–20 %</span><span class="t"><b>20 % rabat på dit første besøg</b><small>Når du betaler regningen i appen – ingen kode</small></span></div></div>`;}
 
 /* ---------- Gavekort til venner ----------
-   Man køber et gavekort med sin betalingsmetode – pengene går til Gaffel – og vennen får det i chatten
+   Man køber et gavekort med sin betalingsmetode – pengene går til Seated – og vennen får det i chatten
    og kan lægge det på sin saldo, som trækkes fra ved næste bestilling. Demo: der trækkes ingen rigtige penge. */
 const GIFT_AMTS=[100,200,300,500];
-function giftCode(){const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let s="GAF-";for(let i=0;i<6;i++)s+=c[Math.floor(Math.random()*c.length)];return s;}
+function giftCode(){const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let s="SEAT-";for(let i=0;i<6;i++)s+=c[Math.floor(Math.random()*c.length)];return s;}
 function giftSheet(to){const so=social();
   if(!so.friends.length){toast("Tilføj en ven først");S.fq="";go("friends");return;}
   S.gf={to:to&&so.friends.includes(to)?to:(S.gf&&so.friends.includes(S.gf.to)?S.gf.to:so.friends[0]),amt:S.gf?S.gf.amt:200,note:S.gf?S.gf.note:""};
   giftSheetDraw();}
 function giftSheetDraw(){const so=social(),g=S.gf,m=payMethod();
-  openSheet("gift",`<h3>Giv et gavekort</h3><p class="mutedp" style="text-align:left">Din ven får gavekortet i jeres chat og kan bruge det på alle restauranter i Gaffel.</p>
+  openSheet("gift",`<h3>Giv et gavekort</h3><p class="mutedp" style="text-align:left">Din ven får gavekortet i jeres chat og kan bruge det på alle restauranter i Seated.</p>
    <span class="glbl">Til</span><div class="gfto">${so.friends.map(id=>{const p=person(id);return `<button class="gfp" data-act="gf-to" data-u="${id}" aria-pressed="${id===g.to}">${avatar(p,"sm")}<span>${esc(p.name.split(" ")[0])}</span></button>`;}).join("")}</div>
    <span class="glbl">Beløb</span><div class="gfamt">${GIFT_AMTS.map(a=>`<button class="chip sm" data-act="gf-amt" data-a="${a}" aria-pressed="${a===g.amt}">${price(a)}</button>`).join("")}</div>
    <span class="glbl">Hilsen (valgfri)</span><input class="txtin" id="giftnote" maxlength="80" placeholder="Fx: Tillykke – spis noget godt!" value="${esc(g.note)}">
    <div class="card sum" style="margin-top:14px"><div><span>Gavekort til ${esc(person(g.to).name.split(" ")[0])}</span><span>${price(g.amt)}</span></div><div class="tot"><span>Du betaler</span><span>${price(g.amt)}</span></div></div>
-   <p class="kw" style="margin:8px 0 12px">Betalingen går til Gaffel · ${m?esc(payLabel(m)):"ingen betalingsmetode"}</p>
+   <p class="kw" style="margin:8px 0 12px">Betalingen går til Seated · ${m?esc(payLabel(m)):"ingen betalingsmetode"}</p>
    <button class="primary center" data-act="gift-pay">${m?`Betal ${price(g.amt)} og send`:"Tilføj betalingskort"}</button>
    <p class="demo" style="margin-top:10px">Demo: der trækkes ingen rigtige penge.</p>`);}
 function giftPay(){const g=S.gf,m=payMethod();if(!g)return;
@@ -3437,7 +3437,7 @@ function vGifts(){const so=social();
    <div class="list">${rx.map(m=>{const p=person(m.id);return `<div class="card frow">${avatar(p)}<div class="body"><span class="nm" style="padding-right:0">${price(m.amt)} fra ${esc(p.name.split(" ")[0])}</span><span class="kw"><span>${m.redeemed?"Lagt på din saldo":"Ikke indløst endnu"}</span> · <span>${when(m.at)}</span></span></div>${m.redeemed?IC.tick:`<button class="pillsm on" data-act="gift-redeem" data-u="${m.id}" data-at="${m.at}">Indløs</button>`}</div>`;}).join("")||`<p class="empty">Du har ikke fået gavekort endnu.</p>`}</div>
    <div class="sec-h small"><h2>Sendt</h2></div>
    <div class="list">${S.gifts.map(g=>{const p=person(g.to);return `<div class="card frow">${avatar(p)}<div class="body"><span class="nm" style="padding-right:0">${price(g.amt)} til ${esc(p.name.split(" ")[0])}</span><span class="kw" translate="no">${esc(g.code)}</span><span class="kw"><span translate="no">${esc(g.pay)}</span> · <span>${when(g.at)}</span></span></div></div>`;}).join("")||`<p class="empty">Du har ikke sendt gavekort endnu.</p>`}</div>
-   <p class="demo" style="margin-top:16px">Pengene for et gavekort går til Gaffel, som betaler restauranten, når din ven bruger det. Demo: der trækkes ingen rigtige penge.</p>`;}
+   <p class="demo" style="margin-top:16px">Pengene for et gavekort går til Seated, som betaler restauranten, når din ven bruger det. Demo: der trækkes ingen rigtige penge.</p>`;}
 
 /* ---------- Profilbillede ----------
    Billedet beskæres til et kvadrat, skaleres ned til 256 px og gemmes på profilen på denne enhed. */
@@ -3720,7 +3720,7 @@ const EN_RX=[
  [/^Dig og (.+)$/,(m,a)=>`You and ${og(a)}`],[/^Chat med (.+)$/,(m,a)=>`Chat with ${og(a)}`],
  [/^Hvordan var det at spise med (.+)\?$/,(m,a)=>`How was dining with ${og(a)}?`],
  [/^Hej( [^!]+)?! Det bliver hyggeligt\. Jeg er der lidt før kl\. (\S+)\.$/,(m,n,t)=>`Hi${n||""}! This will be lovely. I'll be there a little before ${t}.`],
- [/^Jeg spiser på (.+) kl\. (\S+) (i aften|i morgen aften) med (.+) \(aftalt via Gaffel\)\.$/,(m,r,t,d,a)=>`I'm eating at ${r} at ${t} ${dayEn(d)} with ${og(a)} (arranged via Gaffel).`],
+ [/^Jeg spiser på (.+) kl\. (\S+) (i aften|i morgen aften) med (.+) \(aftalt via Seated\)\.$/,(m,r,t,d,a)=>`I'm eating at ${r} at ${t} ${dayEn(d)} with ${og(a)} (arranged via Seated).`],
  [/^(\d+) × (.+) lagt i kurven$/,(m,n,x)=>`${n} × ${trW(x)} added to cart`],[/^(.+) lagt i kurven$/,(m,x)=>`${trW(x)} added to cart`],
  [/^Priser vises nu i (\S+)$/,"Prices now shown in $1"],[/^(\d+) % rabat lagt på$/,"$1% discount applied"],
  [/^Din kurv har varer fra (.+)\. Vil du tømme den og starte en ny fra (.+)\?$/,"Your cart has items from $1. Empty it and start a new one from $2?"],
@@ -3733,7 +3733,7 @@ const EN_RX=[
 Object.assign(EN,{
  "Forretter":"Starters","Supper":"Soups","Meze":"Meze","Ris":"Rice","Grill":"Grill","Curry":"Curry","Pizza":"Pizza","Bowls":"Bowls","Sushi":"Sushi",
  "Hovedmenu":"Main menu","Hjem":"Home","Kort":"Map","Profil":"Profile",
- "Velkommen til Gaffel":"Welcome to Gaffel","Gem dine ordrer, betalingskort og anmeldelser – og find spisemakkere med din profil.":"Save your orders, payment cards and reviews – and find dining buddies with your profile.",
+ "Velkommen til Seated":"Welcome to Seated","Gem dine bookinger, betalingskort og anmeldelser – og find spisemakkere med din profil.":"Save your bookings, payment cards and reviews – and find dining buddies with your profile.",
  "Log ind eller opret":"Sign in or sign up","Log ind":"Sign in","Opret profil":"Create profile","Fornavn":"First name","Efternavn":"Last name","E-mail":"Email","Telefon (valgfri)":"Phone (optional)","Telefon":"Phone",
  "Adgangskode":"Password","Vis":"Show","Skjul":"Hide","Jeg accepterer vilkår og privatlivspolitik":"I accept the terms and privacy policy","Glemt adgangskode?":"Forgot password?","Fortsæt som gæst":"Continue as guest",
  "Din adgangskode gemmes krypteret – aldrig i klartekst":"Your password is stored encrypted – never in plain text","Kun dit fornavn vises for andre i Spis sammen":"Only your first name is shown to others in Eat together",
@@ -3801,7 +3801,7 @@ Object.assign(EN,{
  "Seniorer spiser ude":"Seniors dine out","Et roligt bord for dig over 60, der savner selskab ved middagen.":"A calm table for over-60s who miss company at dinner.",
  "Bogklub":"Book club","Tag en bog med, du vil anbefale – eller kom bare og lyt.":"Bring a book you'd recommend – or just come and listen.",
  "Din plads":"Your seat","Fuldt":"Full","Ingen borde med dette tema i aften.":"No tables with this theme tonight.","Ved bordet":"At the table","Du har en plads":"You have a seat",
- "Du betaler kun for din egen mad – direkte i appen":"You only pay for your own food – right in the app","Bordet står klar i Gaffels navn, når du kommer":"The table is ready under Gaffel's name when you arrive",
+ "Du betaler kun for din egen mad – direkte i appen":"You only pay for your own food – right in the app","Bordet står klar i dit navn, når du kommer":"The table is ready under your name when you arrive",
  "Meld afbud senest kl. 16, så en anden kan få pladsen":"Cancel by 4 pm so someone else can take the seat","Tryghedstjek starter, når du tjekker ind":"The safety check starts when you check in",
  "Tag en plads":"Take a seat","Bordet er fuldt":"The table is full","Meld afbud":"Cancel my seat","Tilføj en tryghedskontakt, før du går – det tager 20 sekunder.":"Add a safety contact before you go – it takes 20 seconds.",
  "Nyt spørgsmål":"New question","Hvordan var aftenen?":"How was the evening?","Godt – jeg kommer igen":"Great – I'll come again","Ikke helt mig":"Not quite for me","Find et nyt bord":"Find a new table",
@@ -3826,7 +3826,7 @@ Object.assign(EN,{
  "Tryghedskontakten er gemt":"Safety contact saved","Godt at høre – hav en god aften!":"Glad to hear it – have a great evening!","Tryghedstjek udsat 15 minutter":"Safety check snoozed 15 minutes","Tryghedstjek er stoppet":"Safety check stopped",
  "Mor":"Mum","Mobil · ringer …":"Mobile · calling …","Afvis":"Decline","Besvar":"Answer","Læg på":"Hang up",
  "Madpas":"Food passport","Du har prøvet alle køkkener!":"You've tried every cuisine!","Belønninger":"Rewards","Badges":"Badges","Smagsprøver":"Taster","Dit første badge – du er godt i gang":"Your first badge – you're off to a good start",
- "10 % rabat":"10% off","15 % rabat":"15% off","Brug koden på en valgfri regning":"Use the code on any bill","Verdensborger":"World citizen","Invitation til Gaffels smagsaften (demo)":"Invitation to Gaffel's tasting evening (demo)",
+ "10 % rabat":"10% off","15 % rabat":"15% off","Brug koden på en valgfri regning":"Use the code on any bill","Verdensborger":"World citizen","Invitation til Seateds smagsaften (demo)":"Invitation to Seated's tasting evening (demo)",
  "Koden er kopieret":"Code copied","Første besøg":"First visit","Første fællesbord":"First shared table","Første spisemakker":"First dining buddy","Anmelder":"Reviewer",
  "Du får et stempel, første gang du bestiller fra et køkken eller spiser der via Spis sammen eller et fællesbord.":"You get a stamp the first time you order from a cuisine or eat there via Eat together or a shared table.",
  "Koden låses op i dit madpas":"This code is unlocked in your food passport"
@@ -3839,12 +3839,12 @@ EN_RX.push(
  [/^kl\. (\S+) (i aften|i morgen aften) · (\d+) pladser$/,(m,t,d,n)=>`${t} ${dayEn(d)} · ${n} seats`],
  [/^Faste borde på byens restauranter, hvor alle er velkomne\. Tag en plads, og spis sammen med andre (i aften|i morgen aften)\.$/,(m,d)=>`Regular tables at the city's restaurants where everyone is welcome. Take a seat and eat with others ${dayEn(d)}.`],
  [/^Samtalekort (\d+)\/(\d+)$/,"Conversation card $1/$2"],
- [/^Jeg spiser ved et fællesbord på (.+) kl\. (\S+) (i aften|i morgen aften) \(via Gaffel\)\.$/,(m,r,t,d)=>`I'm eating at a shared table at ${r} at ${t} ${dayEn(d)} (via Gaffel).`],
+ [/^Jeg spiser ved et fællesbord på (.+) kl\. (\S+) (i aften|i morgen aften) \(via Seated\)\.$/,(m,r,t,d)=>`I'm eating at a shared table at ${r} at ${t} ${dayEn(d)} (via Seated).`],
  [/^Tryghedstjek kl\. (.+)$/,"Safety check at $1"],[/^Tryghedstjek om (\d+) min$/,"Safety check in $1 min"],
  [/^Du er på (.+) med (.+)\. Svar, så vi ved, at du har det godt\.$/,(m,p,n)=>`You're at ${p} with ${og(n)}. Reply so we know you're OK.`],
  [/^Demo: I den rigtige app sender vi nu automatisk en sms til (.+) med din placering\.$/,"Demo: in the real app we would now automatically text $1 with your location."],
  [/^Send besked til (.+)$/,"Message $1"],[/^Ring til (.+)$/,"Call $1"],
- [/^Hej, jeg har brug for hjælp\. Jeg er på (.+) \(sendt fra Gaffel\)\.$/,"Hi, I need help. I'm at $1 (sent from Gaffel)."],
+ [/^Hej, jeg har brug for hjælp\. Jeg er på (.+) \(sendt fra Seated\)\.$/,"Hi, I need help. I'm at $1 (sent from Seated)."],
  [/^(\d+) min$/,"$1 min"],
  [/^Madpas · (\d+)\/(\d+) køkkener$/,"Food passport · $1/$2 cuisines"],[/^\/(\d+) køkkener$/,"/$1 cuisines"],[/^(\d+)\/(\d+) køkkener$/,"$1/$2 cuisines"],
  [/^(\d+) stempler til: (.+)$/,(m,n,x)=>`${n} stamps to: ${trW(x)}`],[/^Låses op ved (\d+) stempler$/,"Unlocks at $1 stamps"],[/^Kode: (\S+)$/,"Code: $1"],
@@ -3856,7 +3856,7 @@ Object.assign(EN,{
  "Del din oplevelse, og hjælp andre med at finde gode steder.":"Share your experience and help others find great places.","Ret anmeldelse":"Edit review","Skriv anmeldelse":"Write review","Se stedet":"See the place",
  "Når du har bestilt fra et sted eller spist der, dukker det op her, så du kan anmelde det.":"Once you've ordered from or eaten at a place, it shows up here so you can review it.",
  "Tryk på en stjerne for at anmelde":"Tap a star to review","Jeg har spist her – skriv en anmeldelse":"I've eaten here – write a review",
- "Har du spist her uden at bestille via Gaffel? Du kan stadig dele din oplevelse.":"Eaten here without ordering via Gaffel? You can still share your experience.",
+ "Har du spist her uden at booke via Seated? Du kan stadig dele din oplevelse.":"Eaten here without booking via Seated? You can still share your experience.",
  "Rutevejledning":"Directions","Se vejen derhen med metro, til fods eller på cykel":"See how to get there by metro, on foot or by bike",
  "Kort over København":"Map of Copenhagen","Min position":"My location","Tættest på dig først":"Closest to you first","Tryk på et sted på kortet":"Tap a place on the map","Se menu":"See menu",
  "Transport":"Transit","Gå":"Walk","Cykel":"Bike","Transportform":"Mode of transport","Fra:":"From:","Til:":"To:","vælg din position":"choose your location","Skift start":"Change start",
@@ -3889,7 +3889,7 @@ Object.assign(EN,{
  "Vælg det sted, hvor du vil bruge rabatten. Kuponen gælder i 30 dage på én regning.":"Choose the place where you want to use the discount. The coupon is valid for 30 days on one order.",
  "Kuponen trækkes fra regningen, når du betaler i appen":"The coupon is taken off the bill when you pay in the app","Point og kuponer":"Points and coupons","Fjern kupon":"Remove coupon","Skrabelod":"Scratch card","Kupon":"Coupon",
  "Ingen tre på stribe i dag – prøv igen i morgen":"No three in a row today – try again tomorrow",
- "Annoncer":"Ads","Tilbud fra vores partnere":"Offers from our partners","Annonce":"Ad","Annonce · Gaffel":"Ad · Gaffel","Spis ikke alene i aften":"Don't eat alone tonight",
+ "Annoncer":"Ads","Tilbud fra vores partnere":"Offers from our partners","Annonce":"Ad","Annonce · Seated":"Ad · Seated","Spis ikke alene i aften":"Don't eat alone tonight",
  "Tag en plads ved et fællesbord og mød nye mennesker over god mad.":"Take a seat at a shared table and meet new people over good food.","Se fællesborde":"See shared tables",
  "Annoncerne er eksempler for appens opdigtede restauranter.":"The ads are examples for the app's fictional restaurants.",
  "Suppe & bao":"Soup & bao","Napolitansk surdej":"Neapolitan sourdough","Smashburgere":"Smash burgers","Sushi & poke":"Sushi & poke","Grill & mezze":"Grill & mezze","Curry & tandoori":"Curry & tandoori",
@@ -3906,7 +3906,7 @@ EN_RX.push(
 );
 // Anmeldelser rangeret og venner
 Object.assign(EN,{
- "Gaffel – find og book bord":"Gaffel – find and book a table","5 → 1 stjerne":"5 → 1 stars","1 → 5 stjerner":"1 → 5 stars","Alle anmeldelser":"All reviews","Restauranter rangeret":"Restaurants ranked",
+ "Seated – find og book bord":"Seated – find and book a table","5 → 1 stjerne":"5 → 1 stars","1 → 5 stjerner":"1 → 5 stars","Alle anmeldelser":"All reviews","Restauranter rangeret":"Restaurants ranked",
  "Bedste først":"Best first","Dårligste først":"Worst first","Visning":"View","Ingen anmeldelser med dette antal stjerner.":"No reviews with this many stars.",
  "Se de bedste og dårligste steder – rangeret efter stjerner":"See the best and worst places – ranked by stars",
  "Fantastisk oplevelse fra start til slut. Søde folk og perfekt mad.":"A fantastic experience from start to finish. Lovely people and perfect food.",
@@ -3919,7 +3919,7 @@ Object.assign(EN,{
  "Anbefalet af venner":"Recommended by friends","Demo: de andre brugere er opdigtede og svarer automatisk. Rigtig chat og opkald kræver en server.":"Demo: the other users are fictional and reply automatically. Real chat and calls require a server.",
  "Søgeresultater":"Search results","Personer du måske kender":"People you may know","Sendt":"Sent","Tilføj":"Add","Ingen brugere matcher.":"No users match.","Ring op":"Call","Videoopkald":"Video call",
  "Anbefal et sted":"Recommend a place","Anbefal til en ven":"Recommend to a friend","Send stedet i en chat":"Send the place in a chat","Tilføj venner først.":"Add friends first.","Venneanmodning sendt":"Friend request sent",
- "Sig hej":"Say hi","Hej! Godt at se dig på Gaffel.":"Hi! Good to see you on Gaffel.","Har du prøvet Ramen Kō? Deres tonkotsu er vildt god!":"Have you tried Ramen Kō? Their tonkotsu is amazing!",
+ "Sig hej":"Say hi","Hej! Godt at se dig på Seated.":"Hi! Good to see you on Seated.","Har du prøvet Ramen Kō? Deres tonkotsu er vildt god!":"Have you tried Ramen Kō? Their tonkotsu is amazing!",
  "Hej! Tak fordi du tilføjede mig.":"Hi! Thanks for adding me.","Hej! Tak fordi du accepterede.":"Hi! Thanks for accepting.","Haha, helt enig!":"Haha, totally agree!","Det lyder godt – hvornår?":"Sounds good – when?",
  "Jeg er klar i aften, hvis du er?":"I'm up for tonight if you are?","Fedt! Sig til, når du har bestilt.":"Great! Let me know when you've ordered.","Det må vi prøve snart.":"We have to try that soon.",
  "Godt spørgsmål – lad os tage det over aftensmaden.":"Good question – let's discuss it over dinner.",
@@ -3929,7 +3929,7 @@ Object.assign(EN,{
 });
 EN_RX.push(
  [/^Anbefalede (.+)$/,"Recommended $1"],[/^Fra (\S+)$/,"From $1"],[/^(\d+) venner$/,"$1 friends"],[/^Sig hej til (.+)!$/,"Say hi to $1!"],
- [/^Find mig på Gaffel: @(.+)$/,"Find me on Gaffel: @$1"],[/^(.+) accepterede din venneanmodning$/,"$1 accepted your friend request"],[/^Du og (.+) er nu venner$/,"You and $1 are now friends"],
+ [/^Find mig på Seated: @(.+)$/,"Find me on Seated: @$1"],[/^(.+) accepterede din venneanmodning$/,"$1 accepted your friend request"],[/^Du og (.+) er nu venner$/,"You and $1 are now friends"],
  [/^Anbefaling sendt til (.+)$/,"Recommendation sent to $1"],[/^Uh, (.+) ser lækkert ud! Skal vi tage derhen sammen\?$/,"Ooh, $1 looks delicious! Shall we go together?"],
  [/^(Videoopkald|Opkald) · (\d+:\d\d)$/,(m,a,b)=>`${a==="Videoopkald"?"Video call":"Call"} · ${b}`],[/^(Videoopkald|Opkald) · ikke besvaret$/,(m,a)=>`${a==="Videoopkald"?"Video call":"Call"} · not answered`]
 );
@@ -3940,14 +3940,14 @@ Object.assign(EN,{
  "20 % på dit første køb er trukket fra":"20% off your first order has been applied","Første køb (20 %)":"First order (20%)","Gavekort":"Gift card",
  "Brug gavekort-saldo":"Use gift card balance","Betalingen er gennemført – du sparede 20 % på dit første køb":"Payment complete – you saved 20% on your first order",
  "Giv et gavekort":"Give a gift card","Køb en rabat til en ven – den sendes i jeres chat":"Buy a discount for a friend – it's sent in your chat",
- "Din ven får gavekortet i jeres chat og kan bruge det på alle restauranter i Gaffel.":"Your friend gets the gift card in your chat and can use it at every restaurant on Gaffel.",
+ "Din ven får gavekortet i jeres chat og kan bruge det på alle restauranter i Seated.":"Your friend gets the gift card in your chat and can use it at every restaurant on Seated.",
  "Til":"To","Beløb":"Amount","Hilsen (valgfri)":"Message (optional)","Fx: Tillykke – spis noget godt!":"E.g. Congrats – eat something nice!","Du betaler":"You pay",
- "Tilføj betalingskort":"Add payment card","Demo: der trækkes ingen rigtige penge.":"Demo: no real money is charged.","Gavekort · Gaffel":"Gift card · Gaffel",
+ "Tilføj betalingskort":"Add payment card","Demo: der trækkes ingen rigtige penge.":"Demo: no real money is charged.","Gavekort · Seated":"Gift card · Seated",
  "Indløs gavekort":"Redeem gift card","Indløs":"Redeem","Lagt på din saldo":"Added to your balance","Ikke indløst endnu":"Not redeemed yet","Send gavekort":"Send gift card",
  "Din gavekort-saldo":"Your gift card balance","Trækkes fra, når du betaler din næste regning i appen":"Taken off when you pay your next bill in the app",
  "Køb et gavekort til en ven":"Buy a gift card for a friend","Modtaget":"Received","Sendt":"Sent","Du har ikke fået gavekort endnu.":"You haven't received any gift cards yet.",
  "Du har ikke sendt gavekort endnu.":"You haven't sent any gift cards yet.","Tilføj en ven først":"Add a friend first",
- "Pengene for et gavekort går til Gaffel, som betaler restauranten, når din ven bruger det. Demo: der trækkes ingen rigtige penge.":"The money for a gift card goes to Gaffel, which pays the restaurant when your friend uses it. Demo: no real money is charged.",
+ "Pengene for et gavekort går til Seated, som betaler restauranten, når din ven bruger det. Demo: der trækkes ingen rigtige penge.":"The money for a gift card goes to Seated, which pays the restaurant when your friend uses it. Demo: no real money is charged.",
  "Lidt til dit første besøg!":"A little something for your first visit!","Tusind tak for gavekortet! Det bruger jeg i aften.":"Thank you so much for the gift card! I'll use it tonight.",
  "Skift profilbillede":"Change profile picture","Fjern billede":"Remove picture","Tryk på billedet for at tilføje et foto":"Tap the picture to add a photo",
  "Profilbilledet er gemt":"Profile picture saved","Profilbilledet er fjernet":"Profile picture removed","Vælg en billedfil":"Choose an image file",
@@ -3958,7 +3958,7 @@ EN_RX.push(
  [/^(.+) er lagt på din gavekort-saldo$/,"$1 added to your gift card balance"],[/^Saldo (.+) · giv en gave til en ven$/,"Balance $1 · give a gift to a friend"],
  [/^Du sendte et gavekort på (.+)$/,"You sent a gift card worth $1"],[/^Sendte dig et gavekort på (.+)$/,"Sent you a gift card worth $1"],
  [/^Sendt til (.+)$/,"Sent to $1"],[/^([^ ]*\d[^ ]*(?: [^ ]+)?) fra (\S+)$/,"$1 from $2"],[/^([^ ]*\d[^ ]*(?: [^ ]+)?) til (\S+)$/,"$1 to $2"],[/^(.+) til rådighed$/,"$1 available"],
- [/^Betalingen går til Gaffel · (.+)$/,(m,a)=>`Payment goes to Gaffel · ${a==="ingen betalingsmetode"?"no payment method":a}`]
+ [/^Betalingen går til Seated · (.+)$/,(m,a)=>`Payment goes to Seated · ${a==="ingen betalingsmetode"?"no payment method":a}`]
 );
 Object.assign(EN,{
  "Book bord":"Book a table","Der trækkes ingen penge nu. Kommer du ikke, eller aflyser du senere end 24 timer før, trækker restauranten":"No money is charged now. If you don't show up, or cancel less than 24 hours before, the restaurant charges","Book igen":"Book again","Book igen hos":"Book again at","Ændr booking":"Change booking","Mine reservationer":"My reservations","Din reservation":"Your reservation",
@@ -4107,7 +4107,7 @@ Last name|Nom|Фамилия|Apellido|Nachname|Efternamn|姓氏
 Email|E-mail|Эл. почта|Correo electrónico|E-Mail|E-post|电子邮箱
 Password|Mot de passe|Пароль|Contraseña|Passwort|Lösenord|密码
 Continue as guest|Continuer en tant qu'invité|Продолжить как гость|Continuar como invitado|Als Gast fortfahren|Fortsätt som gäst|以访客身份继续
-Welcome to Gaffel|Bienvenue sur Gaffel|Добро пожаловать в Gaffel|Bienvenido a Gaffel|Willkommen bei Gaffel|Välkommen till Gaffel|欢迎来到 Gaffel
+Welcome to Seated|Bienvenue sur Seated|Добро пожаловать в Seated|Bienvenido a Seated|Willkommen bei Seated|Välkommen till Seated|欢迎来到 Seated
 Orders|Commandes|Заказы|Pedidos|Bestellungen|Beställningar|订单
 Saved cards|Cartes enregistrées|Сохранённые карты|Tarjetas guardadas|Gespeicherte Karten|Sparade kort|已存卡片
 My cards|Mes cartes|Мои карты|Mis tarjetas|Meine Karten|Mina kort|我的卡片
@@ -4171,7 +4171,7 @@ Best first|Meilleurs d'abord|Сначала лучшие|Mejores primero|Beste z
 Worst first|Moins bons d'abord|Сначала худшие|Peores primero|Schlechteste zuerst|Sämst först|最差优先
 Example|Exemple|Пример|Ejemplo|Beispiel|Exempel|示例
 Directions|Itinéraire|Маршрут|Cómo llegar|Route|Vägbeskrivning|路线
-Gaffel – find and book a table|Gaffel – trouver et restaurant et réserver|Gaffel – найди и забронируй столик|Gaffel – encuentra y reserva mesa|Gaffel – finden und Tisch reservieren|Gaffel – hitta och boka bord|Gaffel – 发现餐厅并订座
+Seated – find and book a table|Seated – trouver et restaurant et réserver|Seated – найди и забронируй столик|Seated – encuentra y reserva mesa|Seated – finden und Tisch reservieren|Seated – hitta och boka bord|Seated – 发现餐厅并订座
 20% off your first order|20 % de réduction sur votre première commande|Скидка 20 % на первый заказ|20 % de descuento en tu primer pedido|20 % Rabatt auf deine erste Bestellung|20 % rabatt på ditt första köp|首单立减 20%
 Taken off automatically in the cart – no code needed|Déduit automatiquement dans le panier – sans code|Вычитается автоматически в корзине – без кода|Se descuenta automáticamente en el carrito, sin código|Wird automatisch im Warenkorb abgezogen – kein Code nötig|Dras av automatiskt i varukorgen – ingen kod|在购物车中自动扣减，无需优惠码
 20% off your first order has been applied|La réduction de 20 % sur votre première commande est appliquée|Скидка 20 % на первый заказ применена|Se ha aplicado el 20 % de descuento en tu primer pedido|20 % Rabatt auf deine erste Bestellung wurden abgezogen|20 % rabatt på ditt första köp har dragits av|已减免首单 20%
@@ -4180,14 +4180,14 @@ Gift card|Carte cadeau|Подарочная карта|Tarjeta regalo|Geschenkka
 Use gift card balance|Utiliser le solde de la carte cadeau|Использовать баланс подарочной карты|Usar saldo de tarjeta regalo|Geschenkkarten-Guthaben verwenden|Använd presentkortssaldo|使用礼品卡余额
 Give a gift card|Offrir une carte cadeau|Подарить карту|Regalar una tarjeta|Geschenkkarte verschenken|Ge ett presentkort|赠送礼品卡
 Buy a discount for a friend – it's sent in your chat|Achetez une réduction pour un ami – elle est envoyée dans votre chat|Купите скидку другу – она придёт в ваш чат|Compra un descuento para un amigo: se envía en vuestro chat|Kauf einem Freund einen Rabatt – er wird in eurem Chat gesendet|Köp en rabatt till en vän – den skickas i er chatt|为好友购买优惠，将通过聊天发送
-Your friend gets the gift card in your chat and can use it at every restaurant on Gaffel.|Votre ami reçoit la carte dans votre chat et peut l'utiliser dans tous les restaurants Gaffel.|Друг получит карту в чате и сможет использовать её во всех ресторанах Gaffel.|Tu amigo recibe la tarjeta en el chat y puede usarla en todos los restaurantes de Gaffel.|Dein Freund bekommt die Karte im Chat und kann sie in allen Restaurants auf Gaffel nutzen.|Din vän får presentkortet i chatten och kan använda det på alla restauranger i Gaffel.|好友会在聊天中收到礼品卡，可在 Gaffel 所有餐厅使用。
+Your friend gets the gift card in your chat and can use it at every restaurant on Seated.|Votre ami reçoit la carte dans votre chat et peut l'utiliser dans tous les restaurants Seated.|Друг получит карту в чате и сможет использовать её во всех ресторанах Seated.|Tu amigo recibe la tarjeta en el chat y puede usarla en todos los restaurantes de Seated.|Dein Freund bekommt die Karte im Chat und kann sie in allen Restaurants auf Seated nutzen.|Din vän får presentkortet i chatten och kan använda det på alla restauranger i Seated.|好友会在聊天中收到礼品卡，可在 Seated 所有餐厅使用。
 To|À|Кому|Para|An|Till|送给
 Amount|Montant|Сумма|Importe|Betrag|Belopp|金额
 Message (optional)|Message (facultatif)|Сообщение (необязательно)|Mensaje (opcional)|Nachricht (optional)|Hälsning (valfri)|留言（可选）
 You pay|Vous payez|Вы платите|Pagas|Du zahlst|Du betalar|您支付
 Add payment card|Ajouter une carte|Добавить карту|Añadir tarjeta|Karte hinzufügen|Lägg till kort|添加银行卡
 Demo: no real money is charged.|Démo : aucun argent réel n'est débité.|Демо: реальные деньги не списываются.|Demo: no se cobra dinero real.|Demo: Es wird kein echtes Geld abgebucht.|Demo: inga riktiga pengar dras.|演示：不会扣除真实金额。
-Gift card · Gaffel|Carte cadeau · Gaffel|Подарочная карта · Gaffel|Tarjeta regalo · Gaffel|Geschenkkarte · Gaffel|Presentkort · Gaffel|礼品卡 · Gaffel
+Gift card · Seated|Carte cadeau · Seated|Подарочная карта · Seated|Tarjeta regalo · Seated|Geschenkkarte · Seated|Presentkort · Seated|礼品卡 · Seated
 Redeem gift card|Utiliser la carte cadeau|Активировать карту|Canjear tarjeta|Geschenkkarte einlösen|Lös in presentkort|兑换礼品卡
 Redeem|Utiliser|Активировать|Canjear|Einlösen|Lös in|兑换
 Added to your balance|Ajouté à votre solde|Добавлено на баланс|Añadido a tu saldo|Deinem Guthaben gutgeschrieben|Tillagt i ditt saldo|已存入余额
@@ -4275,7 +4275,7 @@ const trObserver=new MutationObserver(ms=>{if(S.lang==="da")return;for(const m o
 function setLang(l){
   S.lang=LANGS[l]?l:"da";save();
   document.documentElement.lang=S.lang;
-  document.title=S.lang==="da"?"Gaffel – find og book bord":tr("Gaffel – find og book bord");
+  document.title=S.lang==="da"?"Seated – find og book bord":tr("Seated – find og book bord");
   render();
 }
 
@@ -4287,7 +4287,7 @@ S.orders.forEach(o=>stamp(o.rid,true));
 {const d=new Date(),key=`-${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;for(const k of Object.keys(S.tables))if(!k.endsWith(key))delete S.tables[k];}
 ["view","sheet","toast","tabbar"].forEach(id=>trObserver.observe(document.getElementById(id),{childList:true,subtree:true}));
 document.documentElement.lang=S.lang;
-if(S.lang!=="da")document.title=tr("Gaffel – find og book bord");
+if(S.lang!=="da")document.title=tr("Seated – find og book bord");
 if(gpsPolicy()===false) S.gps={status:"off",err:"",blocked:true};
 render();
 // Start GPS automatisk, hvis brugeren allerede har givet tilladelse
